@@ -1,0 +1,30 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath: string; // 例: "/" or "/about/"
+}
+
+const { title, description, canonicalPath } = Astro.props;
+const SITE_URL = 'https://fx.tcharton.com';
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+---
+
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <SEO title={title} description={description} canonicalUrl={canonicalUrl} />
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
