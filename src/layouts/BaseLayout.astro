@@ -1,11 +1,13 @@
 ---
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
   description: string;
-  canonicalPath: string; // 例: "/" or "/about/"
+  canonicalPath: string;
 }
 
 const { title, description, canonicalPath } = Astro.props;
@@ -22,9 +24,11 @@ const canonicalUrl = `${SITE_URL}${canonicalPath}`;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <SEO title={title} description={description} canonicalUrl={canonicalUrl} />
   </head>
-  <body>
-    <main>
+  <body class="flex flex-col min-h-dvh">
+    <Header />
+    <main class="flex-1 mx-auto max-w-6xl w-full px-4 py-8">
       <slot />
     </main>
+    <Footer />
   </body>
 </html>

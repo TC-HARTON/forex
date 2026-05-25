@@ -1,0 +1,32 @@
+---
+const NAV_LINKS = [
+  { label: 'Home',      href: '/',            active: true  },
+  { label: 'Dashboard', href: '/dashboard/',  active: false }, // Week 5-6
+  { label: 'Docs',      href: '/docs/',       active: false }, // Week 3-4
+  { label: 'Blog',      href: '/blog/',       active: false }, // Week 5-6
+  { label: 'Services',  href: '/services/',   active: false }, // Week 3-4
+  { label: 'About',     href: '/about/',      active: false }, // Week 3-4
+  { label: 'Contact',   href: '/contact/',    active: false }, // Week 3-4
+];
+---
+
+<header class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+  <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+    <a href="/" class="text-lg font-bold tracking-tight text-[var(--color-text)]">
+      fx.tcharton.com
+    </a>
+    <nav>
+      <ul class="flex gap-6 text-sm">
+        {NAV_LINKS.map((link) => (
+          <li>
+            {link.active ? (
+              <a href={link.href} class="hover:text-[var(--color-accent)]">{link.label}</a>
+            ) : (
+              <span class="text-[var(--color-text-muted)] cursor-not-allowed" title="Phase 1 後半で公開">{link.label}</span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
