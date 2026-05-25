@@ -82,3 +82,47 @@ tcharton-fx/
 **Phase**: 0 (構想スケルトン)
 **Created**: 2026-05-18
 **Owner**: ⑦ FX 専門サイト構築責任者 (新セッション)
+
+---
+
+## 実装ステータス (Phase 1 Week 1-2 完了)
+
+### 技術スタック (Phase 1)
+
+- Astro 6.x (SSG, TypeScript strict)
+- Tailwind CSS 4.x (via `@tailwindcss/vite`)
+- Node 22+ LTS (`engines.node >= 22.0.0`、実運用 Node 24 LTS)
+- デプロイ: Cloudflare Pages + GitHub 連携 (リポジトリ: `TC-HARTON/forex`)
+
+### 起動方法
+
+```bash
+# 依存インストール
+npm install
+
+# dev サーバ起動 (http://localhost:4321)
+npm run dev
+
+# 本番ビルド
+npm run build
+
+# 全検証 (build + 法的 grep + テスト) ← Cloudflare Pages ビルドコマンドと同等
+npm run verify
+
+# 個別
+npm run check:legal   # dist/ を法的禁止用語 grep (景表法 + 金商法)
+npm test              # build assertion テスト (Node 組込みランナー)
+```
+
+### 完了タスク
+
+- [x] Astro 6 + Tailwind 4 セットアップ
+- [x] BaseLayout / Header / Footer / SEO / DisclaimerBanner コンポーネント
+- [x] ホーム placeholder ページ (Hero + 3 カード)
+- [x] 法的禁止用語 grep スクリプト (景表法 12 + 金商法 6 = 18 patterns)
+- [ ] Cloudflare Pages 連携 + `fx.tcharton.com` 公開 (Task 11-12 / 代表手動操作)
+
+### 次工程 (Phase 1 Week 3-4)
+
+- `/docs/` 配下 5 ページ (install / quickstart / dashboard-guide / architecture / spec)
+- `/about/` `/services/` `/legal/*` `/contact/` ページ本実装
