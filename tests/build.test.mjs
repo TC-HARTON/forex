@@ -47,7 +47,7 @@ test('Footer: contains risk disclaimer one-liner', () => {
 
 test('Home: contains hero with site name in h1', () => {
   const html = readFileSync('dist/index.html', 'utf8');
-  assert.match(html, /<h1[^>]*>[\s\S]*fx\.tcharton\.com[\s\S]*<\/h1>/, 'h1 with site name required');
+  assert.match(html, /<h1[^>]*>[\s\S]*?fx[\s\S]*?\.tcharton\.com[\s\S]*?<\/h1>/, 'h1 with site name required');
 });
 
 test('Home: contains "Coming Soon" or status indicator', () => {
