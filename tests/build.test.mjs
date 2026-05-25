@@ -44,3 +44,18 @@ test('Footer: contains risk disclaimer one-liner', () => {
   const html = readFileSync('dist/index.html', 'utf8');
   assert.match(html, /投資判断.*自己責任/, 'footer must contain risk disclaimer');
 });
+
+test('Home: contains hero with site name in h1', () => {
+  const html = readFileSync('dist/index.html', 'utf8');
+  assert.match(html, /<h1[^>]*>[\s\S]*fx\.tcharton\.com[\s\S]*<\/h1>/, 'h1 with site name required');
+});
+
+test('Home: contains "Coming Soon" or status indicator', () => {
+  const html = readFileSync('dist/index.html', 'utf8');
+  assert.match(html, /Coming Soon|準備中|β 公開準備/, 'launch status indicator required');
+});
+
+test('Home: mentions MT5_Python', () => {
+  const html = readFileSync('dist/index.html', 'utf8');
+  assert.match(html, /MT5_Python|MT5\s*\+\s*Python/, 'MT5_Python mention required');
+});

@@ -4,9 +4,38 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout
   title="fx.tcharton.com | 裁量 FX × MT5_Python"
-  description="MT5_Python ダッシュボードと裁量 FX 教育コンテンツ (海外 FX 利用者向け)"
+  description="MT5_Python ダッシュボードと裁量 FX 教育コンテンツ。海外 FX 利用者向けに、構造ベース・マルチタイムフレーム手法を中心に発信します。"
   canonicalPath="/"
 >
-  <h1>fx.tcharton.com</h1>
-  <p>Coming soon.</p>
+  <section class="py-18 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold tracking-tight">fx.tcharton.com</h1>
+    <p class="mt-6 text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+      MT5_Python ダッシュボードと裁量 FX 教育コンテンツ。<br />
+      海外 FX 利用者向けに、構造ベース × マルチタイムフレームの分析手法を発信予定。
+    </p>
+    <p class="mt-10 inline-block px-4 py-2 border border-[var(--color-border)] rounded text-sm text-[var(--color-text-muted)]">
+      Coming Soon — β 公開準備中 (2026 年内)
+    </p>
+  </section>
+
+  <section class="mt-22 grid gap-6 md:grid-cols-3 text-sm">
+    <article class="p-6 border border-[var(--color-border)] rounded bg-[var(--color-surface)]">
+      <h2 class="font-semibold text-[var(--color-text)]">MT5_Python とは</h2>
+      <p class="mt-3 text-[var(--color-text-muted)]">
+        完全裁量・マルチタイムフレーム前提のローカル統合ダッシュボード (Python + Dash + MQL5 EA)。
+      </p>
+    </article>
+    <article class="p-6 border border-[var(--color-border)] rounded bg-[var(--color-surface)]">
+      <h2 class="font-semibold text-[var(--color-text)]">構造ベース裁量</h2>
+      <p class="mt-3 text-[var(--color-text-muted)]">
+        TL/SR、PDH/PDL、フラクタル、通貨強弱、経済指標を統合した分析手法を解説予定。
+      </p>
+    </article>
+    <article class="p-6 border border-[var(--color-border)] rounded bg-[var(--color-surface)]">
+      <h2 class="font-semibold text-[var(--color-text)]">公開ライブ表示</h2>
+      <p class="mt-3 text-[var(--color-text-muted)]">
+        デモ口座の客観データ (EMA/ADX/RSI/通貨強弱) をライブ可視化する Dashboard を準備中。
+      </p>
+    </article>
+  </section>
 </BaseLayout>
