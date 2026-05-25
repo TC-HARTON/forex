@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/* === Design tokens (Phase 1 暫定) === */
+@theme {
+  /* Color (dark/neutral, FX chart culture) */
+  --color-bg: #0b0d10;
+  --color-surface: #14171c;
+  --color-surface-2: #1c2128;
+  --color-border: #2a3037;
+  --color-text: #e6e8ea;
+  --color-text-muted: #9aa0a6;
+  --color-accent: #4cc4d9;      /* T.C.HARTON cyan */
+  --color-warning: #f5c542;
+  --color-danger: #e0556a;
+
+  /* Typography */
+  --font-sans: "Inter", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Source Code Pro", ui-monospace, monospace;
+
+  /* Spacing scale extension (Tailwind default + 1 tighter) */
+  --spacing-18: 4.5rem;
+  --spacing-22: 5.5rem;
+}
+
+/* === Base === */
+html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  margin: 0;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
