@@ -1,0 +1,16 @@
+{
+  // Cloudflare Workers Static Assets 設定 (旧 tcharton サイトと同方式)
+  // Astro の静的ビルド出力 (dist/) をそのまま配信する。
+  // ビルド: npm run build  →  deploy: npx wrangler deploy
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tcharton-fx",
+  "compatibility_date": "2026-05-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    // Astro の出力ディレクトリ。ルート直下 (.) ではなく dist を配信。
+    "directory": "./dist"
+  }
+}

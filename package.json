@@ -15,7 +15,8 @@
     "fetch:strength": "node scripts/fetch-currency-strength.mjs",
     "fetch:github": "node scripts/fetch-github-repo.mjs",
     "fetch:all": "npm run fetch:calendar && npm run fetch:strength && npm run fetch:github",
-    "verify": "npm run build && npm run check:legal && npm test"
+    "verify": "npm run build && npm run check:legal && npm test",
+    "deploy": "npm run build && wrangler deploy"
   },
   "engines": {
     "node": ">=22.0.0"
@@ -24,5 +25,8 @@
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.3.7",
     "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
   }
 }
