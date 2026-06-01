@@ -3,8 +3,8 @@
   "_source": "European Central Bank (ECB) via Frankfurter API (https://frankfurter.dev)",
   "_disclaimer": "本データは参考情報であり、投資判断の助言ではありません",
   "_method": "G8 法定通貨の対 USD 価値変化率を Z-score 正規化 (0-100 / 平均 50)",
-  "_fetched_at": "2026-05-31T05:52:26.925Z",
-  "_period": "2026-05-22 〜 2026-05-29 (ECB 営業日終値)",
+  "_fetched_at": "2026-06-01T21:31:49.461Z",
+  "_period": "2026-05-25 〜 2026-06-01 (ECB 営業日終値)",
   "_note_xau": "XAU (ゴールド) は ECB データ非対象のため通貨強弱バーには含めません (XAUUSD は /dashboard で別途)",
   "currencies": [
     {
@@ -17,50 +17,50 @@
     {
       "code": "AUD",
       "name": "豪ドル",
-      "bias": 10,
-      "score": 60,
+      "bias": 1,
+      "score": 51,
       "rank": 2
-    },
-    {
-      "code": "CHF",
-      "name": "スイスフラン",
-      "bias": 4,
-      "score": 54,
-      "rank": 3
     },
     {
       "code": "EUR",
       "name": "ユーロ",
-      "bias": 1,
-      "score": 51,
-      "rank": 4
+      "bias": -1,
+      "score": 49,
+      "rank": 3
     },
     {
-      "code": "GBP",
-      "name": "英ポンド",
-      "bias": -11,
-      "score": 39,
-      "rank": 5
+      "code": "USD",
+      "name": "米ドル",
+      "bias": -5,
+      "score": 45,
+      "rank": 4
     },
     {
       "code": "CAD",
       "name": "加ドル",
+      "bias": -8,
+      "score": 42,
+      "rank": 5
+    },
+    {
+      "code": "GBP",
+      "name": "英ポンド",
       "bias": -14,
       "score": 36,
       "rank": 6
     },
     {
-      "code": "JPY",
-      "name": "日本円",
+      "code": "CHF",
+      "name": "スイスフラン",
       "bias": -16,
       "score": 34,
       "rank": 7
     },
     {
-      "code": "USD",
-      "name": "米ドル",
-      "bias": -31,
-      "score": 19,
+      "code": "JPY",
+      "name": "日本円",
+      "bias": -19,
+      "score": 31,
       "rank": 8
     }
   ]

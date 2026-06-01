@@ -1,12 +1,11 @@
 {
   "_note": "Forex Factory 公開 XML (今週+来週) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・当日以降のみ",
   "_source": [
-    "https://nfs.faireconomy.media/ff_calendar_thisweek.xml",
-    "https://nfs.faireconomy.media/ff_calendar_thismonth.xml"
+    "https://nfs.faireconomy.media/ff_calendar_thisweek.xml"
   ],
   "_attribution": "Calendar data courtesy of Forex Factory® (https://www.forexfactory.com)",
   "_disclaimer": "本データは参考情報であり、投資判断の助言ではありません",
-  "_fetched_at": "2026-05-31T06:20:40.723Z",
+  "_fetched_at": "2026-06-01T21:31:48.851Z",
   "_timezone": "JST (UTC+9)",
   "_window": "2026-06-02 〜 2026-06-06",
   "_total_parsed": 114,
@@ -64,7 +63,7 @@
       "impact": "high",
       "title": "ADP Non-Farm Employment Change",
       "previous": "109K",
-      "forecast": "116K",
+      "forecast": "118K",
       "source_url": "https://www.forexfactory.com/calendar/75-us-adp-non-farm-employment-change"
     },
     {
@@ -141,7 +140,7 @@
       "impact": "high",
       "title": "Non-Farm Employment Change",
       "previous": "115K",
-      "forecast": "95K",
+      "forecast": "87K",
       "source_url": "https://www.forexfactory.com/calendar/66-us-non-farm-employment-change"
     },
     {
