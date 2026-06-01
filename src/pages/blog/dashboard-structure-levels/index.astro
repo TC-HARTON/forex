@@ -1,0 +1,131 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-structure-levels">
+
+  <p>
+    このダッシュボードの根幹は「<strong>構造ベースアプローチ</strong>」です。EMA や RSI といった指標はあくまで背景情報で、
+    実際の売買根拠は<strong>構造的レベルへの接触</strong>に置きます。本記事では、ダッシュボードが自動検出する構造レベルの種類と、
+    それぞれの定義・使い方を解説します。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 240" role="img" aria-label="チャート上の各種構造レベル(前日高安・ラウンド・VWAP・フラクタル)の図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="240" fill="#f8fafc" rx="8"/>
+      <path d="M40 190 L 130 140 L 210 170 L 300 100 L 390 145 L 480 90 L 580 130 L 700 95" stroke="#1B4965" stroke-width="2.5" fill="none"/>
+      <!-- 前日高値 -->
+      <line x1="40" y1="90" x2="700" y2="90" stroke="#b91c1c" stroke-width="1.3" stroke-dasharray="6 4"/>
+      <text x="600" y="84" font-family="Inter,sans-serif" font-size="11" fill="#b91c1c">前日高値 PDH</text>
+      <!-- 前日安値 -->
+      <line x1="40" y1="180" x2="700" y2="180" stroke="#225770" stroke-width="1.3" stroke-dasharray="6 4"/>
+      <text x="600" y="174" font-family="Inter,sans-serif" font-size="11" fill="#225770">前日安値 PDL</text>
+      <!-- ラウンドナンバー -->
+      <line x1="40" y1="135" x2="700" y2="135" stroke="#c19a2a" stroke-width="1.3" stroke-dasharray="2 3"/>
+      <text x="600" y="129" font-family="Inter,sans-serif" font-size="11" fill="#8f7218">$3,300 ラウンド</text>
+      <!-- VWAP -->
+      <path d="M40 165 Q 200 150, 380 140 T 700 120" stroke="#7c3aed" stroke-width="1.3" fill="none"/>
+      <text x="120" y="160" font-family="Inter,sans-serif" font-size="11" fill="#7c3aed">VWAP</text>
+      <!-- フラクタル高安マーカー -->
+      <circle cx="300" cy="100" r="5" fill="#1B4965"/><text x="276" y="96" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#334155">スイング高</text>
+      <circle cx="130" cy="140" r="5" fill="#1B4965"/>
+    </svg>
+    <figcaption>図: ダッシュボードが自動検出する構造レベル群。前日高安・ラウンドナンバー・VWAP・フラクタル(スイング高安)を 1 画面に重ねて表示する。</figcaption>
+  </figure>
+
+  <h2>構造レベルの階層 — 何を信頼するか</h2>
+  <p>すべてのレベルが同格ではありません。信頼度に明確な階層があります。</p>
+  <table>
+    <thead><tr><th>階層</th><th>レベル</th><th>扱い</th></tr></thead>
+    <tbody>
+      <tr><td>一次 (最重要)</td><td>ユーザー描画の TL/SR、前日・前週・前月の高安、ラウンドナンバー</td><td>エントリー根拠になる</td></tr>
+      <tr><td>二次 (確認)</td><td>プライスアクション、ATR (SL 算出)</td><td>一次を補強する</td></tr>
+      <tr><td>三次 (背景)</td><td>EMA・ADX・RSI</td><td>方向・強度・過熱の確認のみ</td></tr>
+    </tbody>
+  </table>
+
+  <h2>自動検出する構造レベル</h2>
+
+  <h3>① 前日・前週・前月の高安 (PDH/PDL/PWH/PWL/PMH/PML)</h3>
+  <p>
+    多くのトレーダーが意識する「区切りの価格」です。前日高値 (PDH) や前日安値 (PDL) は、その日のうちに何度も試されやすく、
+    反発・ブレイクの起点になります。
+  </p>
+  <table>
+    <thead><tr><th>略称</th><th>意味</th><th>更新タイミング</th></tr></thead>
+    <tbody>
+      <tr><td>PDH / PDL</td><td>前日高値 / 安値</td><td>サーバー時間 00:00</td></tr>
+      <tr><td>PWH / PWL</td><td>前週高値 / 安値</td><td>週初め</td></tr>
+      <tr><td>PMH / PML</td><td>前月高値 / 安値</td><td>月初め</td></tr>
+    </tbody>
+  </table>
+
+  <h3>② ラウンドナンバー (キリ番)</h3>
+  <p>
+    心理的節目となる価格です。銘柄ごとに自動で刻みを変えて検出します。
+  </p>
+  <table>
+    <thead><tr><th>銘柄</th><th>刻み</th></tr></thead>
+    <tbody>
+      <tr><td>XAUUSD (ゴールド)</td><td>$50 ごと (例: 3250, 3300)</td></tr>
+      <tr><td>JPY クロス (USDJPY 等)</td><td>50 pips ごと (0.500)</td></tr>
+      <tr><td>メジャー (EURUSD 等)</td><td>100 pips ごと (0.01000)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>③ スイング高安 (フラクタル検出)</h3>
+  <p>
+    直近の高値・安値の「山と谷」を、フラクタル (前後数本より高い/低い極値) として自動検出します。
+    トレンドの押し目・戻りの起点や、損切りを置くべき直近高安の把握に使います。
+  </p>
+
+  <h3>④ セッション高安</h3>
+  <p>
+    FX は東京・ロンドン・NY の 3 セッションで性格が変わります。各セッションの高安を記録します。
+  </p>
+  <pre><code>Asian:    07:00 - 16:00 (JST)
+Europe:   16:00 - 22:00 (JST)
+NY:       21:00 - 06:00 (JST / 翌日)</code></pre>
+  <p>
+    たとえば「東京時間のレンジ高安を、ロンドン時間にブレイクする」といった典型パターンの把握に役立ちます。
+    なお当ダッシュボードの主戦時間は、ロンドンと NY が重なる <strong>21:00〜翌 01:00 (JST)</strong> の流動性が高い時間帯です。
+  </p>
+
+  <h3>⑤ VWAP (当日出来高加重平均価格)</h3>
+  <p>
+    その日の「平均的な約定価格」をリアルタイムに描きます。価格が VWAP より上か下かで、その日の買い方/売り方どちらが優勢かを判断でき、
+    機関投資家が意識する基準線としても知られます。
+  </p>
+
+  <h2>コンフルエンス — レベルが「重なる」場所が最重要</h2>
+  <p>
+    単独のレベルより、<strong>複数の構造レベルが近接して集中する場所</strong>のほうが強く効きます。これを「コンフルエンス (合流)」と呼びます。
+  </p>
+  <pre><code>条件: 複数の構造レベルが ATR × 0.3 以内 に集中
+表示: ★マーク + パネルの太枠強調
+重要度: 3 要素 < 4 要素 < 5 要素以上</code></pre>
+  <p>
+    たとえば「前日高値 + ラウンドナンバー $3300 + 下降トレンドライン」が同じ価格帯に集まれば、そこは強力な抵抗帯です。
+    判定基準に <strong>ATR (平均的な変動幅) の 0.3 倍</strong>を使うことで、銘柄やボラティリティに応じて「近い」の基準が自動調整されます。
+  </p>
+
+  <div class="callout">
+    <strong>エントリーは「接触 + 価格行動」で</strong>
+    構造レベルに触れただけでは入りません。そのレベルで<strong>反発を示す価格行動 (プライスアクション)</strong> が出て初めて根拠が揃います。
+    プライスアクションの検出ロジックは別記事で解説します。
+  </div>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>構造レベルには信頼度の階層がある (一次=TL/SR・高安・キリ番 が最重要)</li>
+    <li>前日高安・ラウンドナンバー・フラクタル・セッション高安・VWAP を自動検出</li>
+    <li>複数レベルが ATR×0.3 以内に集中する「コンフルエンス」が最も効く</li>
+    <li>指標 (EMA/RSI) は背景。エントリーは構造への接触と価格行動で判断する</li>
+  </ul>
+
+  <p>
+    関連: <a href="/blog/dashboard-correlation/">相関マトリクスの読み方</a> /
+    <a href="/blog/dashboard-symbol-panel/">銘柄パネルと BIAS スコア</a>
+  </p>
+
+</BlogArticle>

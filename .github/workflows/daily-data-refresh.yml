@@ -1,0 +1,51 @@
+name: Daily data refresh (calendar + currency strength + GitHub stats)
+
+# 毎日 03:00 JST (= 18:00 UTC 前日) に実行
+# 経済指標: Forex Factory 週次更新を毎日 fetch (週末も含めて鮮度担保)
+# 通貨強弱: ECB 公式データ (Frankfurter API) から日次自動計算 (MT5 不要・完全自動)
+# GitHub stats: 同 workflow で毎日更新
+# 差分があれば自動 commit → Cloudflare Pages 自動再ビルド
+
+on:
+  schedule:
+    - cron: '0 18 * * *'   # UTC 18:00 = JST 03:00 翌日
+  workflow_dispatch:       # 手動トリガー可
+
+permissions:
+  contents: write          # commit + push 用
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .   # リポジトリルートに本サイトがある前提
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch economic calendar (Forex Factory XML)
+        run: node scripts/fetch-economic-calendar.mjs
+
+      - name: Fetch currency strength (ECB via Frankfurter)
+        run: node scripts/fetch-currency-strength.mjs
+
+      - name: Fetch GitHub repo stats
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/fetch-github-repo.mjs
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "tcharton.com bot"
+          git config user.email "info@tcharton.com"
+          git add src/data/economic-calendar.json src/data/currency-strength.json src/data/github-repo.json
+          if git diff --cached --quiet; then
+            echo "No data changes - skipping commit"
+          else
+            git commit -m "chore(data): daily refresh — calendar + currency strength + github stats [skip ci]"
+            git push
+          fi

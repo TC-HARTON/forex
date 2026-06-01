@@ -1,27 +1,63 @@
 ---
+/**
+ * SEO.astro — tcharton.com SEO 必達コンポーネント
+ *
+ * SPEC §2.1 / §2.2 全要素準拠
+ * - title 30-60 字 / description 120-160 字 (呼出側で保証)
+ * - robots / og:locale / og:image:alt/width/height / theme-color
+ * - canonical 絶対 URL
+ * - twitter:card summary_large_image
+ */
 interface Props {
   title: string;
   description: string;
-  canonicalUrl: string;
-  ogImage?: string;
+  canonicalUrl: string;       // 絶対 URL (BaseLayout で生成)
+  ogImage?: string;            // 絶対 URL 推奨
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  robots?: string;
+  themeColor?: string;
+  keywords?: string;
 }
 
-const { title, description, canonicalUrl, ogImage = '/og-default.png' } = Astro.props;
-const siteName = 'fx.tcharton.com';
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage = 'https://tcharton.com/og/default.png',
+  ogImageAlt,
+  ogType = 'website',
+  robots = 'index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1',
+  themeColor = '#1B4965',
+  keywords,
+} = Astro.props;
+
+const siteName = 'T.C.HARTON';
+const imageAlt = ogImageAlt || title;
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
+{keywords && <meta name="keywords" content={keywords} />}
+<meta name="robots" content={robots} />
+<meta name="theme-color" content={themeColor} />
 <link rel="canonical" href={canonicalUrl} />
 
-<meta property="og:type" content="website" />
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
 <meta property="og:site_name" content={siteName} />
+<meta property="og:locale" content="ja_JP" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={imageAlt} />
 
+<!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={imageAlt} />

@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Legal', item: 'https://tcharton.com/legal/' },
+    { '@type': 'ListItem', position: 3, name: '特商法表記', item: 'https://tcharton.com/legal/tokushoho/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+---
+
+<BaseLayout
+  title="特定商取引法表記 | T.C.HARTON"
+  description="本サイトの特定商取引法に基づく表記。Phase 1 時点では全コンテンツ無料運用のため、有料サービス提供開始時に本ページを本実装します。"
+  canonicalPath="/legal/tokushoho/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/legal/" class="hover:text-teal-700">Legal</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">特商法表記</span>
+  </nav>
+
+  <header>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">特定商取引法に基づく表記</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">
+      本サイトの特定商取引法 (§11 通信販売広告表示) に基づく表記。
+    </p>
+  </header>
+
+  <article class="mt-10 space-y-6 text-sm leading-relaxed text-dark-700">
+    <section class="p-6 border-l-4 border-teal-700 bg-teal-50 rounded-r">
+      <p class="font-semibold text-dark-900">Phase 1 (現在) — 全コンテンツ無料運用</p>
+      <p class="mt-3">本サイト (T.C.HARTON) は Phase 1 時点で、全てのコンテンツを<strong class="text-dark-900">無料</strong>で提供しています。有料商品・サービスの販売は行っていないため、特商法 §11 に基づく完全な表記義務は発生していません。</p>
+      <p class="mt-3">Phase 2 (月額メンバーシップ) または Phase 3 (商用ダッシュボード版・教材販売) 開始時に、本ページを本実装します。</p>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">運営者情報 (現時点での開示)</h2>
+      <dl class="mt-3 grid grid-cols-[auto_1fr] gap-x-6 gap-y-2">
+        <dt class="font-semibold text-dark-900">屋号</dt>
+        <dd>T.C.HARTON</dd>
+        <dt class="font-semibold text-dark-900">所在地</dt>
+        <dd>静岡県沼津市</dd>
+        <dt class="font-semibold text-dark-900">連絡先</dt>
+        <dd><a href="mailto:info@tcharton.com" class="underline text-teal-700">info@tcharton.com</a></dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">アフィリエイト・広告について</h2>
+      <p class="mt-2">Phase 1 時点で、本サイトには FX 業者・VPS サービス等のアフィリエイトリンクを掲載する場合があります。該当リンクには、当該リンク冒頭または記事末尾に「アフィリエイトリンクを含みます」と明示します。</p>
+    </section>
+  </article>
+
+  <p class="mt-12 text-xs text-dark-700">最終改訂日: 2026-05-25 / 運営者: T.C.HARTON</p>
+</BaseLayout>

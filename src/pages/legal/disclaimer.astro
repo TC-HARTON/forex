@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Legal', item: 'https://tcharton.com/legal/' },
+    { '@type': 'ListItem', position: 3, name: 'Disclaimer', item: 'https://tcharton.com/legal/disclaimer/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+---
+
+<BaseLayout
+  title="Disclaimer / 免責事項 | T.C.HARTON"
+  description="本サイトの免責事項。投資助言業 (金商法 §29) 非該当宣言、損失リスク警告、第三者商標表示、過去実績の将来非保証。FX 取引の自己責任原則。"
+  canonicalPath="/legal/disclaimer/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/legal/" class="hover:text-teal-700">Legal</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Disclaimer</span>
+  </nav>
+
+  <header>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">免責事項 (Disclaimer)</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">
+      本サイトをご利用いただく前に、以下の免責事項を必ずお読みください。
+    </p>
+  </header>
+
+  <article class="mt-10 space-y-8 text-sm leading-relaxed">
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">1. 投資助言業 非該当宣言</h2>
+      <p class="mt-3 text-dark-700">
+        本サイトおよび関連する MT5_Python ソフトウェアは、ツール紹介および教育目的で運営しています。
+        運営者 (T.C.HARTON) は<strong class="text-dark-900">金融商品取引法 §29 に基づく投資助言業の登録を受けておりません</strong>。
+      </p>
+      <p class="mt-3 text-dark-700">
+        したがって、本サイトでは以下を<strong class="text-dark-900">一切提供しません</strong>:
+      </p>
+      <ul class="mt-3 space-y-2 text-dark-700">
+        <li>• 売買シグナルの配信</li>
+        <li>• 推奨銘柄・推奨通貨ペアの発信</li>
+        <li>• 個別具体的な売買タイミングの助言</li>
+        <li>• 投資顧問契約に基づく投資判断の指導</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">2. 損失リスクの警告</h2>
+      <p class="mt-3 text-dark-700">
+        FX (外国為替証拠金取引) は、為替相場の変動により<strong class="text-dark-900">元本を超える損失が生じる可能性</strong>があります。
+        レバレッジ取引は損益が拡大されるため、取引額が証拠金を超過した場合に追証 (追加証拠金) または強制決済が発生し、預託金以上の損失が確定することがあります。
+      </p>
+      <p class="mt-3 text-dark-700">
+        本サイトおよび MT5_Python の利用により生じた一切の損失について、運営者は責任を負いません。
+        取引の最終判断と結果はすべて閲覧者ご自身の<strong class="text-dark-900">自己責任</strong>となります。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">3. 過去実績の将来非保証</h2>
+      <p class="mt-3 text-dark-700">
+        本サイトおよび MT5_Python で表示・解説される過去のチャート・指標・分析事例は、将来の取引結果を保証するものではありません。
+        市場環境は常に変動しており、過去に有効だった手法が将来も有効であるとは限りません。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">4. 第三者商標および外部サービス</h2>
+      <p class="mt-3 text-dark-700">
+        本サイトおよび MT5_Python は、以下の第三者商標・サービスを参照します:
+      </p>
+      <ul class="mt-3 space-y-2 text-dark-700">
+        <li>• <strong class="text-dark-900">MetaTrader 5 (MT5)</strong> — MetaQuotes Software Corp. の登録商標</li>
+        <li>• <strong class="text-dark-900">MQL5</strong> — MetaQuotes Software Corp. の登録商標</li>
+        <li>• <strong class="text-dark-900">Forex Factory</strong> — Forex Factory LLC の登録商標</li>
+        <li>• <strong class="text-dark-900">Python</strong> — Python Software Foundation の登録商標</li>
+      </ul>
+      <p class="mt-3 text-dark-700">
+        本サイトはこれらの企業・団体とは資本関係・契約関係を持たない独立した個人事業による運営です。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">5. 情報の正確性</h2>
+      <p class="mt-3 text-dark-700">
+        本サイトおよび MT5_Python が提供する情報・データは、可能な限り正確を期して掲載していますが、その完全性・正確性・有用性を保証するものではありません。
+        情報の利用により生じた損害について、運営者は責任を負いません。
+      </p>
+    </section>
+
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">6. 改訂</h2>
+      <p class="mt-3 text-dark-700">
+        本免責事項は予告なく変更されることがあります。本ページに掲示された時点で効力を生じます。
+      </p>
+    </section>
+  </article>
+
+  <p class="mt-12 text-xs text-dark-700">
+    最終改訂日: 2026-05-25 / 運営者: T.C.HARTON / お問い合わせ: <a href="mailto:info@tcharton.com" class="underline text-teal-700">info@tcharton.com</a>
+  </p>
+</BaseLayout>

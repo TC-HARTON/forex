@@ -1,0 +1,20 @@
+---
+/**
+ * SessionCountdown.astro — London-NY overlap カウントダウン (21:00-25:00 JST)
+ *
+ * MT5_Python SPEC §1.3「主戦時間 21:00-25:00 JST」と整合
+ * Script: /session-countdown.js (CSP 'self' 準拠)
+ */
+---
+
+<div
+  data-session-countdown
+  role="timer"
+  aria-live="polite"
+  class="inline-flex items-center gap-3 px-4 py-2 bg-dark-50 border border-dark-200 rounded text-sm"
+>
+  <span data-session-dot class="inline-block w-2 h-2 bg-teal-700 rounded-full" aria-hidden="true"></span>
+  <span data-session-label class="text-dark-700">London-NY overlap 計算中...</span>
+  <span data-session-value class="font-mono font-bold text-dark-900">--:--:--</span>
+</div>
+<script src="/session-countdown.js" defer></script>

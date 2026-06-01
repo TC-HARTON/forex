@@ -1,0 +1,86 @@
+---
+/**
+ * MethodArticle.astro — 手法 (Method) 個別記事の共通ラッパ
+ * BlogArticle と同設計 (prose-fx カード様式 / Article JSON-LD / 法的フッタ)。
+ * 本文は <slot /> で受け取る (HTML + インライン SVG 図解)。
+ */
+import BaseLayout from './BaseLayout.astro';
+import posts from '../data/method-posts.json';
+
+interface Props { slug: string; description?: string; }
+const { slug, description } = Astro.props;
+
+const post = posts.posts.find((p) => p.slug === slug);
+if (!post) throw new Error(`method-posts.json に slug "${slug}" がありません`);
+
+const url = `https://tcharton.com/method/${post.slug}/`;
+const desc = description || post.excerpt;
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Method', item: 'https://tcharton.com/method/' },
+    { '@type': 'ListItem', position: 3, name: post.title, item: url },
+  ],
+};
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  '@id': `${url}#article`,
+  headline: post.title,
+  description: desc,
+  url,
+  inLanguage: 'ja',
+  articleSection: '裁量手法',
+  author: { '@id': 'https://tcharton.com/#organization' },
+  publisher: { '@id': 'https://tcharton.com/#organization' },
+  mainEntityOfPage: url,
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script><script type="application/ld+json">${JSON.stringify(articleJsonLd)}</script>`;
+---
+
+<BaseLayout
+  title={`${post.title} | T.C.HARTON`}
+  description={desc}
+  canonicalPath={`/method/${post.slug}/`}
+  ogType="article"
+  ogImage="/og/default.png"
+  keywords={post.keywords}
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-600 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/method/" class="hover:text-teal-700">Method</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">{post.title}</span>
+  </nav>
+
+  <header class="max-w-[46rem]">
+    <div class="flex flex-wrap items-center gap-3 text-xs">
+      <span class="px-2 py-0.5 bg-teal-50 text-teal-700 border border-teal-200 rounded font-display font-bold">裁量手法</span>
+      <span class="text-dark-600">約 {post.readingMin} 分</span>
+    </div>
+    <h1 class="mt-4 font-display text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-dark-900 leading-tight">
+      {post.title}
+    </h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">{post.excerpt}</p>
+  </header>
+
+  <article class="prose-fx mt-10 p-6 sm:p-8 lg:p-10 border border-dark-200 rounded-xl bg-white">
+    <slot />
+  </article>
+
+  <footer class="max-w-[46rem] mt-12 p-5 border border-dark-200 rounded-xl bg-dark-50 text-xs text-dark-600 leading-relaxed">
+    本記事は裁量トレードの考え方を解説する<strong class="text-dark-900">教育目的</strong>のコンテンツです。
+    特定の売買タイミング・銘柄の推奨ではなく、投資助言業 (金商法 §29) には該当しません。
+    解説する手法は将来の利益を保証しません。FX 取引は元本を超える損失が生じる可能性があり、最終判断と結果は閲覧者ご自身の自己責任となります。
+    詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> を参照してください。
+  </footer>
+
+  <div class="mt-8">
+    <a href="/method/" class="text-sm text-teal-700 font-bold hover:underline">← 手法一覧に戻る</a>
+  </div>
+</BaseLayout>

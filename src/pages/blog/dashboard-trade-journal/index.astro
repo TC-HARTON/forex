@@ -1,0 +1,100 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-trade-journal">
+
+  <p>
+    トレード日誌は、発注のたびに<strong>その瞬間のマルチタイムフレーム状況を自動でスナップショット記録</strong>する機能です。
+    手書きの日誌と違い、後付けの言い訳や記憶の歪みが入りません。本記事では、その仕組みと「なぜ客観記録が裁量上達の鍵なのか」を解説します。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 210" role="img" aria-label="発注の瞬間に3時間足の状況を自動でスナップショット記録する仕組みの図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="210" fill="#f8fafc" rx="8"/>
+      <rect x="20" y="50" width="150" height="110" rx="8" fill="#d9e7ee" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="95" y="80" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">発注</text>
+      <text x="95" y="102" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">買い / XAUUSD</text>
+      <text x="95" y="122" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">の瞬間</text>
+      <line x1="170" y1="105" x2="265" y2="105" stroke="#94a3b8" stroke-width="2" marker-end="url(#tj)"/>
+      <text x="218" y="96" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#64748b">自動記録</text>
+      <rect x="270" y="36" width="470" height="140" rx="8" fill="#fff" stroke="#cbd5e1"/>
+      <text x="290" y="60" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">スナップショット (改ざん不可の客観記録)</text>
+      <g font-family="Inter,sans-serif" font-size="11" fill="#334155">
+        <text x="290" y="86">・日時 / 銘柄 / 方向</text>
+        <text x="290" y="108">・D1 / H4 / H1 のトレンド・EMA・ADX・RSI</text>
+        <text x="290" y="130">・その時の BIAS スコア (+8 など)</text>
+        <text x="290" y="152">・近接していた構造レベル (PDH / TL など)</text>
+      </g>
+      <defs><marker id="tj" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"/></marker></defs>
+    </svg>
+    <figcaption>図: 発注の瞬間、その時の相場環境を機械が自動で丸ごと記録。後から解釈を変えられない客観データが残る。</figcaption>
+  </figure>
+
+  <h2>何を記録するのか</h2>
+  <p>
+    エントリー (またはエグジット) が発生すると、その時点の以下を自動でひとまとめに保存します。
+  </p>
+  <ul>
+    <li>銘柄・方向 (買い/売り)・時刻</li>
+    <li><strong>D1 / H4 / H1 の各時間足の状況</strong> (トレンド・EMA との位置・ADX・RSI)</li>
+    <li>BIAS スコア (その時の方向性)</li>
+    <li>近接していた構造レベル</li>
+  </ul>
+  <p>
+    つまり「<strong>どんな相場環境で、その判断を下したか</strong>」がセットで残ります。これが手動メモとの決定的な違いです。
+  </p>
+
+  <h2>なぜ「自動・客観」が重要なのか</h2>
+  <div class="callout">
+    <strong>記憶は都合よく書き換わる</strong>
+    人は勝ったトレードを「読み通り」、負けたトレードを「想定外」と記憶しがちです。手書きの日誌は、無意識にこのバイアスが混入します。
+    発注時に機械が自動でスナップショットを取れば、<strong>後から解釈を変えられない事実</strong>が残ります。
+    「BIAS が +2 (方向が割れている) なのにエントリーしていた」といった、自分では気づけないクセが可視化されます。
+  </div>
+
+  <h2>記録をどう活かすか</h2>
+  <h3>① 勝ちパターンの言語化</h3>
+  <p>
+    勝ったトレードの記録を集計すると、共通項が見えてきます。「D1・H4 が揃って (BIAS ±7 以上) + 構造レベル接触で入ったときの勝率が高い」など、
+    自分の優位性 (エッジ) を<strong>データで</strong>確認できます。感覚ではなく記録に基づくので再現性があります。
+  </p>
+
+  <h3>② 負けパターンの除外</h3>
+  <p>
+    逆に、負けが偏る条件も浮かび上がります。「方向が割れている (BIAS −2〜+2) ときの逆張りは負けが多い」と分かれば、
+    その状況を<strong>ルールとして避ける</strong>。改善が具体的なアクションになります。
+  </p>
+
+  <h3>③ 時間帯・銘柄別の傾向</h3>
+  <p>
+    ダッシュボードのパフォーマンス分析と組み合わせれば、勝率・プロフィットファクター・最大ドローダウンを
+    <strong>時間帯別・銘柄別</strong>に把握できます。「ゴールドのロンドン時間は得意だが、東京時間は苦手」といった傾向が見えれば、戦う場所を選べます。
+  </p>
+
+  <h2>発信への応用 — 恣意性のない記録</h2>
+  <p>
+    本サイトでは将来、この自動記録をもとに「<strong>どんな根拠でその判断をしたか</strong>」を事後に共有することを検討しています。
+    発注時に根拠スナップショットが残っているため、後付けでない<strong>客観的な記録</strong>として提示できます。
+  </p>
+  <div class="callout">
+    <strong>これは「シグナル配信」ではありません</strong>
+    トレード日誌の共有は、あくまで「過去にこういう環境でこう判断した」という<strong>事後の客観記録 (教育目的)</strong> です。
+    リアルタイムの売買シグナル配信や推奨ではなく、投資助言業 (金商法 §29) には該当しません。
+    閲覧者の取引の最終判断と結果は、ご自身の自己責任となります。
+  </div>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>発注時に D1/H4/H1 の状況と BIAS・構造を自動スナップショット</li>
+    <li>記憶のバイアスを排除した客観記録が残る</li>
+    <li>勝ちパターンの言語化・負けパターンの除外・時間帯別傾向の把握に使う</li>
+    <li>共有する場合も「事後の客観記録 (教育)」であり、シグナル配信ではない</li>
+  </ul>
+
+  <p>
+    関連: <a href="/blog/dashboard-symbol-panel/">銘柄パネルと BIAS スコア</a> /
+    <a href="/dashboard/">MT5-Python Trading Dashboard の全体像</a>
+  </p>
+
+</BlogArticle>

@@ -1,0 +1,102 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-economic-calendar">
+
+  <p>
+    経済指標カレンダーは、相場を一瞬で動かす経済イベントの予定表です。ダッシュボードの右カラムに常駐し、
+    発表時刻・通貨・予測値・前回値・発表までのカウントダウンを表示します。本記事では、その取得元と、
+    「<strong>なぜ高インパクトだけに絞るのか</strong>」という設計判断を解説します。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 200" role="img" aria-label="高インパクト指標のみを抽出して時系列表示する経済指標カレンダーの図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="200" fill="#f8fafc" rx="8"/>
+      <text x="20" y="28" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">高インパクト指標だけを抽出 (中・低は非表示)</text>
+      <!-- 行 -->
+      <g font-family="Inter,sans-serif" font-size="11">
+        <rect x="20" y="42" width="720" height="32" rx="4" fill="#fff" stroke="#e2e8f0"/>
+        <text x="34" y="63" fill="#334155">6/4 (木) 21:30</text><text x="150" y="63" font-weight="700" fill="#1B4965">USD</text>
+        <rect x="200" y="50" width="30" height="16" rx="3" fill="#fee2e2"/><text x="215" y="62" text-anchor="middle" font-size="9" fill="#b91c1c">高</text>
+        <text x="245" y="63" fill="#334155">米雇用統計 (NFP)</text><text x="600" y="63" fill="#64748b">予想 +18.5万</text>
+        <rect x="20" y="80" width="720" height="32" rx="4" fill="#fff" stroke="#e2e8f0"/>
+        <text x="34" y="101" fill="#334155">6/5 (金) 21:30</text><text x="150" y="101" font-weight="700" fill="#1B4965">USD</text>
+        <rect x="200" y="88" width="30" height="16" rx="3" fill="#fee2e2"/><text x="215" y="100" text-anchor="middle" font-size="9" fill="#b91c1c">高</text>
+        <text x="245" y="101" fill="#334155">CPI (消費者物価)</text><text x="600" y="101" fill="#64748b">予想 +3.2%</text>
+        <rect x="20" y="118" width="720" height="32" rx="4" fill="#fff8e6" stroke="#f5c542"/>
+        <text x="34" y="139" fill="#334155">6/5 (金) 21:25</text>
+        <text x="200" y="139" fill="#8f7218">⚠ 発表前後 30 分は警告色 (新規エントリー回避)</text>
+      </g>
+      <text x="20" y="180" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">JST 変換 + 発表までカウントダウン (1 秒更新) + 警告色で「避ける」を支援</text>
+    </svg>
+    <figcaption>図: 高インパクト指標だけを JST で時系列表示。発表前後 30 分は警告色にして、危険な時間帯を視覚的に避けられる。</figcaption>
+  </figure>
+
+  <h2>データソース — Forex Factory</h2>
+  <p>
+    指標データは <strong>Forex Factory</strong> の週次 XML フィードから取得します。万一取得に失敗した場合は MT5 内蔵カレンダーにフォールバックします。
+  </p>
+  <pre><code>メイン: Forex Factory XML feed (週次)
+バックアップ: MT5 内蔵 Calendar
+取得頻度: 1 時間に 1 回
+カウントダウン: 1 秒ごと (ブラウザ側で計算)</code></pre>
+  <blockquote>
+    Calendar data courtesy of Forex Factory (https://www.forexfactory.com)
+  </blockquote>
+  <p>
+    なお当サイト (T.C.HARTON) のトップに掲載している「今週の経済指標」も、同じ Forex Factory の公開 XML から
+    <strong>毎日自動取得</strong>しています (米国東部時間を JST に変換して表示)。
+  </p>
+
+  <h2>なぜ「高インパクトのみ」表示するのか</h2>
+  <p>
+    Forex Factory は指標の重要度を 3 段階 (高🔴 / 中 / 低) で提供しますが、本ダッシュボードは<strong>高インパクトのみ</strong>を表示し、
+    中・低は完全に非表示にします。
+  </p>
+  <div class="callout">
+    <strong>情報の取捨選択も「設計」</strong>
+    1 日に何十件もある中・低インパクト指標をすべて出すと、本当に警戒すべきイベント (米雇用統計・CPI・FOMC など) が埋もれます。
+    裁量トレードで重要なのは「いつポジションを持つべきでないか」を判断すること。そのために<strong>相場を実際に大きく動かす指標だけ</strong>に絞り込みます。
+    余計な情報を「出さない」ことも、視認性最優先のダッシュボードの設計判断です。
+  </div>
+
+  <h2>表示項目とカウントダウン</h2>
+  <table>
+    <thead><tr><th>項目</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>発表時刻</td><td>JST に変換して表示</td></tr>
+      <tr><td>通貨</td><td>どの通貨に影響するか (USD/EUR/JPY 等)</td></tr>
+      <tr><td>指標名</td><td>米雇用統計、CPI、政策金利 など</td></tr>
+      <tr><td>予測値 / 前回値</td><td>市場予想とのギャップが反応の大きさを左右</td></tr>
+      <tr><td>カウントダウン</td><td>発表までの残り時間 (1 秒更新)</td></tr>
+      <tr><td>警告色</td><td>発表前後 30 分は色を変えて注意喚起</td></tr>
+    </tbody>
+  </table>
+
+  <h2>裁量での使い方 — 「指標を避ける」という戦略</h2>
+  <p>
+    XAUUSD (ゴールド) は米国の指標、特に<strong>米実質金利・雇用統計・CPI・FOMC</strong> に極めて敏感です。
+    これらの発表前後はスプレッドが急拡大し、価格が一瞬で数十 pips 飛ぶため、テクニカルの根拠が無効化されます。
+  </p>
+  <ul>
+    <li><strong>発表前</strong>: カウントダウンを見て、新規エントリーを控える / 既存ポジションのリスクを調整する</li>
+    <li><strong>発表直後</strong>: 警告色の間は手を出さない。値が落ち着くのを待つ</li>
+    <li><strong>予測 vs 前回</strong>: ギャップが大きいほど反応が荒れやすいと事前に身構える</li>
+  </ul>
+  <p>
+    つまりカレンダーは「<strong>仕掛けるため</strong>」ではなく、多くの場合「<strong>仕掛けないため</strong>」に使います。
+    指標トレードを推奨するものではなく、不要なリスクを避けるための防御ツールです。
+  </p>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>Forex Factory の XML を 1 時間ごとに取得 (MT5 内蔵にフォールバック)</li>
+    <li>高インパクトのみ表示し、中・低は非表示で視認性を確保</li>
+    <li>JST 表示 + 発表前後 30 分の警告色</li>
+    <li>主用途は「指標発表時間を避ける」防御。特にゴールドは米指標に敏感</li>
+  </ul>
+
+  <p>関連: <a href="/blog/dashboard-currency-strength/">通貨強弱の計算ロジック</a></p>
+
+</BlogArticle>

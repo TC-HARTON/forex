@@ -1,0 +1,82 @@
+{
+  "_affiliate_disclosure": "本ページには広告 (アフィリエイト/IB) リンクを含む場合があります。評価・順位は紹介料の有無で操作していません。スプレッドは口座種別・時間帯・相場急変で変動します。数値・評価は各社公式・海外評価サイト (ForexBrokers.com / Trustpilot 等) を参照した 2026 年 5 月時点の代表値で、最新値は各公式でご確認ください。",
+  "_sources_note": "出典: ForexBrokers.com 各社レビュー / Trustpilot TrustScore / 各社公式スプレッド表 (いずれも 2026 年 5 月参照)。Trustpilot スコア・件数は変動します。",
+  "_account_note": "海外 FX は『スタンダード口座 (手数料無料・スプレッド広め)』と『低スプレッド口座 (Raw/Zero/極 = スプレッド狭・別途往復手数料)』で実質コストが大きく異なります。下表は EUR/USD を基準にした代表値です。",
+  "brokers": [
+    {
+      "name": "IC Markets",
+      "official_url": "https://www.icmarkets.com/",
+      "regulation": "ASIC(豪) / CySEC(欧) / FSA(セーシェル)",
+      "min_deposit_usd": 200,
+      "max_leverage": "1:1000",
+      "rating_fb": 4.5,
+      "rating_tp": 4.8,
+      "tp_reviews": "4万件超",
+      "standard_eurusd": "—(Raw 中心)",
+      "low_account": "Raw Spread: EUR/USD 平均 約0.1 pips + 往復手数料 約$7/lot",
+      "platforms": "MT4 / MT5 / cTrader",
+      "review_voice": "「約定が速く滑りにくい」「Raw のスプレッドが安定して狭い」との評価が多数。",
+      "tcharton_note": "Raw スプレッド・約定速度・流動性に定評。XAUUSD 裁量の主軸候補。"
+    },
+    {
+      "name": "XM (XMTrading)",
+      "official_url": "https://www.xmtrading.com/",
+      "regulation": "ASIC(豪) / CySEC(欧) / FSC(ベリーズ)",
+      "min_deposit_usd": 5,
+      "max_leverage": "1:1000",
+      "rating_fb": 4.5,
+      "rating_tp": 4.3,
+      "tp_reviews": "3千件超",
+      "standard_eurusd": "スタンダード 平均 約1.6 pips(手数料無料)",
+      "low_account": "KIWAMI極: EUR/USD 平均 約0.7 pips(手数料無料) / ゼロ: 0.0〜0.1 pips + 手数料",
+      "platforms": "MT4 / MT5",
+      "review_voice": "「日本語サポートが手厚い」「少額・ボーナスで始めやすい」一方「スタンダードのスプレッドは広め」との声。",
+      "tcharton_note": "少額から。低コスト狙いは KIWAMI極が要。スタンダードの 1.6pips は変動制。"
+    },
+    {
+      "name": "Exness",
+      "official_url": "https://www.exness.com/",
+      "regulation": "FCA(英) / CySEC(欧) / FSA(セーシェル)",
+      "min_deposit_usd": 10,
+      "max_leverage": "無制限(条件あり)",
+      "rating_fb": 4.0,
+      "rating_tp": 3.9,
+      "tp_reviews": "3万件超",
+      "standard_eurusd": "スタンダード 平均 約1.0〜1.1 pips",
+      "low_account": "Raw/Zero: 0.0 pips〜 + 手数料",
+      "platforms": "MT4 / MT5",
+      "review_voice": "「出金が速い」「レバレッジが高い」が好評。一方で口コミ評価は賛否が分かれる。",
+      "tcharton_note": "レバレッジ無制限(条件)・Pro 口座あり。Trustpilot は中位。"
+    },
+    {
+      "name": "Titan FX",
+      "official_url": "https://titanfx.com/",
+      "regulation": "VFSC(バヌアツ) / FSA",
+      "min_deposit_usd": 200,
+      "max_leverage": "1:1000",
+      "rating_fb": null,
+      "rating_tp": 3.7,
+      "tp_reviews": "中規模",
+      "standard_eurusd": "スタンダード 平均 約1.0〜1.2 pips",
+      "low_account": "Blade: EUR/USD 平均 約0.2 pips + 往復手数料 約$7/lot",
+      "platforms": "MT4 / MT5",
+      "review_voice": "「ボーナスはないが約定とスプレッドが安定」との実利志向の評価。",
+      "tcharton_note": "Blade 口座が低スプレッド。ボーナスなしの実コスト型。"
+    },
+    {
+      "name": "AXIORY",
+      "official_url": "https://www.axiory.com/",
+      "regulation": "FSC(ベリーズ)",
+      "min_deposit_usd": 100,
+      "max_leverage": "1:1000",
+      "rating_fb": null,
+      "rating_tp": null,
+      "tp_reviews": "限定的",
+      "standard_eurusd": "スタンダード 平均 約1.1 pips",
+      "low_account": "ナノ/マックス: EUR/USD 平均 約0.2〜0.4 pips + 往復手数料 約$6/lot",
+      "platforms": "MT4 / MT5 / cTrader",
+      "review_voice": "「約定統計を公開する透明性」「cTrader が使える」点が評価される。",
+      "tcharton_note": "約定品質・透明性。cTrader 対応。手数料は往復 $6 とやや安い。"
+    }
+  ]
+}

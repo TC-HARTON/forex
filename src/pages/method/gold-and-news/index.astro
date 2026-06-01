@@ -1,0 +1,108 @@
+---
+import MethodArticle from '../../../layouts/MethodArticle.astro';
+---
+
+<MethodArticle slug="gold-and-news">
+
+  <p>
+    XAUUSD (ゴールド) を動かす最大の要因は、テクニカルではなく<strong>米国の金融政策</strong>です。
+    どれだけ完璧な構造分析をしても、雇用統計や CPI の発表一発でチャートは無力化されます。
+    だからこのステップの主題は「仕掛ける」ではなく「<strong>危険な時間を避ける</strong>」です。
+  </p>
+
+  <h2>なぜゴールドは米指標に敏感なのか</h2>
+  <p>
+    ゴールドは利息を生まない資産です。そのため「現金 (米ドル) を持つほうが得か、ゴールドを持つほうが得か」の天秤で価格が動きます。
+    この天秤を左右するのが<strong>米実質金利</strong> (名目金利 − 期待インフレ率) です。
+  </p>
+  <blockquote>
+    実質金利が上がる → ドルを持つ魅力が増す → ゴールド売られやすい<br/>
+    実質金利が下がる → ゴールドの相対的魅力が増す → ゴールド買われやすい
+  </blockquote>
+  <p>
+    そして実質金利は、FRB の利上げ/利下げ観測で動きます。だから<strong>金融政策に直結する指標ほど、ゴールドを大きく動かす</strong>のです。
+  </p>
+
+  <!-- 図解1: 実質金利とゴールドの逆相関 -->
+  <figure>
+    <svg viewBox="0 0 760 240" role="img" aria-label="米実質金利とゴールド価格が逆方向に動く関係の図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="240" fill="#f8fafc" rx="8"/>
+      <text x="20" y="28" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">米実質金利 ↑↓ と ゴールド の逆相関 (イメージ)</text>
+      <!-- 軸 -->
+      <line x1="50" y1="200" x2="720" y2="200" stroke="#cbd5e1" stroke-width="1"/>
+      <!-- 実質金利 (上下) -->
+      <path d="M50 120 Q 200 80, 350 100 T 650 150 L 720 170" stroke="#b91c1c" stroke-width="2.5" fill="none"/>
+      <text x="640" y="140" font-family="Inter,sans-serif" font-size="12" fill="#b91c1c">実質金利</text>
+      <!-- ゴールド (逆方向) -->
+      <path d="M50 120 Q 200 160, 350 140 T 650 90 L 720 70" stroke="#c19a2a" stroke-width="2.5" fill="none"/>
+      <text x="640" y="80" font-family="Inter,sans-serif" font-size="12" fill="#8f7218">XAUUSD</text>
+      <!-- 交差の説明 -->
+      <text x="120" y="225" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">金利が上がるとゴールドは下げ、金利が下がるとゴールドは上げやすい</text>
+    </svg>
+    <figcaption>図1: 米実質金利とゴールドは概ね逆方向に動く。金利の方向観を持つことがゴールド分析の土台。</figcaption>
+  </figure>
+
+  <h2>特に警戒すべき米指標</h2>
+  <table>
+    <thead><tr><th>指標</th><th>内容</th><th>ゴールドへの影響</th></tr></thead>
+    <tbody>
+      <tr><td>FOMC (政策金利)</td><td>FRB の金利決定・会見</td><td>最大級。方向が一変することも</td></tr>
+      <tr><td>米雇用統計 (NFP)</td><td>非農業部門雇用者数 (毎月第 1 金曜)</td><td>極大。数十 pips が一瞬で動く</td></tr>
+      <tr><td>CPI (消費者物価)</td><td>インフレ率</td><td>大。利上げ観測に直結</td></tr>
+      <tr><td>PCE デフレーター</td><td>FRB が重視するインフレ指標</td><td>中〜大</td></tr>
+      <tr><td>ISM / 小売売上高</td><td>景況感・消費</td><td>中</td></tr>
+    </tbody>
+  </table>
+
+  <h2>「避ける」という戦略</h2>
+  <p>
+    指標発表の前後はスプレッドが急拡大し、価格が一瞬で飛ぶため、テクニカルの根拠が無効化されます。
+    上級者ほど「指標で稼ぐ」より「<strong>指標を避けてリスクを管理する</strong>」ことを重視します。
+  </p>
+
+  <!-- 図解2: 発表前後の警戒タイムライン -->
+  <figure>
+    <svg viewBox="0 0 760 180" role="img" aria-label="経済指標発表の前後30分を警戒時間として避けるタイムライン" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="180" fill="#f8fafc" rx="8"/>
+      <line x1="40" y1="100" x2="720" y2="100" stroke="#cbd5e1" stroke-width="2"/>
+      <!-- 発表時刻 -->
+      <line x1="380" y1="55" x2="380" y2="120" stroke="#b91c1c" stroke-width="2.5"/>
+      <text x="345" y="48" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#b91c1c">発表時刻</text>
+      <!-- 警戒ゾーン -->
+      <rect x="290" y="86" width="180" height="28" fill="#e0556a" opacity="0.18"/>
+      <text x="300" y="140" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#b91c1c">前後 30 分 = 警戒 (新規エントリー控える)</text>
+      <!-- 安全ゾーン -->
+      <text x="80" y="140" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#225770">通常運用</text>
+      <text x="560" y="140" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#225770">落ち着いたら再開</text>
+      <circle cx="120" cy="100" r="4" fill="#1B4965"/>
+      <circle cx="640" cy="100" r="4" fill="#1B4965"/>
+    </svg>
+    <figcaption>図2: 発表前後 30 分は値が荒れる。新規は控え、既存ポジションのリスクを事前に調整しておく。</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>発表前</strong>: カレンダーで時刻を把握し、直前の新規エントリーを控える。既存ポジションは利確や損切り幅の調整を検討。</li>
+    <li><strong>発表直後</strong>: スプレッド拡大と乱高下の間は手を出さない。値が落ち着くのを待つ。</li>
+    <li><strong>予想 vs 前回</strong>: 市場予想とのギャップが大きいほど反応が荒れる。事前に身構える。</li>
+  </ul>
+
+  <div class="callout">
+    <strong>トップの経済指標カレンダーを活用</strong>
+    本サイトのトップには、<a href="/">今後の高インパクト指標</a>を Forex Factory から毎日自動取得して JST で表示しています。
+    「今週いつ荒れるか」を事前に把握する防御ツールとして使ってください。
+  </div>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>ゴールドを動かす本丸は米実質金利 = 金融政策</li>
+    <li>FOMC・雇用統計・CPI が特に大きく動かす</li>
+    <li>指標前後 30 分は「避ける」。テクニカルが無効化される時間</li>
+    <li>カレンダーは仕掛けるためでなく、危険を避けるために使う</li>
+  </ul>
+
+  <p>
+    前のステップ → <a href="/method/currency-strength-pairing/">通貨強弱でペアを選ぶ</a> /
+    手法一覧 → <a href="/method/">Method トップ</a>
+  </p>
+
+</MethodArticle>

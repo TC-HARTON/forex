@@ -1,17 +1,22 @@
 ---
+/**
+ * Footer.astro — T.C.HARTON フッター (明基調 / 本文と同じ明背景に統一)
+ * リンクは text-dark-700 + hover:text-teal-700 で明示し可読性を確保。
+ */
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-[var(--color-border)] bg-[var(--color-surface)] mt-22">
-  <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-[var(--color-text-muted)] space-y-3">
-    <p class="text-xs leading-relaxed">⚠ 本サイトの情報は参考情報であり、投資判断の助言ではありません。FX 取引は元本を超える損失が生じる可能性があります。取引の最終判断と結果は閲覧者ご自身の自己責任となります。</p>
-    <div class="flex flex-wrap gap-x-6 gap-y-2">
-      <span>© {year} T.C.HARTON</span>
-      <a href="/legal/disclaimer/">Disclaimer</a>
-      <a href="/legal/terms/">Terms</a>
-      <a href="/legal/tokushoho/">特商法</a>
-      <a href="/legal/privacy/">Privacy</a>
-      <a href="/legal/">Legal</a>
-    </div>
+<footer class="border-t border-dark-200 bg-dark-50 mt-16">
+  <div class="mx-auto max-w-6xl px-4 py-10 space-y-5">
+    <p class="text-xs text-dark-600 leading-relaxed">⚠ 本サイトの情報は参考情報であり、投資判断の助言ではありません。FX 取引は元本を超える損失が生じる可能性があります。取引の最終判断と結果は閲覧者ご自身の自己責任となります。</p>
+    <nav aria-label="フッターナビゲーション" class="flex flex-wrap gap-x-6 gap-y-3 text-sm">
+      <a href="/legal/disclaimer/" class="text-dark-700 hover:text-teal-700 underline-offset-2 hover:underline">免責事項</a>
+      <a href="/legal/terms/" class="text-dark-700 hover:text-teal-700 underline-offset-2 hover:underline">利用規約</a>
+      <a href="/legal/tokushoho/" class="text-dark-700 hover:text-teal-700 underline-offset-2 hover:underline">特商法表記</a>
+      <a href="/legal/privacy/" class="text-dark-700 hover:text-teal-700 underline-offset-2 hover:underline">プライバシー</a>
+      <a href="/legal/" class="text-dark-700 hover:text-teal-700 underline-offset-2 hover:underline">法令一覧</a>
+      <a href="https://tcharton.com" rel="noopener noreferrer" target="_blank" class="text-dark-700 hover:text-teal-700 underline-offset-2 hover:underline">tcharton.com ↗</a>
+    </nav>
+    <p class="text-xs text-dark-500">© {year} T.C.HARTON</p>
   </div>
 </footer>

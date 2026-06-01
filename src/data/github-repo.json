@@ -1,0 +1,25 @@
+{
+  "_note": "GitHub API から週次 fetch (scripts/fetch-github-repo.mjs) / public repo のみ",
+  "_source": "https://api.github.com/repos/TC-HARTON/forex",
+  "_fetched_at": "2026-05-25T11:17:44.981Z",
+  "repo": {
+    "name": "TC-HARTON/forex",
+    "url": "https://github.com/TC-HARTON/forex",
+    "description": "",
+    "stars": 0,
+    "forks": 0,
+    "issues_open": 0,
+    "language_primary": "Astro",
+    "license": "NOASSERTION",
+    "default_branch": "main",
+    "homepage": "https://tcharton.com",
+    "pushed_at": "2026-05-25T02:06:43Z"
+  },
+  "mt5_python_repo": {
+    "_status": "Phase 1 ではプライベートリポジトリ。Phase 2 で公開検討。",
+    "name": "TC-HARTON/MT5_Python",
+    "description": "MT5 + Python + MQL5 EA 完全裁量ダッシュボード (本体)",
+    "tests": 134,
+    "phase": "Phase 5 最適化完了"
+  }
+}

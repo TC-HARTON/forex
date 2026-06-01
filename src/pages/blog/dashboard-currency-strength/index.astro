@@ -1,0 +1,160 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-currency-strength">
+
+  <p>
+    ダッシュボード下部の「通貨強弱」バーは、USD・EUR・JPY・GBP・AUD・CHF・NZD・CAD といった通貨を、
+    <strong>「いまどれが買われ、どれが売られているか」</strong>という 1 つの数値で並べたものです。
+    一見シンプルですが、その裏では <strong>28 通貨ペアの値動きを合成</strong>する処理が走っています。本記事でそのロジックを解説します。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 230" role="img" aria-label="28通貨ペアの変化率を各通貨に合成して強弱を出す流れの図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="230" fill="#f8fafc" rx="8"/>
+      <text x="20" y="28" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">28 ペアの値動き → 通貨ごとに合成 → 強弱スコア</text>
+      <rect x="20" y="44" width="180" height="150" rx="6" fill="#fff" stroke="#cbd5e1"/>
+      <text x="110" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#475569">28 通貨ペア</text>
+      <g font-family="Inter,sans-serif" font-size="10" fill="#64748b">
+        <text x="34" y="88">EURUSD ↑</text><text x="34" y="106">USDJPY ↑</text><text x="34" y="124">GBPUSD ↓</text>
+        <text x="34" y="142">EURJPY ↑</text><text x="34" y="160">… 計 28</text>
+      </g>
+      <line x1="200" y1="119" x2="290" y2="119" stroke="#94a3b8" stroke-width="2" marker-end="url(#cs)"/>
+      <text x="245" y="110" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#64748b">ベース+ / クォート−</text>
+      <rect x="295" y="44" width="180" height="150" rx="6" fill="#fff" stroke="#cbd5e1"/>
+      <text x="385" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#475569">通貨ごとに平均</text>
+      <text x="310" y="92" font-family="Inter,sans-serif" font-size="10" fill="#64748b">USD = +0.8%</text>
+      <text x="310" y="112" font-family="Inter,sans-serif" font-size="10" fill="#64748b">JPY = −0.6%</text>
+      <text x="310" y="132" font-family="Inter,sans-serif" font-size="10" fill="#64748b">GBP = +0.3% …</text>
+      <line x1="475" y1="119" x2="565" y2="119" stroke="#94a3b8" stroke-width="2" marker-end="url(#cs)"/>
+      <text x="520" y="110" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="9" fill="#64748b">Z-score 正規化</text>
+      <rect x="570" y="44" width="170" height="150" rx="6" fill="#d9e7ee" stroke="#1B4965"/>
+      <text x="655" y="64" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B4965">0-100 強弱</text>
+      <g font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#1B4965">
+        <text x="585" y="92">USD 72</text><text x="585" y="114">GBP 61</text><text x="585" y="136">JPY 28</text><text x="585" y="158">…</text>
+      </g>
+      <defs><marker id="cs" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"/></marker></defs>
+    </svg>
+    <figcaption>図: 28 ペアの変化率を「ベース+ / クォート−」で各通貨に合成 → 平均 → Z-score で 0-100 化。通貨単体の強さを取り出す。</figcaption>
+  </figure>
+
+  <h2>なぜ「通貨ペア」ではなく「通貨単体」で見るのか</h2>
+  <p>
+    たとえば GBPJPY が上昇したとき、それは「ポンドが強い」のか「円が弱い」のか、ペアだけ見ても分かりません。
+    そこで <strong>各通貨を含む複数のペアを横断的に集計</strong>することで、「ポンド自体の強さ」「円自体の弱さ」を分離して取り出します。
+    これが通貨強弱インデックスの狙いです。強い通貨を買い・弱い通貨を売る、という<strong>通貨ペア選びのヒント</strong>になります。
+  </p>
+
+  <h2>計算に使う 28 ペア</h2>
+  <p>
+    7 つの法定通貨 (USD/EUR/GBP/JPY/AUD/CHF/NZD/CAD のうち主要 7+) の総当たり組み合わせ、計 <strong>28 ペア</strong>を背景で取得します。
+    画面に出ていないペアも含めて裏で計算している点がポイントです。
+  </p>
+  <pre><code>EURUSD GBPUSD AUDUSD NZDUSD USDJPY USDCHF USDCAD
+EURJPY GBPJPY AUDJPY NZDJPY CADJPY CHFJPY
+EURGBP EURAUD EURNZD EURCHF EURCAD
+GBPAUD GBPNZD GBPCHF GBPCAD
+AUDNZD AUDCHF AUDCAD
+NZDCHF NZDCAD
+CADCHF</code></pre>
+  <p>
+    ※ XAU (ゴールド) は法定通貨ではなく、ボラティリティが桁違いに大きいため、<strong>強弱の計算には含めません</strong> (参考表示のみ)。
+    計算の土台を歪めないための設計判断です。
+  </p>
+
+  <h2>計算ステップ</h2>
+  <h3>① 各ペアの変化率を出す</h3>
+  <p>
+    指定した時間窓 (後述) の<strong>確定足</strong>を使い、各ペアの「始点から終点までの変化率 (%)」を計算します。
+    進行中の足は使いません。これにより、足の途中で数値がブレることを防ぎ、一定の意味を保ちます。
+  </p>
+
+  <h3>② 各通貨に変化率を合成する</h3>
+  <p>
+    1 つの通貨について、その通貨を含む全ペアの変化率を符号付きで合算します。
+    ルールは「<strong>その通貨がベース (左側) なら + 、クォート (右側) なら −</strong>」です。
+  </p>
+  <pre><code>USDJPY が上昇 → USD 強く、JPY 弱い
+  USD は左 (ベース)  → + を加算
+  JPY は右 (クォート) → − を加算
+
+各通貨について、含まれる全ペアでこれを繰り返し平均する。</code></pre>
+
+  <h3>③ Z-score で 0〜100 に正規化する</h3>
+  <p>
+    ②で出た「通貨ごとの平均変化率」を、そのままでは日によってスケールがバラバラです。そこで<strong>その時点の全通貨の平均と標準偏差</strong>を使って
+    Z-score 化し、固定の 0〜100 スケールに乗せます。
+  </p>
+  <pre><code>z = (その通貨の平均変化率 − 全通貨の平均) / 標準偏差
+score = 50 + z × 係数   (0..100 にクランプ)</code></pre>
+  <p>
+    この方式の利点は、<strong>「50 = 平均的な通貨」という意味が日によって変わらない</strong>こと。
+    単純な最小値→0 / 最大値→100 のスケール (min-max) だと、毎回「最強通貨が必ず 100」になり、相対的な強さの度合いが分からなくなります。
+    Z-score なら「平均からどれだけ離れて強い/弱いか」が一定の物差しで読めます。
+  </p>
+
+  <div class="callout">
+    <strong>当サイトのトップページでは「中央 0 基準」で表示</strong>
+    本ダッシュボード本体は 0〜100 表示ですが、当サイト (T.C.HARTON) のトップに掲載している通貨強弱は、
+    読みやすさを優先して <strong>中央 0・右が強い (+) / 左が弱い (−)</strong> の双方向バーに変換しています。
+    なお、トップの通貨強弱は MT5 ではなく <strong>ECB (欧州中央銀行) 公表レート</strong>から日次で自動計算しており、出典が異なります
+    (本体ダッシュボードは MT5 のリアルタイム足ベース)。
+  </div>
+
+  <h2>時間窓の切り替え</h2>
+  <p>強弱は見る時間軸で変わります。本ダッシュボードは 4 つの窓を切り替えられます。</p>
+  <table>
+    <thead><tr><th>窓</th><th>見えるもの</th></tr></thead>
+    <tbody>
+      <tr><td>H1 (直近 1 時間)</td><td>短期の勢い / 指標発表直後の反応</td></tr>
+      <tr><td>H4 (直近 4 時間)</td><td>主戦 TF と整合する中期の強弱</td></tr>
+      <tr><td>D1 (直近 1 日)</td><td>その日の地合い</td></tr>
+      <tr><td>W1 (直近 1 週)</td><td>週単位の大局トレンド</td></tr>
+    </tbody>
+  </table>
+  <p>上位足 (H4/D1) で強弱が一致している通貨ほど、トレンドが継続しやすいと読めます。</p>
+
+  <h2>ペア優位度 — 強弱を「ペア」に翻訳する</h2>
+  <p>
+    通貨単体の強弱が出たら、それを引き算して<strong>ペアの方向優位</strong>を自動算出します。
+  </p>
+  <pre><code>ペア優位度 = ベース通貨の強度 − クォート通貨の強度
+
+  例) GBPJPY = GBP強度 − JPY強度</code></pre>
+  <table>
+    <thead><tr><th>差 (Δ)</th><th>判定</th></tr></thead>
+    <tbody>
+      <tr><td>+30 以上</td><td>STRONG BUY</td></tr>
+      <tr><td>+10 〜 +30</td><td>BUY 優位</td></tr>
+      <tr><td>−10 〜 +10</td><td>NEUTRAL</td></tr>
+      <tr><td>−30 〜 −10</td><td>SELL 優位</td></tr>
+      <tr><td>−30 以下</td><td>STRONG SELL</td></tr>
+    </tbody>
+  </table>
+  <p>
+    「最も強い通貨」と「最も弱い通貨」を組み合わせたペアが、最も方向の出やすい候補になります。
+    これが強弱を見る最大の実用価値です。
+  </p>
+
+  <div class="callout">
+    <strong>強弱はあくまで「候補の絞り込み」</strong>
+    ペア優位度が STRONG BUY でも、それ単独でエントリーはしません。最終的な判断は、対象ペアが
+    トレンドライン・サポレジ・前日高安などの<strong>構造的レベル</strong>のどこにいるか、そこで価格行動が出ているかで決めます。
+    強弱は「どのペアを監視リストに入れるか」を絞る道具です。
+  </div>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>28 ペアの変化率を、ベース +/クォート − のルールで各通貨に合成する</li>
+    <li>Z-score 正規化で「50 = 平均」という日に依存しない物差しを作る</li>
+    <li>通貨単体の強弱を引き算して、ペアの方向優位 (STRONG BUY 〜 STRONG SELL) に翻訳する</li>
+    <li>強弱は「監視ペアの絞り込み」に使い、エントリー判断は構造で行う</li>
+  </ul>
+
+  <p>
+    関連: <a href="/blog/dashboard-symbol-panel/">銘柄パネルの読み方 — BIAS スコアと 4 時間足トレンド</a> /
+    <a href="/dashboard/">MT5-Python Trading Dashboard の全体像</a>
+  </p>
+
+</BlogArticle>

@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Legal', item: 'https://tcharton.com/legal/' },
+    { '@type': 'ListItem', position: 3, name: 'Terms', item: 'https://tcharton.com/legal/terms/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+---
+
+<BaseLayout
+  title="Terms / 利用規約 | T.C.HARTON"
+  description="T.C.HARTON 利用規約。本サイトおよび MT5-Python Trading Dashboard の利用条件・禁止事項、投資助言業 (金商法 §29) 非該当の明示、運営者の免責範囲、知的財産、準拠法 (日本法) について定めます。"
+  canonicalPath="/legal/terms/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/legal/" class="hover:text-teal-700">Legal</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Terms</span>
+  </nav>
+
+  <header>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">利用規約 (Terms of Service)</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">
+      本サイト (T.C.HARTON) および関連する MT5_Python ソフトウェアの利用に関する規約を定めます。
+    </p>
+  </header>
+
+  <article class="mt-10 space-y-6 text-sm leading-relaxed text-dark-700">
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">第 1 条 (適用)</h2>
+      <p class="mt-2">本規約は、本サイトの利用に関する一切の関係に適用されます。本サイトを利用された時点で、本規約に同意したものとみなします。</p>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">第 2 条 (禁止事項)</h2>
+      <p class="mt-2">利用者は以下の行為を行ってはなりません:</p>
+      <ul class="mt-2 space-y-1 ml-4">
+        <li>• 法令または公序良俗に違反する行為</li>
+        <li>• 本サイトのサーバまたはネットワークの機能を破壊・妨害する行為</li>
+        <li>• 本サイトのコンテンツを無断複製・転載・改変する行為</li>
+        <li>• 本サイト掲載情報を投資助言として利用する行為 (本サイトは投資助言業ではありません)</li>
+        <li>• その他、運営者が不適切と判断する行為</li>
+      </ul>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">第 3 条 (免責)</h2>
+      <p class="mt-2">運営者は、本サイトおよび MT5_Python の利用により生じた一切の損失・損害について、責任を負いません。詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> をご確認ください。</p>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">第 4 条 (規約変更)</h2>
+      <p class="mt-2">運営者は、必要と判断した場合、本規約を予告なく変更できるものとします。変更後の規約は本ページに掲示された時点で効力を生じます。</p>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">第 5 条 (準拠法・管轄)</h2>
+      <p class="mt-2">本規約の解釈および適用は、日本法に準拠するものとします。本サイトに関する紛争は、運営者の所在地を管轄する裁判所を専属的合意管轄とします。</p>
+    </section>
+  </article>
+
+  <p class="mt-12 text-xs text-dark-700">最終改訂日: 2026-05-25 / 運営者: T.C.HARTON</p>
+</BaseLayout>

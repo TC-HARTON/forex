@@ -1,0 +1,3 @@
+# Cloudflare Pages リダイレクトルール
+# /index.html への直アクセスを正規 URL (/) へ 301
+/index.html    /    301

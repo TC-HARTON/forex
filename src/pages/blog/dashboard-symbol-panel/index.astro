@@ -1,0 +1,133 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-symbol-panel">
+
+  <p>
+    MT5-Python Trading Dashboard の画面中央を占めるのが「銘柄パネル」です。XAUUSD を筆頭に 8〜10 銘柄を並べ、各銘柄ごとに
+    <strong>BID/ASK・スプレッド・BIAS スコア</strong>、そして <strong>D1 / H4 / H1 / M15</strong> の 4 時間足それぞれのトレンド判定と指標値を一覧表示します。
+    この記事では「BIAS スコアが何をどう計算しているか」を、実装ロジックそのままに解説します。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 220" role="img" aria-label="銘柄パネル1行のレイアウト: レート・BIASスコア・4時間足トレンドの図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="220" fill="#f8fafc" rx="8"/>
+      <rect x="20" y="30" width="720" height="70" rx="6" fill="#fff" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="38" y="58" font-family="Inter,sans-serif" font-size="16" font-weight="800" fill="#1B4965">XAUUSD</text>
+      <text x="38" y="80" font-family="Inter,sans-serif" font-size="11" fill="#475569">BID 3301.2 / ASK 3301.5 (Sp 3.0)</text>
+      <rect x="200" y="44" width="84" height="40" rx="6" fill="#1B4965"/>
+      <text x="242" y="62" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" fill="#d9e7ee">BIAS</text>
+      <text x="242" y="78" text-anchor="middle" font-family="Inter,sans-serif" font-size="16" font-weight="800" fill="#fff">+8</text>
+      <g font-family="Inter,sans-serif" font-size="11" font-weight="700">
+        <rect x="310" y="44" width="95" height="40" rx="4" fill="#d9e7ee"/><text x="357" y="60" text-anchor="middle" fill="#475569">D1</text><text x="357" y="76" text-anchor="middle" fill="#1B4965">↑ BUY</text>
+        <rect x="415" y="44" width="95" height="40" rx="4" fill="#d9e7ee"/><text x="462" y="60" text-anchor="middle" fill="#475569">H4</text><text x="462" y="76" text-anchor="middle" fill="#1B4965">↑ BUY</text>
+        <rect x="520" y="44" width="95" height="40" rx="4" fill="#d9e7ee"/><text x="567" y="60" text-anchor="middle" fill="#475569">H1</text><text x="567" y="76" text-anchor="middle" fill="#1B4965">↑ BUY</text>
+        <rect x="625" y="44" width="95" height="40" rx="4" fill="#fee2e2"/><text x="672" y="60" text-anchor="middle" fill="#475569">M15</text><text x="672" y="76" text-anchor="middle" fill="#b91c1c">↓ SELL</text>
+      </g>
+      <text x="38" y="130" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">① レート (コスト)　② BIAS スコア (方向集約)　③ 4 時間足の個別トレンド</text>
+      <text x="38" y="155" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">この例は D1・H4・H1 が買いで揃い、M15 のみ反落 → BIAS +8 (強い買い優勢、押し目待ち)</text>
+    </svg>
+    <figcaption>図: 銘柄パネル 1 行の構成。4 時間足の方向を重み付けで合算した BIAS が、揃い具合を 1 目で示す。</figcaption>
+  </figure>
+
+  <h2>銘柄パネルが表示する 3 つの情報</h2>
+  <p>1 つの銘柄行は、大きく分けて次の 3 ブロックで構成されます。</p>
+  <table>
+    <thead><tr><th>ブロック</th><th>内容</th><th>役割</th></tr></thead>
+    <tbody>
+      <tr><td>レート</td><td>BID / ASK / スプレッド</td><td>現在のコストと約定環境</td></tr>
+      <tr><td>BIAS スコア</td><td>−10 〜 +10 の方向性スコア</td><td>4 時間足を 1 数値に集約</td></tr>
+      <tr><td>4 TF 詳細</td><td>D1/H4/H1/M15 の trend・EMA・ADX・RSI</td><td>各時間足の状態</td></tr>
+    </tbody>
+  </table>
+
+  <h2>採用している時間足と役割</h2>
+  <p>本ダッシュボードは「マルチタイムフレーム・トレンドフォロー」を前提に、4 つの時間足に明確な役割を与えています。</p>
+  <table>
+    <thead><tr><th>TF</th><th>EMA 期間</th><th>役割</th></tr></thead>
+    <tbody>
+      <tr><td>D1</td><td>200</td><td>大局・方向許可フィルタ</td></tr>
+      <tr><td>H4</td><td>50</td><td>主戦 TF (セットアップ確定)</td></tr>
+      <tr><td>H1</td><td>20</td><td>エントリーゾーン精密化</td></tr>
+      <tr><td>M15</td><td>13</td><td>執行トリガー</td></tr>
+    </tbody>
+  </table>
+  <p>
+    重要なのは、<strong>EMA は「価格との位置関係」だけを見る</strong>点です。一般的な「移動平均線のゴールデンクロス/デッドクロス」のような
+    線の交差をシグナル化することはしません。あくまで「価格が EMA の上か下か」=「その時間足が上向きか下向きか」の方向確認に使います。
+  </p>
+
+  <h2>各時間足の「トレンド」はどう決まるか</h2>
+  <p>1 つの時間足のトレンド方向は、<strong>EMA と ADX の 2 つ</strong>で決めます。ロジックは単純です。</p>
+  <pre><code>price &gt; EMA かつ ADX &gt;= 閾値  →  上昇 (+)
+price &lt; EMA かつ ADX &gt;= 閾値  →  下降 (−)
+ADX &lt; 閾値                     →  ノートレンド (0 / 寄与なし)</code></pre>
+  <p>
+    ここで <strong>ADX (Average Directional Index)</strong> が「方向の有無」を判定するゲートになっています。
+    ADX はトレンドの<strong>強さ</strong>を測る指標で、値が低い = 方向感のないレンジ相場を意味します。
+    EMA で上下を判定しても、ADX が閾値未満なら「まだトレンドと呼べない」として <strong>寄与ゼロ</strong>に扱います。
+    これにより、レンジ相場での「だましの方向シグナル」を構造的に排除しています。
+  </p>
+  <div class="callout">
+    <strong>ADX 閾値の目安</strong>
+    一般に ADX 25 未満 = レンジ、25〜30 = トレンド、30 以上 = 強トレンドと解釈されます。
+    変動の大きい XAUUSD (ゴールド) では、より高い閾値 (30 以上) を採用することでノイズを抑えます。
+  </div>
+
+  <h2>BIAS スコア = 4 時間足の重み付き合算</h2>
+  <p>
+    各時間足のトレンド方向 (+1 / 0 / −1 相当) を、時間足の重要度で重み付けして合算したものが <strong>BIAS スコア</strong>です。
+    重みは上位足ほど大きく設定されています。
+  </p>
+  <table>
+    <thead><tr><th>TF</th><th>重み</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td>D1</td><td>±4</td><td>大局 (最重要)</td></tr>
+      <tr><td>H4</td><td>±3</td><td>主戦</td></tr>
+      <tr><td>H1</td><td>±2</td><td>短期</td></tr>
+      <tr><td>M15</td><td>±1</td><td>執行</td></tr>
+    </tbody>
+  </table>
+  <pre><code>BIAS = Σ (各TFの方向 × そのTFの重み)
+
+  例) D1 上昇(+4) + H4 上昇(+3) + H1 上昇(+2) + M15 下降(−1)
+      = +4 +3 +2 −1 = +8  (強い買い優勢)
+
+  例) D1 上昇(+4) + H4 ノートレンド(0) + H1 下降(−2) + M15 下降(−1)
+      = +4 +0 −2 −1 = +1  (方向が割れている / 様子見寄り)</code></pre>
+  <p>
+    合計レンジは <strong>−10 〜 +10</strong>。正の値が大きいほど全時間足が揃って買い方向、負に振れるほど売り方向です。
+    0 付近は「時間足ごとに方向が食い違っている」状態で、裁量では手を出しにくい局面と読めます。
+  </p>
+
+  <h2>BIAS スコアの読み方 — 「揃っているか」を見る</h2>
+  <p>
+    BIAS スコアの本質は、数値の大小そのものよりも「<strong>上位足と下位足の方向が揃っているか</strong>」を 1 目で把握することにあります。
+  </p>
+  <ul>
+    <li><strong>+7 〜 +10</strong>: 大局から執行まで買い方向が揃う。押し目を待つ局面。</li>
+    <li><strong>+3 〜 +6</strong>: 上位足は買いだが下位足が一部反転。順張りの押し目か、調整の入り口かを構造で見極める。</li>
+    <li><strong>−2 〜 +2</strong>: 方向が割れている。トレンドフォローには不向き。</li>
+    <li><strong>−6 〜 −3 / −10 〜 −7</strong>: 上記の売り版。</li>
+  </ul>
+
+  <div class="callout">
+    <strong>BIAS スコアは「シグナル」ではありません</strong>
+    本スコアは方向性を俯瞰する<strong>背景情報</strong>です。実際のエントリー根拠は、トレンドライン・サポレジ・前日高安などの
+    <strong>構造的レベルへの接触 + 価格行動 (プライスアクション) の確認</strong>に置きます。BIAS が +8 でも、構造的な売りゾーンに
+    ぶつかっていれば安易に買いません。指標はあくまで「方向確認の補助」です。
+  </div>
+
+  <h2>なぜこの設計なのか</h2>
+  <p>
+    裁量トレードで陥りやすいのが「下位足だけ見て上位足の流れに逆らう」ミスです。BIAS スコアは上位足に大きな重みを置くことで、
+    <strong>大局に沿った方向</strong>を常に意識させます。同時に、ADX ゲートでレンジ相場の寄与をゼロにすることで、
+    「方向感のない相場で無理にトレンドを読む」ことを防ぎます。シンプルな足し算ですが、マルチタイムフレーム分析の要点が凝縮された設計です。
+  </p>
+
+  <p>
+    次回は、ダッシュボード下部の「<a href="/blog/dashboard-currency-strength/">通貨強弱</a>」が 28 通貨ペアからどう 8 通貨の強弱を算出しているかを解説します。
+  </p>
+
+</BlogArticle>

@@ -1,0 +1,103 @@
+---
+import MethodArticle from '../../../layouts/MethodArticle.astro';
+---
+
+<MethodArticle slug="currency-strength-pairing">
+
+  <p>
+    方向 (MTF) と場所 (構造) が決まったら、次は「<strong>どの通貨ペアを狙うか</strong>」です。
+    最も動きやすいペアは「<strong>最も強い通貨</strong>」と「<strong>最も弱い通貨</strong>」の組み合わせ。
+    その判断材料が通貨強弱インデックスです。
+  </p>
+
+  <h2>なぜ「ペア」でなく「通貨単体」で見るのか</h2>
+  <p>
+    GBPJPY が上昇したとき、それが「ポンドが強い」のか「円が弱い」のかは、ペアだけ見ても分かりません。
+    そこで各通貨を含む複数ペアを横断集計し、<strong>通貨そのものの強さ</strong>を取り出します。
+    すると「ポンドは全面高、円は全面安」のように、通貨単位の力関係が見えます。
+  </p>
+
+  <!-- 図解1: 強弱バー (中央0基準) -->
+  <figure>
+    <svg viewBox="0 0 760 280" role="img" aria-label="中央0を基準に通貨の強弱を左右に表示したバーチャート" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="280" fill="#f8fafc" rx="8"/>
+      <!-- 中央線 -->
+      <line x1="380" y1="30" x2="380" y2="250" stroke="#cbd5e1" stroke-width="1.5"/>
+      <text x="355" y="270" font-family="Inter,sans-serif" font-size="12" fill="#94a3b8">0</text>
+      <text x="180" y="270" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#b91c1c">← 弱い (売り候補)</text>
+      <text x="470" y="270" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#225770">強い (買い候補) →</text>
+      <!-- バー (上から強い順) -->
+      <g font-family="Inter,sans-serif" font-size="13" font-weight="700">
+        <text x="20" y="55" fill="#0f172a">GBP</text><rect x="380" y="44" width="170" height="18" fill="#1B4965" rx="2"/>
+        <text x="20" y="83" fill="#0f172a">USD</text><rect x="380" y="72" width="120" height="18" fill="#2c6e8c" rx="2"/>
+        <text x="20" y="111" fill="#0f172a">EUR</text><rect x="380" y="100" width="55" height="18" fill="#7eb0c5" rx="2"/>
+        <text x="20" y="139" fill="#0f172a">CHF</text><rect x="380" y="128" width="20" height="18" fill="#7eb0c5" rx="2"/>
+        <text x="20" y="167" fill="#0f172a">AUD</text><rect x="340" y="156" width="40" height="18" fill="#e9ce72" rx="2"/>
+        <text x="20" y="195" fill="#0f172a">NZD</text><rect x="290" y="184" width="90" height="18" fill="#f5c542" rx="2"/>
+        <text x="20" y="223" fill="#0f172a">JPY</text><rect x="210" y="212" width="170" height="18" fill="#e0556a" rx="2"/>
+      </g>
+      <!-- 強弱ハイライト -->
+      <text x="560" y="55" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">最強</text>
+      <text x="120" y="223" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#b91c1c">最弱</text>
+    </svg>
+    <figcaption>図1: 中央 0 から右が強い (買い候補)、左が弱い (売り候補)。この例なら最強 GBP × 最弱 JPY = GBPJPY 買いが最有力候補。</figcaption>
+  </figure>
+
+  <h2>「最強 × 最弱」を組み合わせる</h2>
+  <p>
+    強弱が出たら、<strong>最も強い通貨をベース (買う側)、最も弱い通貨をクォート (売る側)</strong> にしたペアが、最も方向の出やすい候補になります。
+    上の図なら「GBP 買い / JPY 売り」= <strong>GBPJPY の買い</strong>です。
+  </p>
+  <p>
+    XAUUSD (ゴールド) の場合、相手は USD です。つまり<strong>「USD が弱い」局面ほど XAUUSD は上がりやすい</strong>。
+    通貨強弱で USD が最弱付近にあるとき、ゴールドの買い目線が補強されます。
+  </p>
+
+  <!-- 図解2: ペア優位度マトリクス -->
+  <figure>
+    <svg viewBox="0 0 760 200" role="img" aria-label="通貨強弱の差からペアの方向優位を判定する早見表" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="200" fill="#f8fafc" rx="8"/>
+      <text x="20" y="30" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">ペア優位度 = ベース通貨の強度 − クォート通貨の強度</text>
+      <g font-family="Inter,sans-serif" font-size="12">
+        <rect x="20" y="50" width="140" height="30" rx="4" fill="#1B4965"/><text x="32" y="70" fill="#fff" font-weight="700">+30 以上</text>
+        <text x="175" y="70" fill="#225770" font-family="'Noto Sans JP',sans-serif">STRONG BUY (強い買い優勢)</text>
+        <rect x="20" y="88" width="140" height="30" rx="4" fill="#4a8aa6"/><text x="32" y="108" fill="#fff" font-weight="700">+10 〜 +30</text>
+        <text x="175" y="108" fill="#225770" font-family="'Noto Sans JP',sans-serif">BUY 優位</text>
+        <rect x="20" y="126" width="140" height="30" rx="4" fill="#cbd5e1"/><text x="32" y="146" fill="#334155" font-weight="700">−10 〜 +10</text>
+        <text x="175" y="146" fill="#64748b" font-family="'Noto Sans JP',sans-serif">NEUTRAL (様子見)</text>
+        <rect x="430" y="88" width="140" height="30" rx="4" fill="#e9a0ab"/><text x="442" y="108" fill="#7a1f2b" font-weight="700">−30 〜 −10</text>
+        <text x="585" y="108" fill="#b91c1c" font-family="'Noto Sans JP',sans-serif">SELL 優位</text>
+        <rect x="430" y="126" width="140" height="30" rx="4" fill="#e0556a"/><text x="442" y="146" fill="#fff" font-weight="700">−30 以下</text>
+        <text x="585" y="146" fill="#b91c1c" font-family="'Noto Sans JP',sans-serif">STRONG SELL</text>
+      </g>
+    </svg>
+    <figcaption>図2: 2 通貨の強度差でペアの方向優位を機械的に判定。差が大きいほど方向が出やすい。</figcaption>
+  </figure>
+
+  <div class="callout">
+    <strong>強弱は「ペアの絞り込み」に使う</strong>
+    通貨強弱が STRONG BUY を示しても、それ単独でエントリーはしません。あくまで「どのペアを監視リストに入れるか」を絞る道具です。
+    最終判断は、対象ペアが構造レベルのどこにいて、価格行動が出ているかで決めます。計算ロジックの詳細は
+    <a href="/blog/dashboard-currency-strength/">通貨強弱の計算ロジック</a>で解説しています。
+  </div>
+
+  <h2>時間軸を合わせる</h2>
+  <p>
+    通貨強弱は見る時間窓 (H1 / H4 / D1 / W1) で変わります。<strong>自分のトレード時間軸と強弱の時間窓を合わせる</strong>のが鉄則です。
+    H4 主体のトレードなら H4 の強弱を見る。短期の強弱と長期の強弱が一致している通貨ほど、トレンドが継続しやすくなります。
+  </p>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>ペアでなく通貨単体の強弱を見ると、力関係が分かる</li>
+    <li>最強通貨 × 最弱通貨 = 最も動きやすいペア候補</li>
+    <li>XAUUSD は USD が弱いほど上がりやすい</li>
+    <li>強弱は監視ペアの絞り込みに使い、入る判断は構造で行う</li>
+  </ul>
+
+  <p>
+    前のステップ → <a href="/method/structure-based/">構造ベース分析</a> /
+    次のステップ → <a href="/method/gold-and-news/">経済指標とゴールド</a>
+  </p>
+
+</MethodArticle>

@@ -1,0 +1,74 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Legal', item: 'https://tcharton.com/legal/' },
+    { '@type': 'ListItem', position: 3, name: 'Privacy', item: 'https://tcharton.com/legal/privacy/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+---
+
+<BaseLayout
+  title="Privacy / プライバシーポリシー | T.C.HARTON"
+  description="本サイトのプライバシーポリシー。個人情報の取得項目、利用目的、第三者提供、Cookie 利用について定めます。個人情報保護法 (令和 4 年改正) 準拠。"
+  canonicalPath="/legal/privacy/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/legal/" class="hover:text-teal-700">Legal</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Privacy</span>
+  </nav>
+
+  <header>
+    <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">プライバシーポリシー</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">
+      本サイトにおける個人情報の取扱いについて定めます。個人情報保護法 (令和 4 年改正) を遵守します。
+    </p>
+  </header>
+
+  <article class="mt-10 space-y-6 text-sm leading-relaxed text-dark-700">
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">1. 取得する個人情報</h2>
+      <p class="mt-2">本サイトでは以下の場面で個人情報を取得する場合があります:</p>
+      <ul class="mt-2 space-y-1 ml-4">
+        <li>• お問い合わせフォーム送信時: 氏名・メールアドレス・お問い合わせ内容</li>
+        <li>• Cookie および類似技術によるアクセス解析データ (Phase 1 は導入未定)</li>
+      </ul>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">2. 利用目的</h2>
+      <ul class="mt-2 space-y-1 ml-4">
+        <li>• お問い合わせへの回答</li>
+        <li>• 本サイトの改善およびユーザー体験向上のための統計分析</li>
+        <li>• 法令に基づく対応</li>
+      </ul>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">3. 第三者提供</h2>
+      <p class="mt-2">取得した個人情報は、法令に基づく場合および本人の同意がある場合を除き、第三者に提供しません。</p>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">4. アクセス解析ツール</h2>
+      <p class="mt-2">本サイトでは、Phase 1 時点ではアクセス解析ツール (Google Analytics 等) を導入していません。導入時には改めて本ポリシーで開示します。</p>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">5. お問い合わせ窓口</h2>
+      <p class="mt-2">個人情報の開示・訂正・削除等のご請求は、下記までご連絡ください:</p>
+      <p class="mt-2"><a href="mailto:info@tcharton.com" class="underline text-teal-700">info@tcharton.com</a></p>
+    </section>
+    <section>
+      <h2 class="font-semibold text-lg text-dark-900">6. 改訂</h2>
+      <p class="mt-2">本ポリシーは予告なく変更されることがあります。変更後の内容は本ページに掲示された時点で効力を生じます。</p>
+    </section>
+  </article>
+
+  <p class="mt-12 text-xs text-dark-700">最終改訂日: 2026-05-25 / 運営者: T.C.HARTON</p>
+</BaseLayout>

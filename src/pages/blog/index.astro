@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import posts from '../../data/blog-posts.json';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://tcharton.com/blog/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+
+const cats = posts._categories;
+// カテゴリ順 + 各カテゴリ内は日付降順
+const sorted = [...posts.posts].sort((a, b) => b.date.localeCompare(a.date));
+const byCat = Object.keys(cats).map((key) => ({
+  key,
+  name: cats[key as keyof typeof cats],
+  items: sorted.filter((p) => p.category === key),
+})).filter((c) => c.items.length > 0);
+
+function dateJp(d: string) { return d.replace(/^(\d+)-(\d+)-(\d+)$/, '$1/$2/$3'); }
+
+// カテゴリ別アクセント (見出しアンダーライン・カード左ボーダー・バッジ色)
+const catTheme: Record<string, { head: string; border: string; badge: string; icon: string }> = {
+  funding:   { head: 'border-amber-500',  border: 'border-l-amber-500',  badge: 'bg-amber-100 text-amber-700',   icon: 'coin' },
+  dashboard: { head: 'border-teal-700',   border: 'border-l-teal-700',   badge: 'bg-teal-50 text-teal-700',      icon: 'grid' },
+  macro:     { head: 'border-rose-500',   border: 'border-l-rose-500',   badge: 'bg-rose-100 text-rose-700',     icon: 'globe' },
+  method:    { head: 'border-indigo-500', border: 'border-l-indigo-500', badge: 'bg-indigo-100 text-indigo-700', icon: 'chart' },
+};
+const fallback = { head: 'border-teal-700', border: 'border-l-teal-700', badge: 'bg-teal-50 text-teal-700', icon: 'grid' };
+---
+
+<BaseLayout
+  title="Blog | MT5 ダッシュボード解説・裁量手法・経済指標 | T.C.HARTON"
+  description="MT5-Python Trading Dashboard の各機能ロジックを 1 ボックスずつ丁寧に解説。通貨強弱・銘柄パネル・構造分析・経済指標活用など、裁量 FX の教育コンテンツ。"
+  keywords="海外FX 入出金,XAUUSD 手法,MT5 ダッシュボード 解説,通貨強弱,経済指標 FX,裁量トレード 教育"
+  canonicalPath="/blog/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-600 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Blog</span>
+  </nav>
+
+  <header>
+    <p class="text-xs font-display font-bold tracking-widest uppercase text-teal-700">Education</p>
+    <h1 class="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight text-dark-900">裁量 FX 教育コンテンツ</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed max-w-2xl">
+      MT5-Python Trading Dashboard の各機能ロジックを 1 ボックスずつ丁寧に解説します。
+      「何を・どう計算しているか」を実装に沿って理解することで、裁量判断の精度を高める教育コンテンツです。
+    </p>
+  </header>
+
+  {byCat.map((cat) => {
+    const t = catTheme[cat.key] ?? fallback;
+    return (
+    <section aria-label={cat.name} class="mt-12">
+      <div class={`flex items-center gap-2.5 pb-2 border-b-2 ${t.head}`}>
+        <span class={`inline-flex h-7 w-7 items-center justify-center rounded-md ${t.badge}`} aria-hidden="true">
+          {t.icon === 'coin' && (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M9.5 9.5a2.5 2 0 0 1 5 .3c0 1.7-2.5 1.7-2.5 3"/><path d="M12 16h.01"/></svg>)}
+          {t.icon === 'grid' && (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>)}
+          {t.icon === 'globe' && (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>)}
+          {t.icon === 'chart' && (<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg>)}
+        </span>
+        <h2 class="font-display text-xl font-bold text-dark-900">{cat.name}</h2>
+        <span class="ml-1 text-xs font-mono text-dark-400">{cat.items.length}</span>
+      </div>
+      <ul class="mt-5 grid gap-4 sm:grid-cols-2">
+        {cat.items.map((p, i) => (
+          <li>
+            <a href={`/blog/${p.slug}/`} class={`reveal card-lift group relative flex flex-col h-full p-5 border border-dark-200 border-l-4 ${t.border} rounded-xl bg-white hover:border-dark-300`} data-reveal-delay={i * 70}>
+              <div class="flex items-center gap-2 text-xs text-dark-600">
+                <span class={`px-2 py-0.5 rounded font-display font-bold ${t.badge}`}>{cat.name}</span>
+                <time datetime={p.date} class="text-dark-500">{dateJp(p.date)}</time>
+                <span class="text-dark-400">·</span>
+                <span class="text-dark-500">約 {p.readingMin} 分</span>
+              </div>
+              <h3 class="mt-2.5 font-display text-base font-bold text-dark-900 group-hover:text-teal-700 leading-snug">{p.title}</h3>
+              <p class="mt-2 flex-1 text-sm text-dark-600 leading-relaxed line-clamp-2">{p.excerpt}</p>
+              <span class="mt-3 inline-flex items-center gap-1.5 text-sm font-bold text-teal-700">
+                続きを読む
+                <svg class="arrow-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+    );
+  })}
+
+  <p class="mt-12 text-xs text-dark-600">
+    本ブログは投資助言ではなく教育目的です。詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> をご確認ください。
+  </p>
+</BaseLayout>

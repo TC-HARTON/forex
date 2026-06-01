@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Dashboard', item: 'https://tcharton.com/dashboard/' },
+  ],
+};
+
+const appJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'MT5-Python Trading Dashboard',
+  applicationCategory: 'FinanceApplication',
+  operatingSystem: 'Windows (MT5 + Python)',
+  description: 'MT5 口座に接続するマルチ通貨テクニカル分析ダッシュボード。8 銘柄のマルチタイムフレーム分析・通貨強弱・相関・経済指標を統合。',
+  author: { '@id': 'https://tcharton.com/#organization' },
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script><script type="application/ld+json">${JSON.stringify(appJsonLd)}</script>`;
+
+const sections = [
+  { no: '01', accent: 'teal',   icon: 'grid',    h: '中央: 8 銘柄パネル', body: 'XAUUSD・EURUSD・GBPUSD・AUDUSD・USDJPY・EURJPY・GBPJPY・AUDJPY の BID/ASK・スプレッド・BIAS スコア・各 TF (D1/H4/H1/M15) のトレンド・EMA・ADX・DI±・RSI を一覧化。' },
+  { no: '02', accent: 'rose',   icon: 'calendar', h: '右: マクロ環境', body: '経済カレンダー (Forex Factory 連携) / MACRO RATES (米 10 年実質利回り・NFP・各ペアの金利優位)。' },
+  { no: '03', accent: 'indigo', icon: 'bars',    h: '下: 強弱と相関', body: '通貨強弱バー (H1〜W1 切替) と通貨ペア相関 TOP10。市場全体の地合いを俯瞰。' },
+  { no: '04', accent: 'amber',  icon: 'journal', h: 'トレード日誌', body: '発注時のマルチタイムフレーム状況を自動記録。裁量判断の根拠を後から検証可能。' },
+];
+const dashAccent: Record<string, { bar: string; chip: string; num: string }> = {
+  teal:   { bar: 'bg-teal-700',   chip: 'bg-teal-50 text-teal-700',     num: 'text-teal-700' },
+  rose:   { bar: 'bg-rose-500',   chip: 'bg-rose-100 text-rose-700',    num: 'text-rose-600' },
+  indigo: { bar: 'bg-indigo-500', chip: 'bg-indigo-50 text-indigo-600', num: 'text-indigo-600' },
+  amber:  { bar: 'bg-amber-500',  chip: 'bg-amber-50 text-amber-600',   num: 'text-amber-600' },
+};
+---
+
+<BaseLayout
+  title="MT5-Python Trading Dashboard | マルチ通貨分析環境 | T.C.HARTON"
+  description="MT5-Python Trading Dashboard は MT5 口座に接続するマルチ通貨テクニカル分析ダッシュボード。8 銘柄のマルチタイムフレーム分析・通貨強弱・相関・経済指標を 1 画面に統合した裁量トレードの司令塔。"
+  keywords="MT5 Python ダッシュボード,FX 分析ツール 自作,通貨強弱 ツール,マルチ通貨 監視,MT5 自作 インジケーター"
+  canonicalPath="/dashboard/"
+  ogType="article"
+  ogImage="/og/dashboard.png"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Dashboard</span>
+  </nav>
+
+  <header>
+    <p class="text-xs font-display font-bold tracking-widest uppercase text-teal-700">The Analysis Engine</p>
+    <h1 class="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight text-dark-900">MT5-Python Trading Dashboard</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed max-w-2xl">
+      シグナルツールではなく、相場のコンディションを一目で俯瞰する「司令塔」。
+      裁量判断に必要な情報を 1 画面に統合した MT5 + Python 製の分析エンジンです。
+    </p>
+  </header>
+
+  <section class="mt-10 grid gap-5 sm:grid-cols-2">
+    {sections.map((s, i) => {
+      const a = dashAccent[s.accent];
+      return (
+      <article class="group reveal card-lift relative overflow-hidden p-6 border border-dark-200 rounded-xl bg-white hover:border-teal-700" data-reveal-delay={i * 90}>
+        <span class={`absolute inset-x-0 top-0 h-1 ${a.bar} opacity-70 transition-all group-hover:h-1.5 group-hover:opacity-100`} aria-hidden="true"></span>
+        <div class="flex items-center justify-between">
+          <span class={`inline-flex h-11 w-11 items-center justify-center rounded-lg ${a.chip}`} aria-hidden="true">
+            {s.icon === 'grid' && (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="5" rx="1"/><rect x="13" y="10" width="8" height="11" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/></svg>)}
+            {s.icon === 'calendar' && (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>)}
+            {s.icon === 'bars' && (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20h-20"/></svg>)}
+            {s.icon === 'journal' && (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4a2 2 0 0 1 2-2h12a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>)}
+          </span>
+          <span class={`font-mono text-3xl font-extrabold ${a.num} opacity-20`}>{s.no}</span>
+        </div>
+        <h2 class="mt-4 font-display text-lg font-bold text-dark-900">{s.h}</h2>
+        <p class="mt-3 text-sm text-dark-700 leading-relaxed">{s.body}</p>
+      </article>
+      );
+    })}
+  </section>
+
+  <!-- 各ボックスのロジックは Blog に集約 (重複排除 / 導線のみ残す) -->
+  <section class="mt-10 p-6 border-l-4 border-teal-700 bg-teal-50 rounded-r">
+    <h2 class="font-display text-lg font-bold text-dark-900">各ボックスのロジックを詳しく</h2>
+    <p class="mt-2 text-sm text-dark-700 leading-relaxed">
+      銘柄パネルの BIAS スコア・通貨強弱の計算・相関・構造レベル・プライスアクション・トレード日誌など、
+      どの機能が「何を・どう計算しているか」を 1 ボックスずつ実装に沿って解説しています。
+    </p>
+    <a href="/blog/" class="btn-pop mt-4 inline-block px-5 py-2.5 bg-teal-700 text-white rounded-md font-bold text-sm hover:bg-teal-800">
+      ダッシュボード解説記事を読む (Blog) →
+    </a>
+  </section>
+
+  <section class="mt-10 p-6 border border-dark-200 rounded-xl bg-white">
+    <h2 class="font-display text-lg font-bold text-dark-900">公開について</h2>
+    <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+      MT5-Python Trading Dashboard は MT5 端末に接続して動作するローカルアプリです。一般公開版は、口座番号・残高・ポジション等の<strong class="text-dark-900">個人情報を完全非表示にしたショーケース</strong>として準備中です
+      (<a href="/live/" class="underline text-teal-700">/live/</a>)。将来的に需要に応じて配布・販売も検討します。
+    </p>
+  </section>
+
+  <section class="mt-8 p-6 border-l-4 border-teal-700 bg-teal-50 rounded-r text-sm text-dark-700 leading-relaxed">
+    本ダッシュボードが表示するデータは市場全体から計算した<strong class="text-dark-900">客観値</strong>であり、売買シグナル・推奨銘柄ではありません。
+    本サイトは投資助言業 (金商法 §29) に該当しません。詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> を参照してください。
+  </section>
+</BaseLayout>

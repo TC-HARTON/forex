@@ -1,0 +1,108 @@
+---
+import MethodArticle from '../../../layouts/MethodArticle.astro';
+---
+
+<MethodArticle slug="structure-based">
+
+  <p>
+    マルチタイムフレームで「方向」が決まったら、次は「<strong>どこで入るか</strong>」です。
+    本サイトの裁量は、移動平均線のクロスや RSI の数値ではなく、<strong>価格そのものが意識する「構造的なレベル」</strong>で売買します。
+    これを構造ベース分析と呼びます。
+  </p>
+
+  <h2>なぜインジケーターでなく「構造」なのか</h2>
+  <p>
+    移動平均線や MACD は、過去の価格を加工した「遅行指標」です。一方、<strong>前日の高値・安値やトレンドラインは、市場参加者が実際に注目し、注文を置いている場所</strong>です。
+    多くのトレーダーが「ここで反発するか」を見ている価格帯ほど、実際に反発やブレイクが起きやすい。だから構造を一次根拠にします。
+  </p>
+
+  <h2>構造レベルの種類と信頼度</h2>
+  <p>すべてのレベルが同格ではなく、信頼度に階層があります。</p>
+  <table>
+    <thead><tr><th>階層</th><th>レベル</th><th>扱い</th></tr></thead>
+    <tbody>
+      <tr><td>一次 (最重要)</td><td>トレンドライン / サポレジ / 前日高安 / ラウンドナンバー</td><td>エントリー根拠になる</td></tr>
+      <tr><td>二次 (確認)</td><td>プライスアクション / ATR (損切り幅算出)</td><td>一次を補強</td></tr>
+      <tr><td>三次 (背景)</td><td>EMA / ADX / RSI</td><td>方向・強弱の確認のみ</td></tr>
+    </tbody>
+  </table>
+
+  <h3>主な構造レベル</h3>
+  <ul>
+    <li><strong>前日・前週・前月の高安 (PDH/PDL 等)</strong> — 区切りの価格。何度も試される。</li>
+    <li><strong>ラウンドナンバー (キリ番)</strong> — XAUUSD なら $50 刻み (3250, 3300…)。心理的節目。</li>
+    <li><strong>トレンドライン / サポレジ</strong> — 自分で引く斜め線・水平線。</li>
+    <li><strong>スイング高安 (フラクタル)</strong> — 直近の山と谷。損切りの基準にもなる。</li>
+  </ul>
+
+  <!-- 図解1: 構造レベルとコンフルエンス -->
+  <figure>
+    <svg viewBox="0 0 760 320" role="img" aria-label="価格チャート上で複数の構造レベルが重なるコンフルエンスゾーンの図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="320" fill="#f8fafc" rx="8"/>
+      <!-- 価格ライン (上昇後に押し目) -->
+      <path d="M40 250 L 140 180 L 230 210 L 330 120 L 430 165 L 470 150" stroke="#1B4965" stroke-width="2.5" fill="none"/>
+      <!-- 水平: 前日高値 R -->
+      <line x1="40" y1="150" x2="720" y2="150" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <text x="600" y="144" font-family="Inter,sans-serif" font-size="12" fill="#b91c1c">前日高値 (PDH)</text>
+      <!-- 水平: ラウンドナンバー -->
+      <line x1="40" y1="158" x2="720" y2="158" stroke="#c19a2a" stroke-width="1.5" stroke-dasharray="2 3"/>
+      <text x="600" y="172" font-family="Inter,sans-serif" font-size="12" fill="#8f7218">$3,300 (ラウンド)</text>
+      <!-- トレンドライン (上から降りてくる) -->
+      <line x1="300" y1="80" x2="720" y2="180" stroke="#2c6e8c" stroke-width="1.5"/>
+      <text x="560" y="120" font-family="Inter,sans-serif" font-size="12" fill="#2c6e8c">下降 TL</text>
+      <!-- コンフルエンスゾーン (3つが重なる) -->
+      <rect x="470" y="146" width="120" height="26" fill="#1B4965" opacity="0.12"/>
+      <text x="475" y="200" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">★ コンフルエンス</text>
+      <text x="475" y="220" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">PDH + ラウンド + TL が重なる</text>
+      <text x="475" y="238" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">= 強い抵抗帯</text>
+    </svg>
+    <figcaption>図1: 前日高値・ラウンドナンバー・下降トレンドラインが同じ価格帯に集まる「コンフルエンス」。単独より遥かに強い。</figcaption>
+  </figure>
+
+  <h2>コンフルエンス — レベルが「重なる」場所が最強</h2>
+  <p>
+    1 本のレベルより、<strong>複数の構造レベルが近接して集中する場所</strong>のほうが強く効きます。これをコンフルエンス (合流) と呼びます。
+    判定には ATR (平均的な変動幅) の 0.3 倍以内に集まっているか、という基準を使います。重なる要素が多いほど信頼度が上がります。
+  </p>
+  <blockquote>
+    3 要素 &lt; 4 要素 &lt; 5 要素以上 — 重なる構造が多いほど反応しやすい。
+  </blockquote>
+
+  <h2>エントリーは「接触 + 価格行動」で</h2>
+  <p>
+    構造レベルに触れただけでは入りません。そのレベルで<strong>反発を示す価格行動 (プライスアクション)</strong> が出て初めて根拠が揃います。
+    「構造 (どこで) + 価格行動 (反転の証拠)」の 2 つが重なった瞬間が、最も優位なエントリーポイントです。
+  </p>
+
+  <!-- 図解2: 接触+反転 -->
+  <figure>
+    <svg viewBox="0 0 760 200" role="img" aria-label="構造レベルに接触してピンバーで反発する様子の図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="200" fill="#f8fafc" rx="8"/>
+      <line x1="40" y1="80" x2="720" y2="80" stroke="#b91c1c" stroke-width="1.5" stroke-dasharray="6 4"/>
+      <text x="50" y="72" font-family="Inter,sans-serif" font-size="12" fill="#b91c1c">レジスタンス</text>
+      <!-- 価格が接触して反落 -->
+      <path d="M60 160 L 180 120 L 300 90 L 380 82 L 420 130 L 540 150" stroke="#1B4965" stroke-width="2.5" fill="none"/>
+      <!-- ピンバー (上ヒゲ) -->
+      <line x1="380" y1="60" x2="380" y2="100" stroke="#334155" stroke-width="2"/>
+      <rect x="375" y="92" width="10" height="14" fill="#334155"/>
+      <text x="395" y="70" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">上ヒゲピンバー = 売りサイン</text>
+      <circle cx="380" cy="82" r="14" fill="none" stroke="#1B4965" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <text x="430" y="180" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#225770">接触 + 反転の形 → ここで売り検討</text>
+    </svg>
+    <figcaption>図2: レジスタンスに接触し、長い上ヒゲ (ピンバー) で押し戻された = 売り圧力の証拠。構造と価格行動が揃う。</figcaption>
+  </figure>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>インジケーターは遅行。市場が注目する「構造レベル」を一次根拠にする</li>
+    <li>前日高安・ラウンドナンバー・TL/SR・スイング高安が主なレベル</li>
+    <li>複数が重なる「コンフルエンス」は単独より遥かに強い</li>
+    <li>接触しただけでは入らず、反転の価格行動を待つ</li>
+  </ul>
+
+  <p>
+    前のステップ → <a href="/method/multi-timeframe/">マルチタイムフレーム分析</a> /
+    次のステップ → <a href="/method/currency-strength-pairing/">通貨強弱でペアを選ぶ</a>
+  </p>
+
+</MethodArticle>

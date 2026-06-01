@@ -1,0 +1,187 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+
+const faq = [
+  {
+    q: '海外FXに仮想通貨を送金する手順を教えてください。',
+    a: '国内取引所で暗号資産を購入 → 海外FXの入金アドレスへ送金 → FX口座へ反映、という流れです。送金前に「アドレス」「ネットワーク（チェーン）」「少額テスト送金」の3点を必ず確認してください。',
+  },
+  {
+    q: '送金先のネットワークを間違えるとどうなりますか？',
+    a: '対応していないネットワークへ送ると、資産を取り戻せなくなる場合があります。送金元と送金先で同じネットワークを選び、初回は少額でテスト送金してから本送金するのが安全です。',
+  },
+  {
+    q: '仮想通貨経由の入出金に税金はかかりますか？',
+    a: '暗号資産の売買や決済で利益が出た場合、原則として課税対象（雑所得など）になり得ます。取引記録を残し、最新の税制と税理士等への確認に従ってください（本記事は税務助言ではありません）。',
+  },
+  {
+    q: '仮想通貨は「販売所」と「取引所」のどちらで買うべきですか？',
+    a: '送金前提でまとまった額を扱うなら「取引所（板取引）」が基本です。販売所は手軽ですが、買値と売値の差（スプレッド）として数%のコストが価格に含まれます。取引所（板取引）の取引手数料は概ね0.0〜0.1%程度で、コストを大きく抑えられます（数値は目安で、通貨・時間帯・業者により変動します）。',
+  },
+  {
+    q: '送金する通貨はどう選べばよいですか？',
+    a: 'まず海外FX業者が対応している通貨とネットワークを確認し、その中から送金（送付）手数料の安い通貨を選びます。BTCはネットワーク手数料が高くなりがちで、XRP・XLMなどは低い傾向です。GMOコインやSBI VCトレードのように送付手数料が無料の取引所を使うと、さらにコストを抑えられます。',
+  },
+];
+---
+
+<BlogArticle slug="funding-crypto-howto" faq={faq}>
+
+  <div class="callout">
+    <strong>本記事はアフィリエイトを含みません</strong>
+    操作手順の解説 (教育目的) です。取引所の画面・手数料・対応通貨は変更されることがあります。実際の操作前に必ず各社の最新の公式案内を確認してください。
+    本記事は特定業者の利用を勧誘するものではありません。
+  </div>
+
+  <p>
+    <a href="/blog/funding-crypto-route/">前記事</a>で業者選定の基準を見ました。本記事は、実際に<strong>仮想通貨で海外 FX に入金・出金する具体的な手順</strong>を、
+    工程ごとに分解して解説します。最大のリスクは「送金ミスによる資産喪失」です。各ステップの確認事項を必ず守ってください。
+  </p>
+
+  <h2>入金の手順 (日本円 → 海外 FX 口座)</h2>
+
+  <h3>STEP 1: 国内取引所で口座開設・日本円入金</h3>
+  <ul>
+    <li>金融庁登録の国内取引所で口座開設 (本人確認 / KYC が必要)。</li>
+    <li>銀行振込で日本円を入金。</li>
+  </ul>
+
+  <h3>STEP 2: 送金用の仮想通貨を購入 — ここで「無駄コスト」が決まる</h3>
+  <p>
+    実は、海外 FX 送金で多くの人が損をするのが<strong>この購入ステップ</strong>です。同じ取引所内でも「販売所」と「取引所(板取引)」のどちらで買うか、
+    どの通貨で送るかで、最終的に FX 口座へ届く金額が変わります。<strong>送金は何度も繰り返す</strong>ため、1回あたりの差が積み重なります。
+  </p>
+
+  <h4>① 「販売所」ではなく「取引所(板取引)」で買う</h4>
+  <p>
+    国内取引所には、たいてい2つの購入窓口があります。初心者向けの<strong>販売所</strong>と、ユーザー同士が売買する<strong>取引所(板取引)</strong>です。
+    見落とされがちですが、両者の<strong>実質コストは桁違い</strong>です。
+  </p>
+  <table>
+    <thead><tr><th>窓口</th><th>仕組み</th><th>実質コスト(目安)</th><th>向き</th></tr></thead>
+    <tbody>
+      <tr><td>販売所</td><td>業者と相対で売買 (ワンタップ)</td><td><strong>スプレッドが数%に達することも</strong></td><td>手軽だが割高</td></tr>
+      <tr><td>取引所 (板取引)</td><td>ユーザー同士の注文板で売買</td><td>取引手数料は<strong>概ね 0.0〜0.1% 程度</strong></td><td>送金用に向く</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>スプレッドは「見えない手数料」</strong>
+    販売所は「手数料無料」と表示されることが多いですが、実際には<strong>買値と売値の差(スプレッド)</strong>として数%のコストが価格に織り込まれています。
+    たとえば 10 万円分を販売所(スプレッド 3% と仮定)で買うと、その時点で約 3,000 円が目減りします。
+    一方、取引所(板取引)の取引手数料は概ね 0.0〜0.1% 程度。<strong>送金前提でまとまった額を扱うなら、取引所(板取引)で買うのが基本</strong>です。
+    ※ 数値は一般的な目安で、通貨・時間帯・業者により変動します。実際の値は各社の取引画面で確認してください。
+  </div>
+  <p class="text-xs">
+    出典: <a href="https://diamond.jp/crypto/exchange/spread/" rel="noopener noreferrer" target="_blank">仮想通貨スプレッド比較 (ダイヤモンド・ザイ)</a> /
+    <a href="https://www.soico.jp/no1/news/cryptocurrency/21748" rel="noopener noreferrer" target="_blank">販売所と取引所の違い</a>
+  </p>
+
+  <h4>② 「送金手数料の安い通貨」を選ぶ(業者対応が前提)</h4>
+  <p>
+    送金(出庫)手数料は<strong>通貨ごとに大きく異なります</strong>。ビットコイン(BTC)はネットワーク手数料が高くなりがちで、
+    XRP・XLM などは送金手数料が低く着金も速い傾向があります。<strong>海外 FX 業者が対応している通貨の中で、送金コストの低いものを選ぶ</strong>のが鉄則です。
+  </p>
+  <table>
+    <thead><tr><th>取引所</th><th>送金(送付)手数料の例</th></tr></thead>
+    <tbody>
+      <tr><td>bitbank</td><td>BTC: 0.0006 BTC/回、XRP: 0.1 XRP/回(銘柄ごとに設定)</td></tr>
+      <tr><td>GMOコイン</td><td>全銘柄 無料(公式)</td></tr>
+      <tr><td>SBI VCトレード</td><td>入出庫 無料(公式)</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>「送金手数料無料の取引所 × 業者対応通貨」が最小コスト</strong>
+    たとえば BTC は、bitbank では 1 回 0.0006 BTC(価格次第で数千円相当)かかりますが、
+    GMOコイン・SBI VCトレードは送付手数料が無料です。送金回数が多いほど、この差が効いてきます。
+    ただし<strong>必ず海外 FX 側が対応している通貨・ネットワークに合わせる</strong>こと(対応外へ送ると資産を失います)。
+  </div>
+  <ul>
+    <li>海外 FX 業者の入金ページで<strong>対応通貨とネットワーク</strong>を先に確認する。</li>
+    <li>その対応通貨の中で<strong>送金手数料が安い通貨</strong>を、<strong>取引所(板取引)で</strong>購入する。</li>
+    <li>送金手数料が無料の取引所(GMOコイン・SBI VCトレード等)なら、通貨側のネットワーク手数料負担を抑えやすい。</li>
+  </ul>
+  <p class="text-xs">
+    出典: <a href="https://bitbank.cc/guide/fee" rel="noopener noreferrer" target="_blank">bitbank 手数料</a> /
+    <a href="https://coin.z.com/jp/corp/guide/fees/" rel="noopener noreferrer" target="_blank">GMOコイン 手数料</a> /
+    <a href="https://www.sbivc.co.jp/services/fee" rel="noopener noreferrer" target="_blank">SBI VCトレード 手数料</a>(いずれも各社公式・変更されることがあります)
+  </p>
+
+  <h3>STEP 3: 海外 FX 口座の「入金アドレス」を取得</h3>
+  <ul>
+    <li>海外 FX のマイページ → 入金 → 仮想通貨 → 通貨を選ぶと、<strong>入金用アドレス</strong>と<strong>ネットワーク (チェーン)</strong> が表示される。</li>
+    <li>この 2 つ (アドレス + ネットワーク) を正確にコピーする。</li>
+  </ul>
+
+  <!-- 図解: 送金時の確認 3 点 -->
+  <figure>
+    <svg viewBox="0 0 760 200" role="img" aria-label="送金時に必ず確認する3点(アドレス・ネットワーク・少額テスト)の図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="200" fill="#f8fafc" rx="8"/>
+      <text x="380" y="32" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#b91c1c">送金前の必須確認 3 点 (1 つでも誤ると資産喪失)</text>
+      <g font-family="'Noto Sans JP',sans-serif">
+        <rect x="40" y="60" width="210" height="90" rx="8" fill="#fff" stroke="#b91c1c" stroke-width="1.5"/>
+        <text x="145" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#1B4965">① アドレス一致</text>
+        <text x="145" y="116" text-anchor="middle" font-size="10" fill="#475569">コピペ + 先頭末尾を</text>
+        <text x="145" y="132" text-anchor="middle" font-size="10" fill="#475569">目視で再確認</text>
+        <rect x="275" y="60" width="210" height="90" rx="8" fill="#fff" stroke="#b91c1c" stroke-width="1.5"/>
+        <text x="380" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#1B4965">② ネットワーク一致</text>
+        <text x="380" y="116" text-anchor="middle" font-size="10" fill="#475569">送金側と受取側の</text>
+        <text x="380" y="132" text-anchor="middle" font-size="10" fill="#475569">チェーンを揃える</text>
+        <rect x="510" y="60" width="210" height="90" rx="8" fill="#fff" stroke="#225770" stroke-width="1.5"/>
+        <text x="615" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#225770">③ 少額テスト送金</text>
+        <text x="615" y="116" text-anchor="middle" font-size="10" fill="#475569">初回は最小額で</text>
+        <text x="615" y="132" text-anchor="middle" font-size="10" fill="#475569">着金を確認してから</text>
+      </g>
+      <text x="380" y="180" text-anchor="middle" font-size="11" fill="#334155">特にネットワーク違い (例: ERC20 と BEP20 の取り違え) は典型的な喪失原因</text>
+    </svg>
+    <figcaption>図: 送金時はアドレス・ネットワーク・少額テストの 3 点を必ず確認。間違えた送金は取り消せない。</figcaption>
+  </figure>
+
+  <h3>STEP 4: 国内取引所から送金 (出庫)</h3>
+  <ul>
+    <li>国内取引所の「送金 / 出庫」画面で、STEP 3 のアドレスを貼り付け、<strong>同じネットワーク</strong>を選択。</li>
+    <li><strong>初回は必ず少額でテスト送金</strong>。着金を確認してから本番額を送る。</li>
+    <li>送金完了後、数分〜数十分でブロックチェーン上の承認が進み、海外 FX 口座に着金する。</li>
+  </ul>
+
+  <h2>出金の手順 (海外 FX 口座 → 日本円)</h2>
+  <p>出金は入金の逆をたどります。<strong>マネロン対策上、多くの業者で「入金と同じ方法・同じ通貨での出金」が原則</strong>です。</p>
+  <ol>
+    <li><strong>海外 FX で出金申請</strong> — 出金 → 仮想通貨 → 国内取引所の<strong>受取アドレス</strong>とネットワークを指定。</li>
+    <li><strong>国内取引所で受け取り</strong> — 着金後、その仮想通貨を<strong>日本円に売却</strong>。</li>
+    <li><strong>日本円を銀行へ出金</strong> — 取引所から自分の銀行口座へ。</li>
+  </ol>
+
+  <h2>税務 — 記録は必ず残す</h2>
+  <div class="callout">
+    <strong>2 種類の課税が発生しうる</strong>
+    (1) <strong>FX の利益</strong> (海外 FX は雑所得・総合課税 / 累進)、(2) <strong>仮想通貨の売買差益</strong> (購入時と売却時の差。雑所得)。
+    入出金のたびに「日時・通貨・数量・日本円換算額」を記録しておくと確定申告で困りません。税務の詳細は税理士にご確認ください。
+  </div>
+
+  <h2>失敗しないためのチェックリスト</h2>
+  <ul>
+    <li>☑ 国内取引所は<strong>金融庁登録</strong>業者か</li>
+    <li>☑ 購入は<strong>販売所ではなく取引所(板取引)</strong>を使ったか(スプレッド回避)</li>
+    <li>☑ 海外 FX が<strong>対応する通貨</strong>のうち<strong>送金手数料の安い通貨</strong>を選んだか</li>
+    <li>☑ 入金アドレスを<strong>コピペ + 目視</strong>で確認したか</li>
+    <li>☑ 送金側と受取側の<strong>ネットワークが一致</strong>しているか</li>
+    <li>☑ 初回は<strong>少額テスト送金</strong>をしたか</li>
+    <li>☑ 入出金の<strong>記録</strong>を残したか</li>
+  </ul>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>入金: 国内取引所で購入 → 海外 FX のアドレスへ送金 → 着金</li>
+    <li>購入は<strong>販売所(数%スプレッド)を避け、取引所(板取引・手数料0.0〜0.1%程度)</strong>で買う</li>
+    <li>送金は<strong>業者対応通貨の中で手数料の安い通貨</strong>を選ぶ(送付無料の取引所ならなお有利)</li>
+    <li>出金: 海外 FX から国内取引所へ送金 → 日本円化 → 銀行へ</li>
+    <li>最大のリスクは<strong>アドレス・ネットワークの取り違え</strong>。少額テストで防ぐ</li>
+    <li>FX 利益と仮想通貨差益の両方が課税対象。記録を残す</li>
+  </ul>
+
+  <p>
+    関連 → <a href="/blog/funding-2026-regulation/">改正資金決済法と入出金リスク</a> /
+    <a href="/blog/funding-crypto-route/">信頼できる業者の選び方</a>
+  </p>
+
+</BlogArticle>

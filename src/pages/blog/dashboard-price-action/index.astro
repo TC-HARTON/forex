@@ -1,0 +1,126 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-price-action">
+
+  <p>
+    プライスアクションとは、インジケーターを介さずに「ローソク足の形そのもの」から相場心理を読む手法です。
+    本ダッシュボードは <strong>M15 (15 分足) のみ</strong>でパターンを検出します。本記事では、各パターンの<strong>厳密な数学的定義</strong>と、
+    なぜ「構造レベルに接触したときだけ」表示するのかを解説します。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 220" role="img" aria-label="ピンバー・包み足・インサイドバーのローソク足パターン図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="220" fill="#f8fafc" rx="8"/>
+      <!-- ピンバー(ブル) -->
+      <text x="100" y="30" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">ピンバー (ブル)</text>
+      <line x1="100" y1="55" x2="100" y2="160" stroke="#334155" stroke-width="2"/>
+      <rect x="90" y="55" width="20" height="28" fill="#1B4965"/>
+      <text x="100" y="185" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">下ヒゲ≥実体×2</text>
+      <text x="100" y="200" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">買い圧力</text>
+      <!-- 強気包み足 -->
+      <text x="290" y="30" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">強気包み足</text>
+      <line x1="265" y1="80" x2="265" y2="140" stroke="#b91c1c" stroke-width="1.5"/>
+      <rect x="257" y="95" width="16" height="30" fill="#fff" stroke="#b91c1c"/>
+      <line x1="305" y1="60" x2="305" y2="160" stroke="#1B4965" stroke-width="1.5"/>
+      <rect x="295" y="75" width="20" height="70" fill="#1B4965"/>
+      <text x="290" y="185" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">前足を陽線が</text>
+      <text x="290" y="200" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">完全に包む</text>
+      <!-- インサイドバー -->
+      <text x="500" y="30" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">インサイドバー</text>
+      <line x1="470" y1="55" x2="470" y2="165" stroke="#334155" stroke-width="1.5"/>
+      <rect x="462" y="75" width="16" height="70" fill="#cbd5e1"/>
+      <line x1="510" y1="90" x2="510" y2="130" stroke="#334155" stroke-width="1.5"/>
+      <rect x="502" y="100" width="16" height="20" fill="#94a3b8"/>
+      <rect x="455" y="50" width="70" height="120" fill="none" stroke="#2c6e8c" stroke-width="1" stroke-dasharray="3 2"/>
+      <text x="500" y="185" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">前足の範囲に</text>
+      <text x="500" y="200" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">収まる(溜め)</text>
+      <!-- 注記 -->
+      <text x="600" y="100" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#b91c1c">構造レベル接触</text>
+      <text x="600" y="118" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#b91c1c">時のみ表示</text>
+    </svg>
+    <figcaption>図: 主要なプライスアクション。ヒゲと実体の比率で厳密に判定し、構造レベルに接触したものだけをシグナル候補にする。</figcaption>
+  </figure>
+
+  <h2>なぜ M15 だけなのか</h2>
+  <p>
+    本システムで M15 は「<strong>執行トリガー</strong>」の時間足です。上位足 (D1/H4/H1) で方向と構造を固め、最後に M15 のローソク足で
+    「いま入るか」のタイミングを計ります。だからプライスアクションは執行 TF である M15 に限定し、他の足では検出しません。
+    あちこちの足でパターンを拾うと、かえって判断が濁るためです。
+  </p>
+
+  <h2>検出パターンと数学的定義</h2>
+  <p>「なんとなくピンバーっぽい」ではなく、ヒゲと実体の比率で厳密に判定します。</p>
+
+  <h3>ピンバー (反転を示す長いヒゲ)</h3>
+  <table>
+    <thead><tr><th>パターン</th><th>定義</th></tr></thead>
+    <tbody>
+      <tr><td>ピンバー (ブル / 買い)</td><td>下ヒゲ ≥ 実体 × 2 かつ 上ヒゲ &lt; 実体 × 0.3</td></tr>
+      <tr><td>ピンバー (ベア / 売り)</td><td>上ヒゲ ≥ 実体 × 2 かつ 下ヒゲ &lt; 実体 × 0.3</td></tr>
+    </tbody>
+  </table>
+  <p>
+    ブルのピンバーは「いったん下げたが、長い下ヒゲを残して押し戻された = 買い圧力」を意味します。
+    下ヒゲが実体の 2 倍以上、かつ上ヒゲがほぼ無い (実体の 0.3 倍未満) という条件で、形のはっきりしたものだけを拾います。
+  </p>
+
+  <h3>包み足 (エンガルフィング)</h3>
+  <table>
+    <thead><tr><th>パターン</th><th>定義</th></tr></thead>
+    <tbody>
+      <tr><td>強気包み足</td><td>当該足の陽線実体が、前足の陰線実体を完全に包含</td></tr>
+      <tr><td>弱気包み足</td><td>当該足の陰線実体が、前足の陽線実体を完全に包含</td></tr>
+    </tbody>
+  </table>
+  <p>強気包み足は「前の弱気を打ち消して上回る買い勢力の出現」を示します。</p>
+
+  <h3>インサイドバーと、そのブレイク</h3>
+  <table>
+    <thead><tr><th>パターン</th><th>定義</th></tr></thead>
+    <tbody>
+      <tr><td>インサイドバー</td><td>当該足の高値・安値が前足の範囲内に完全に収まる</td></tr>
+      <tr><td>インサイドバーブレイク</td><td>インサイドバー直後の N 本目で、その範囲を方向ブレイク</td></tr>
+      <tr><td>3 バー反転</td><td>3 本連続の反転構造</td></tr>
+    </tbody>
+  </table>
+  <p>
+    インサイドバーは「エネルギーの溜め (収縮)」を表し、その後のブレイク方向に勢いが出やすいパターンです。
+  </p>
+
+  <h2>最重要 — 構造レベル接触時のみ表示する</h2>
+  <p>
+    ここが本システムの設計思想の核心です。M15 でピンバーが出ても、<strong>それ単体では UI に表示しません</strong>。
+  </p>
+  <pre><code>パターン検出 → 構造レベルに接触しているか?
+   接触している → ハイライト表示 (シグナル候補)
+   接触していない → 内部記録のみ (UI に出さない)</code></pre>
+  <div class="callout">
+    <strong>なぜ単体では出さないのか</strong>
+    プライスアクションは相場のあらゆる場所で頻繁に発生します。何もない価格帯のピンバーは「ノイズ」に過ぎません。
+    一方、<strong>前日高値や下降トレンドラインといった構造的レベルで出たピンバー</strong>は、「多くの参加者が意識する場所での反発」=
+    意味のあるサインです。構造 (一次根拠) と価格行動 (二次確認) が<strong>重なった瞬間だけ</strong>を抽出することで、だましを大幅に減らします。
+  </div>
+
+  <h2>裁量での使い方</h2>
+  <ol>
+    <li>上位足 (D1/H4) で方向を確認 (BIAS スコア)</li>
+    <li>H1 でエントリーゾーン (構造レベル) を特定</li>
+    <li>そのレベルに価格が接触</li>
+    <li><strong>M15 でプライスアクションが点灯</strong> → エントリー検討</li>
+    <li>ATR を基準に損切り幅を算出</li>
+  </ol>
+  <p>プライスアクションは、この流れの「最後の引き金」を担います。</p>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>検出は執行 TF である M15 のみ</li>
+    <li>ピンバー・包み足・インサイドバーをヒゲ/実体の比率で厳密に定義</li>
+    <li>構造レベルに接触したパターンだけを表示し、単体のノイズは除外</li>
+    <li>「構造 + 価格行動」が重なった点をエントリーの引き金にする</li>
+  </ul>
+
+  <p>関連: <a href="/blog/dashboard-structure-levels/">自動検出する構造レベル</a></p>
+
+</BlogArticle>

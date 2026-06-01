@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+const next = [
+  { href: '/method/', label: '裁量手法を読む' },
+  { href: '/dashboard/', label: 'ダッシュボード解説' },
+  { href: '/broker/', label: 'ブローカー比較' },
+  { href: '/blog/', label: 'Blog 最新記事' },
+];
+---
+
+<BaseLayout
+  title="送信ありがとうございました | T.C.HARTON"
+  description="お問い合わせを受け付けました。通常 2〜3 営業日以内に info@tcharton.com より返信します。返信が届かない場合は迷惑メールフォルダのご確認、または直接メールでのご連絡をお願いします。"
+  canonicalPath="/contact/thanks/"
+  robots="noindex,follow"
+>
+  <section class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+      <span class="absolute -top-10 right-4 sm:right-20 w-48 h-48 rounded-full bg-teal-200/40 blur-3xl fx-glow"></span>
+      <span class="absolute top-32 -left-10 w-56 h-56 rounded-full bg-teal-100/50 blur-3xl fx-float"></span>
+    </div>
+
+    <div class="text-center max-w-2xl mx-auto py-16 sm:py-24">
+      <span class="fade-up relative mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-teal-50 text-teal-700">
+        <span class="absolute inset-0 rounded-full bg-teal-400/25 fx-pulse-ring" aria-hidden="true"></span>
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      </span>
+
+      <h1 class="fade-up d1 mt-6 text-2xl sm:text-3xl font-display font-bold text-dark-900">送信ありがとうございました</h1>
+      <p class="fade-up d2 mt-4 text-dark-700 leading-relaxed">
+        お問い合わせを受け付けました。<br class="hidden sm:block" />
+        通常 <strong class="text-dark-900">2〜3 営業日以内</strong>に <a href="mailto:info@tcharton.com" class="underline text-teal-700">info@tcharton.com</a> より返信します。
+      </p>
+      <p class="fade-up d2 mt-3 text-sm text-dark-500 leading-relaxed">
+        数日たっても返信が届かない場合、迷惑メールフォルダのご確認、または直接メールでのご連絡をお願いします。
+      </p>
+
+      <div class="fade-up d3 mt-9">
+        <a href="/" class="btn-pop inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-teal-700 text-white font-bold text-sm hover:bg-teal-800">
+          トップページへ戻る
+          <svg class="arrow-go" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="fade-up d3 mt-12 grid grid-cols-2 gap-3 text-sm">
+        {next.map((n) => (
+          <a href={n.href} class="card-lift py-3 px-2 rounded-lg bg-dark-50 border border-dark-100 text-dark-700 hover:bg-teal-50 hover:border-teal-200 hover:text-teal-700 transition-colors">{n.label}</a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

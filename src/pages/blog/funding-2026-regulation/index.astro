@@ -1,0 +1,147 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+
+const faq = [
+  {
+    q: '2026年の改正で海外FXの入出金はすぐに使えなくなりますか？',
+    a: '改正資金決済法はクロスボーダー収納代行を「為替取引」と位置づけ、登録業者しか扱えない方向に進みます。施行時期や経過措置によって影響の出方は異なるため、各入出金業者の最新告知と金融庁の公表情報を確認してください（本記事は教育目的の整理です）。',
+  },
+  {
+    q: '銀行送金やbitwalletなどの既存の入出金は止まりますか？',
+    a: 'サービス停止が確定したわけではありませんが、収納代行型の入出金は規制対象に入る可能性があり、口座凍結や送金不可のリスクが指摘されています。代替として、国内外の暗号資産交換業者を経由するルートが検討されています。',
+  },
+  {
+    q: 'この規制変更の根拠はどこで確認できますか？',
+    a: '金融庁が公表する資金決済制度に関する資料と、改正資金決済法の条文が一次情報です。本記事はそれらに基づいて内容を整理しています。',
+  },
+];
+---
+
+<BlogArticle slug="funding-2026-regulation" faq={faq}>
+
+  <p>
+    海外 FX を使う上で最大の懸念は「入金できるか・出金できるか」です。そして 2025〜2026 年、その入出金環境が
+    <strong>法改正によって大きく変わろうとしています</strong>。本記事は憶測ではなく、金融庁および法律事務所の<strong>一次情報</strong>に基づいて、
+    何が・いつ・どう変わるのかを正確に整理します。
+  </p>
+
+  <div class="callout">
+    <strong>本記事の位置付け</strong>
+    本記事は法令・制度の<strong>解説 (教育目的)</strong> であり、特定の業者の利用を推奨・勧誘するものではありません。
+    法的助言でもありません。実際の判断は最新の公式情報と専門家への確認に基づいて行ってください。
+  </div>
+
+  <h2>結論 — 何が起きているか</h2>
+  <ul>
+    <li><strong>改正資金決済法</strong>が 2025 年 6 月 6 日に成立、6 月 13 日に公布された。</li>
+    <li>施行は「公布の日から起算して<strong>1 年を超えない範囲で政令が定める日</strong>」=<strong>2026 年 6 月までに施行</strong>。</li>
+    <li>「<strong>クロスボーダー収納代行</strong>」(国境をまたぐ資金移動の代行) が、原則<strong>「為替取引に該当する」と明記</strong>された。</li>
+    <li>これにより、海外 FX の入出金を仲介する収納代行型サービス (例: bitwallet・STICPAY 等) が<strong>資金移動業の登録を必要とする</strong>可能性が高い。</li>
+    <li>登録しない業者は、経過措置 (後述) 終了後に<strong>サービス終了</strong>を迫られる。</li>
+  </ul>
+
+  <h2>① 改正資金決済法の日付 (一次情報)</h2>
+  <table>
+    <thead><tr><th>項目</th><th>内容</th></tr></thead>
+    <tbody>
+      <tr><td>成立</td><td>2025 年 6 月 6 日 (衆参両院で可決)</td></tr>
+      <tr><td>公布</td><td>2025 年 6 月 13 日</td></tr>
+      <tr><td>施行</td><td>公布日から 1 年を超えない範囲で政令が定める日 (= <strong>2026 年 6 月まで</strong>に施行)</td></tr>
+    </tbody>
+  </table>
+  <p class="text-xs">
+    出典: <a href="https://www.fsa.go.jp/common/diet/217/02/setsumei.pdf" rel="noopener noreferrer" target="_blank">金融庁「資金決済に関する法律の一部を改正する法律案」</a> /
+    <a href="https://www.businesslawyers.jp/articles/1476" rel="noopener noreferrer" target="_blank">BUSINESS LAWYERS「改正資金決済法の概要と実務対応」</a>
+  </p>
+
+  <h2>② 核心: 「クロスボーダー収納代行」が為替取引に</h2>
+  <p>
+    「収納代行」とは、本来の受取人に代わって第三者が代金を回収する仕組みです。海外 FX の入出金では、
+    利用者と海外ブローカーの間に入って資金を取り次ぐサービス (オンラインウォレット等) がこれに当たります。
+  </p>
+  <blockquote cite="https://www.businesslawyers.jp/articles/1476">
+    改正法は「国内から国外へ向けて資金を移動させ、又は国外から国内へ向けて資金を移動させる」行為について、
+    一定の適用除外類型に該当しないものは<strong>「為替取引に該当する」</strong>ことを明記した。
+  </blockquote>
+  <p>
+    「為替取引」に該当すると、その業務を行うには<strong>銀行業の免許または資金移動業の登録</strong>が必要になります (資金決済法)。
+    つまり、これまで登録なしで運営されてきた収納代行型の入出金サービスは、登録しない限り続けられなくなります。
+  </p>
+
+  <!-- 図解: 収納代行の構造と規制 -->
+  <figure>
+    <svg viewBox="0 0 760 240" role="img" aria-label="利用者と海外FX業者の間に入る収納代行業者が規制対象になる構造図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="240" fill="#f8fafc" rx="8"/>
+      <!-- 利用者 -->
+      <rect x="30" y="90" width="140" height="60" rx="8" fill="#fff" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="100" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B4965">利用者</text>
+      <text x="100" y="138" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">(日本)</text>
+      <!-- 収納代行 (規制対象) -->
+      <rect x="300" y="80" width="160" height="80" rx="8" fill="#fee2e2" stroke="#b91c1c" stroke-width="2"/>
+      <text x="380" y="108" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#b91c1c">収納代行業者</text>
+      <text x="380" y="128" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#b91c1c">(ウォレット等)</text>
+      <text x="380" y="146" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#7a1f2b">← 為替取引として規制対象</text>
+      <!-- 海外FX -->
+      <rect x="590" y="90" width="140" height="60" rx="8" fill="#fff" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="660" y="118" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B4965">海外 FX 業者</text>
+      <text x="660" y="138" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">(国外)</text>
+      <!-- 矢印 -->
+      <line x1="170" y1="120" x2="295" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#fa)"/>
+      <line x1="465" y1="120" x2="585" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#fa)"/>
+      <text x="380" y="200" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">国境をまたぐ資金移動 = クロスボーダー収納代行</text>
+      <defs><marker id="fa" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"/></marker></defs>
+    </svg>
+    <figcaption>図: 利用者と海外 FX 業者の間で資金を取り次ぐ収納代行業者が、改正法で「為替取引」として規制対象になる。</figcaption>
+  </figure>
+
+  <h2>③ 経過措置 — いきなり止まるわけではない</h2>
+  <p>急に全停止するわけではなく、移行のための経過措置が設けられています。</p>
+  <ul>
+    <li>施行日から <strong>6 か月間</strong>は、登録なしでも継続して営業できる。</li>
+    <li>その 6 か月以内に登録を申請した業者は、<strong>施行日から最長 2 年</strong>まで登録完了まで営業可。</li>
+    <li>申請しない業者は、<strong>6 か月以内にサービスを終了</strong>する必要がある。</li>
+  </ul>
+  <p class="text-xs">
+    出典: <a href="https://www.businesslawyers.jp/articles/1476" rel="noopener noreferrer" target="_blank">BUSINESS LAWYERS「令和8年6月施行!改正資金決済法の概要と実務対応」</a> /
+    <a href="https://www.fsa.go.jp/news/r7/sonota/20251216/20251216.html" rel="noopener noreferrer" target="_blank">金融庁 政令案パブリックコメント (令和7年改正)</a>
+  </p>
+
+  <h2>④ 実務で何が起きているか</h2>
+  <p>
+    法改正の公布以降、SNS では「海外 FX 利用を理由とした国内銀行口座の凍結・利用制限」の報告が増えていると複数のメディアが伝えています。
+    また、bitwallet・STICPAY などの収納代行型ウォレットは、2026 年時点で日本の資金移動業登録を受けていないため、
+    規制対象となればサービスが停止する可能性が指摘されています。
+  </p>
+  <div class="callout">
+    <strong>注意 — これは「予測」を含みます</strong>
+    口座凍結の増加や特定サービスの停止可能性は、報道・業界解説に基づく<strong>見通し</strong>であり、確定した事実ではありません。
+    確定しているのは「改正法の成立・公布」「クロスボーダー収納代行の為替取引該当の明記」「経過措置の枠組み」までです。
+  </div>
+
+  <h2>⑤ では、どうすればよいか</h2>
+  <p>
+    収納代行型の入出金 (国内銀行送金・一部ウォレット) が不透明になる中、注目されているのが<strong>仮想通貨 (暗号資産) ルート</strong>です。
+    銀行を経由せず、ブロックチェーン上で直接送受金するため、収納代行規制の影響を受けにくいという特性があります。
+  </p>
+  <ul>
+    <li>着金が速い (土日祝日を問わず数分〜数十分)</li>
+    <li>収納代行業者を介さない (利用者の資産として直接移動)</li>
+    <li>主要海外 FX 業者が仮想通貨入出金に対応を進めている</li>
+  </ul>
+  <p>
+    ただし仮想通貨ルートにも、取引所選び・送金ミスのリスク・税務記録といった注意点があります。次の記事で具体的に解説します。
+  </p>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>改正資金決済法は 2025/6/6 成立・6/13 公布、2026 年 6 月までに施行</li>
+    <li>クロスボーダー収納代行が「為替取引」と明記 → 資金移動業の登録が必要に</li>
+    <li>経過措置は施行から 6 か月 (申請業者は最長 2 年)</li>
+    <li>収納代行型の入出金は不透明化。仮想通貨ルートが現実的な代替として注目</li>
+  </ul>
+
+  <p>
+    次の記事 → <a href="/blog/funding-crypto-route/">仮想通貨で海外 FX に入出金する手順 — 信頼できる業者の選び方</a>
+  </p>
+
+</BlogArticle>

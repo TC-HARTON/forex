@@ -1,0 +1,82 @@
+{
+  "_note": "IC Markets 推薦記事の根拠データ (全て海外評価サイト一次情報 / 2026 取得)",
+  "_disclaimer": "本データは公開情報に基づく参考情報であり、特定ブローカーへの口座開設を強制・断定するものではありません。海外 FX 業者は金融庁未登録です。口座開設は自己責任で各社最新規約を確認してください。",
+  "_affiliate_disclosure": "本記事には IC Markets のアフィリエイト (IB) リンクを含みます。当リンク経由で口座開設された場合、運営者に紹介報酬が支払われます。評価・順位は報酬の有無で操作していません。すべて出典付きの第三者評価に基づきます。",
+  "_updated": "2026-05-27",
+  "broker": {
+    "name": "IC Markets",
+    "entity_global": "Raw Trading Ltd (IC Markets Global)",
+    "entity_au": "International Capital Markets Pty Ltd",
+    "entity_eu": "IC Markets (EU) Ltd",
+    "founded": 2007,
+    "official_url": "https://www.icmarkets.com/global/en/",
+    "affiliate_url": "https://example.com/icmarkets-IB-placeholder"
+  },
+  "ratings": [
+    {
+      "source": "ForexBrokers.com",
+      "score": "4.5 / 5",
+      "detail": "2026 Annual Award: #1 MetaTrader Broker / #1 Algo Trading / Best in Class: Trading Fees。Trust Score 83/99。",
+      "url": "https://www.forexbrokers.com/reviews/ic-markets"
+    },
+    {
+      "source": "Trustpilot (icmarkets.com / Global)",
+      "score": "4.8 / 5",
+      "detail": "レビュー約 52,000 件超 / 91% が 5 星評価 (2026 年時点)。",
+      "url": "https://www.trustpilot.com/review/icmarkets.com"
+    },
+    {
+      "source": "Traders Union",
+      "score": "Tier-1 高信頼",
+      "detail": "ASIC + CySEC の 2 つの Tier-1 規制で Trust Score 84/99。",
+      "url": "https://tradersunion.com/brokers/forex/view/ic_markets/"
+    }
+  ],
+  "regulation": [
+    { "regulator": "ASIC (オーストラリア)", "tier": "Tier-1", "entity": "International Capital Markets Pty Ltd", "license": "AFSL 335692" },
+    { "regulator": "CySEC (キプロス / EU)", "tier": "Tier-1", "entity": "IC Markets (EU) Ltd", "license": "362/18" },
+    { "regulator": "FSA (セーシェル)", "tier": "オフショア", "entity": "Raw Trading Ltd", "license": "SD018" }
+  ],
+  "fund_protection": {
+    "segregation": "顧客資金分別管理 (AA 格付け銀行)",
+    "negative_balance_protection": true,
+    "eu_icf": "EU 顧客は投資家補償基金 (ICF) 最大 €20,000 補償",
+    "source_url": "https://www.icmarkets.com/global/en/company/regulation"
+  },
+  "cost": {
+    "raw_spread_eurusd_pips": 0.1,
+    "raw_spread_eurusd_min_pips": 0.0,
+    "commission_round_turn_usd": "6〜7 (口座種別による)",
+    "standard_account_note": "標準口座スプレッドは第三者評価で世界最狭水準と報告 (ForexBrokers.com)",
+    "source_url": "https://www.icmarkets.com/global/en/trading-accounts/raw-spread-account"
+  },
+  "execution": {
+    "latency_ny4_ms": "平均 40ms 未満 (Equinix NY4)",
+    "ctrader_latency_ms": "1ms 未満 (Equinix LD5 / 主要 VPS コロケーション)",
+    "model": "No Dealing Desk (NDD) / ESP / リクオートなし",
+    "scalping": "スキャルピング無制限許可",
+    "liquidity_providers": "25+ (JPMorgan / HSBC / Citibank / UBS 等 Tier-1 銀行含む)",
+    "source_url": "https://www.icmarkets.com/global/en/trading-accounts/raw-spread-account"
+  },
+  "volume": {
+    "daily_usd": "約 813 億ドル (Q4 2025 平均)",
+    "monthly_usd_peak": "1.76 兆ドル (Q4 2025 月次最高)",
+    "automated_ratio": "全取引の 2/3 以上が自動売買由来",
+    "source_url": "https://traderspartner.com/ic-markets/review"
+  },
+  "xauusd": {
+    "note": "XAUUSD (ゴールド) は Raw Spread 口座で低スプレッド + NDD 約定。トレード時間 01:02〜23:57 (MT4 サーバー時間)。",
+    "myfxbook_url": "https://www.myfxbook.com/forex-broker-spreads/ic-markets/2545,51"
+  },
+  "platforms": ["MetaTrader 4", "MetaTrader 5", "cTrader", "TradingView 連携"],
+  "cons": [
+    { "point": "教育コンテンツ・リサーチは発展途上", "source": "ForexBrokers.com" },
+    { "point": "独自スマホアプリなし (MT4/MT5/cTrader 標準アプリを使用)", "source": "ForexBrokers.com" },
+    { "point": "海外業者のため金融庁未登録 (利益は雑所得・累進課税)", "source": "一般的な海外 FX 共通事項" }
+  ],
+  "reviews_themes": {
+    "positive": ["低スプレッド", "約定が速い", "出金がスムーズ", "サポートの対応が速い"],
+    "negative": ["一部で入金反映の遅延報告", "出金に時間がかかったとの声", "プラットフォーム UI への要望"],
+    "source": "Trustpilot (icmarkets.com) レビュー傾向の要約"
+  }
+}

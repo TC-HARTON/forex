@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Live', item: 'https://tcharton.com/live/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+
+// Cloudflare Tunnel 経由の Dash サーバ (公開モード)
+// 代表 PC localhost:8050 → tunnel → live.tcharton.com (DNS 設定後)
+const LIVE_URL = 'https://live.tcharton.com/';
+---
+
+<BaseLayout
+  title="Live | MT5_Python リアルタイム ダッシュボード | T.C.HARTON"
+  description="MT5_Python ダッシュボードの公開モード ライブ表示。通貨強弱・銘柄パネル・経済指標・相関を WebSocket 1 秒配信。個人情報 (口座・P&L・ポジション) は完全非表示。"
+  canonicalPath="/live/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-4">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Live</span>
+  </nav>
+
+  <header>
+    <div class="flex flex-wrap items-baseline justify-between gap-3">
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-dark-900">
+        MT5_Python リアルタイム ダッシュボード
+      </h1>
+      <p class="text-xs text-dark-700 font-mono">
+        WebSocket 1s 配信 / 代表 PC 直結 (Cloudflare Tunnel)
+      </p>
+    </div>
+    <p id="summary" class="mt-3 text-sm text-dark-700 leading-relaxed">
+      MT5_Python (Phase 5 最適化済 / pytest 134 件) のダッシュボードを公開モードで Live 表示。
+      個人情報 (口座番号 / 残高 / 保有ポジション / P&L) は完全非表示。<strong class="text-dark-900">客観データ可視化のみ</strong>を提供します。
+    </p>
+  </header>
+
+  <!-- 表示モード切替 (Phase 2 でメンバー限定化予定) -->
+  <section aria-label="Live ダッシュボード" class="mt-6 border border-dark-200 rounded bg-white overflow-hidden">
+    <div class="flex items-center gap-3 px-4 py-2 border-b border-dark-200 bg-dark-50">
+      <span class="inline-block w-2 h-2 bg-teal-700 rounded-full animate-pulse" aria-hidden="true"></span>
+      <span class="text-xs text-dark-700">代表 PC (静岡県沼津市) → Cloudflare Tunnel → ブラウザ</span>
+      <a href={LIVE_URL} target="_blank" rel="noopener noreferrer" class="ml-auto text-xs underline text-teal-700">別タブで開く ↗</a>
+    </div>
+
+    <!-- iframe wrapper (16:9 + 最低高さ) -->
+    <div class="relative w-full" style="aspect-ratio: 16/10; min-height: 600px;">
+      <iframe
+        src={LIVE_URL}
+        title="MT5_Python ライブダッシュボード (公開モード)"
+        class="absolute inset-0 w-full h-full border-0"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin"
+        referrerpolicy="no-referrer"
+      ></iframe>
+
+      <!-- Tunnel 停止時 fallback (iframe ロードに失敗した場合の上書き表示は CSS だけでは難しいため、JS で health-check を Phase 1.8 で追加) -->
+    </div>
+
+    <div class="px-4 py-3 border-t border-dark-200 text-xs text-dark-700 leading-relaxed">
+      ライブ画面が表示されない場合: 代表 PC (MT5_Python) が停止中の可能性。
+      復旧まで <a href="/" class="underline text-teal-700">トップの通貨強弱・経済指標</a> (静的データ / 直近 snapshot) をご参照ください。
+    </div>
+  </section>
+
+  <!-- 公開モード説明 -->
+  <section class="mt-8 p-5 border border-dark-200 rounded bg-white text-sm leading-relaxed">
+    <h2 class="font-display font-bold text-base text-dark-900">公開モードで表示されるもの</h2>
+    <ul class="mt-3 grid sm:grid-cols-2 gap-y-1.5 text-dark-700">
+      <li>✅ 通貨強弱 (G7+XAU / H1/H4/D1/W1 切替)</li>
+      <li>✅ 銘柄パネル (10 銘柄 / EMA・ADX・RSI・ATR)</li>
+      <li>✅ 相関ヒートマップ (20/100/500 本切替)</li>
+      <li>✅ 経済指標カレンダー (Forex Factory XML)</li>
+      <li>✅ プライスアクション検出 (pin/engulfing 等)</li>
+      <li>✅ コンフルエンス zones (TL/SR + フラクタル)</li>
+    </ul>
+    <h2 class="mt-5 font-display font-bold text-base text-dark-900">公開モードで非表示 (個人情報保護)</h2>
+    <ul class="mt-3 grid sm:grid-cols-2 gap-y-1.5 text-dark-700">
+      <li>❌ 口座番号 / ブローカー名</li>
+      <li>❌ 残高 / 証拠金 / 必要証拠金</li>
+      <li>❌ 保有ポジション / 含み損益</li>
+      <li>❌ 当日 P&L / 取引履歴</li>
+      <li>❌ 注文サイズ / レバレッジ</li>
+    </ul>
+  </section>
+
+  <!-- 法的明示 -->
+  <section class="mt-8 p-5 border-l-4 border-amber-400 bg-amber-50 rounded-r text-sm leading-relaxed">
+    <h2 class="font-display font-bold text-base text-dark-900">本ライブ表示について</h2>
+    <p class="mt-2 text-dark-800">
+      本ライブダッシュボードは MT5_Python (運営者の自作ツール) の<strong class="text-dark-900">公開モード</strong>を表示しています。
+      表示される全データは市場全体から計算された<strong class="text-dark-900">客観値</strong>であり、
+      運営者個人の売買判断・ポジション・P&L は<strong class="text-dark-900">一切含みません</strong>。
+    </p>
+    <p class="mt-2 text-dark-800">
+      本表示は投資助言業 (金商法 §29) に該当せず、売買シグナル・推奨銘柄の配信ではありません。
+      表示データを使った取引の最終判断と結果は閲覧者ご自身の<strong class="text-dark-900">自己責任</strong>となります。
+      詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> を参照してください。
+    </p>
+  </section>
+
+  <!-- Phase 2 予告 -->
+  <section class="mt-8 p-5 border border-dark-200 rounded bg-white text-sm leading-relaxed">
+    <h2 class="font-display font-bold text-base text-dark-900">Phase 2 (準備中): メンバー限定 / フル機能</h2>
+    <ul class="mt-3 space-y-1.5 text-dark-700">
+      <li>• Cloudflare Zero Trust 認証 (Email OTP / Google)</li>
+      <li>• 月額メンバーシップ (¥1,980 / 月) で /live/ アクセス</li>
+      <li>• Discord 連携 (運営者と直接 Q&A)</li>
+      <li>• ダッシュボード設定 (色 / 銘柄 / TF) のカスタマイズ提案</li>
+    </ul>
+    <p class="mt-3 text-xs text-dark-700">
+      開始通知ご希望の方は <a href="mailto:info@tcharton.com?subject=Phase 2 ライブダッシュボード 開始通知希望" class="underline text-teal-700">info@tcharton.com</a> までご連絡ください。
+    </p>
+  </section>
+</BaseLayout>

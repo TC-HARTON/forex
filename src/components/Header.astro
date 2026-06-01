@@ -1,32 +1,67 @@
 ---
+/**
+ * Header.astro — tcharton.com グローバルナビゲーション
+ *
+ * PC: 横並びナビ (Contact は CTA ボタン)
+ * モバイル: ハンバーガー → 右からスライドするドロワー (menu.js / CSP 'self')
+ */
 const NAV_LINKS = [
-  { label: 'Home',      href: '/',            active: true  },
-  { label: 'Dashboard', href: '/dashboard/',  active: false }, // Week 5-6
-  { label: 'Docs',      href: '/docs/',       active: false }, // Week 3-4
-  { label: 'Blog',      href: '/blog/',       active: false }, // Week 5-6
-  { label: 'Services',  href: '/services/',   active: false }, // Week 3-4
-  { label: 'About',     href: '/about/',      active: false }, // Week 3-4
-  { label: 'Contact',   href: '/contact/',    active: false }, // Week 3-4
+  { label: 'Home',   href: '/' },
+  { label: 'Method', href: '/method/' },
+  { label: 'Dashboard', href: '/dashboard/' },
+  { label: 'Broker', href: '/broker/' },
+  { label: 'Blog',   href: '/blog/' },
+  { label: 'About',  href: '/about/' },
+  { label: 'Contact', href: '/contact/' },
 ];
 ---
 
-<header class="border-b border-[var(--color-border)] bg-[var(--color-surface)]">
-  <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-    <a href="/" class="text-lg font-bold tracking-tight text-[var(--color-text)]">
-      fx.tcharton.com
+<header class="border-b border-dark-200 bg-dark-50">
+  <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between gap-4">
+    <a href="/" class="flex items-center gap-2 font-bold tracking-tight text-dark-900" aria-label="T.C.HARTON ホームへ">
+      <span class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-teal-700 text-white font-display text-sm">fx</span>
+      <span class="text-base sm:text-lg font-display">T.C.HARTON</span>
     </a>
-    <nav>
-      <ul class="flex gap-6 text-sm">
+
+    <!-- PC ナビ -->
+    <nav class="hidden md:block" aria-label="メインナビゲーション">
+      <ul class="flex items-center gap-5 lg:gap-6 text-sm">
         {NAV_LINKS.map((link) => (
           <li>
-            {link.active ? (
-              <a href={link.href} class="hover:text-[var(--color-accent)]">{link.label}</a>
-            ) : (
-              <span class="text-[var(--color-text-muted)] cursor-not-allowed" title="Phase 1 後半で公開">{link.label}</span>
-            )}
+            {link.label === 'Contact'
+              ? <a href={link.href} class="btn-pop inline-flex items-center px-4 py-2 rounded-md bg-teal-700 text-white font-bold hover:bg-teal-800 transition-colors">{link.label}</a>
+              : <a href={link.href} class="text-dark-900 hover:text-teal-700 transition-colors">{link.label}</a>}
           </li>
         ))}
       </ul>
     </nav>
+
+    <!-- モバイル: ハンバーガー -->
+    <button id="menuToggle" type="button" class="md:hidden -mr-2 p-2 text-dark-800 hover:text-teal-700" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobileMenu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
   </div>
+
+  <!-- モバイル: 背景 + ドロワー -->
+  <div id="menuBackdrop" class="menu-backdrop md:hidden" aria-hidden="true"></div>
+  <nav id="mobileMenu" class="mobile-drawer md:hidden" aria-label="モバイルナビゲーション">
+    <div class="flex items-center justify-between px-5 h-[65px] border-b border-dark-100">
+      <span class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-8 h-8 rounded-md bg-teal-700 text-white font-display font-extrabold text-sm">fx</span>
+        <span class="font-display font-bold text-dark-900">T.C.HARTON</span>
+      </span>
+      <button id="menuClose" type="button" class="-mr-2 p-2 text-dark-700 hover:text-teal-700" aria-label="メニューを閉じる">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M6 18L18 6"/></svg>
+      </button>
+    </div>
+    <div class="flex flex-col p-4">
+      {NAV_LINKS.map((link) => (
+        link.label === 'Contact'
+          ? <a href={link.href} class="mt-3 block text-center px-4 py-3.5 rounded-lg bg-teal-700 text-white font-bold hover:bg-teal-800">{link.label}</a>
+          : <a href={link.href} class="block px-3 py-3.5 text-base text-dark-800 hover:text-teal-700 border-b border-dark-100">{link.label}</a>
+      ))}
+    </div>
+  </nav>
 </header>
+
+<script is:inline src="/menu.js" defer></script>

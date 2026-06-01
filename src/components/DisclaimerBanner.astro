@@ -1,10 +1,20 @@
 ---
-// PHASE-0-CONCEPT.md §4-3 (verbatim、書換禁止)
-const DISCLAIMER_TEXT = '⚠ 本ダッシュボードは客観データの可視化であり、投資判断の助言・推奨ではありません。表示されるすべての情報は参考に過ぎず、取引による損益は閲覧者ご自身に帰属します。';
+/**
+ * DisclaimerBanner.astro — 全ページ強制表示の免責バナー
+ *
+ * SPEC §0.2 (投資助言業 非該当宣言) + §4 (UI/UX 全ページ表示) 準拠
+ * 改変禁止: SPEC §0 強制法規に該当
+ */
+const DISCLAIMER_TEXT = '⚠ 本サイトはツール紹介・教育目的であり、投資助言業 (金商法 §29) ではありません。売買シグナル・推奨銘柄は配信しません。FX 取引は元本超過の損失が生じる可能性があり、最終判断は閲覧者の自己責任です。';
 ---
 
-<div role="alert" class="sticky top-0 z-50 bg-[var(--color-warning)] text-black text-sm font-medium">
-  <div class="mx-auto max-w-6xl px-4 py-2 text-center">
+<div
+  role="alert"
+  aria-label="重要: 投資助言業 非該当宣言と損失リスク警告"
+  class="sticky top-0 z-50 bg-amber-100 text-amber-950 text-xs sm:text-sm font-medium border-b border-amber-300"
+>
+  <div class="mx-auto max-w-6xl px-4 py-2 leading-snug">
     {DISCLAIMER_TEXT}
+    <a href="/legal/disclaimer/" class="ml-2 underline hover:text-amber-700 whitespace-nowrap">詳細 →</a>
   </div>
 </div>

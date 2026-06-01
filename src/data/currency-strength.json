@@ -1,0 +1,67 @@
+{
+  "_note": "ECB 公式データ (Frankfurter API) から日次自動計算 (scripts/fetch-currency-strength.mjs) / MT5 不要・完全自動",
+  "_source": "European Central Bank (ECB) via Frankfurter API (https://frankfurter.dev)",
+  "_disclaimer": "本データは参考情報であり、投資判断の助言ではありません",
+  "_method": "G8 法定通貨の対 USD 価値変化率を Z-score 正規化 (0-100 / 平均 50)",
+  "_fetched_at": "2026-05-31T05:52:26.925Z",
+  "_period": "2026-05-22 〜 2026-05-29 (ECB 営業日終値)",
+  "_note_xau": "XAU (ゴールド) は ECB データ非対象のため通貨強弱バーには含めません (XAUUSD は /dashboard で別途)",
+  "currencies": [
+    {
+      "code": "NZD",
+      "name": "NZドル",
+      "bias": 50,
+      "score": 100,
+      "rank": 1
+    },
+    {
+      "code": "AUD",
+      "name": "豪ドル",
+      "bias": 10,
+      "score": 60,
+      "rank": 2
+    },
+    {
+      "code": "CHF",
+      "name": "スイスフラン",
+      "bias": 4,
+      "score": 54,
+      "rank": 3
+    },
+    {
+      "code": "EUR",
+      "name": "ユーロ",
+      "bias": 1,
+      "score": 51,
+      "rank": 4
+    },
+    {
+      "code": "GBP",
+      "name": "英ポンド",
+      "bias": -11,
+      "score": 39,
+      "rank": 5
+    },
+    {
+      "code": "CAD",
+      "name": "加ドル",
+      "bias": -14,
+      "score": 36,
+      "rank": 6
+    },
+    {
+      "code": "JPY",
+      "name": "日本円",
+      "bias": -16,
+      "score": 34,
+      "rank": 7
+    },
+    {
+      "code": "USD",
+      "name": "米ドル",
+      "bias": -31,
+      "score": 19,
+      "rank": 8
+    }
+  ]
+}

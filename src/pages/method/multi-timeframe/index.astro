@@ -1,0 +1,119 @@
+---
+import MethodArticle from '../../../layouts/MethodArticle.astro';
+---
+
+<MethodArticle slug="multi-timeframe">
+
+  <p>
+    裁量トレードで最初に身につけるべきは「<strong>マルチタイムフレーム分析 (MTF)</strong>」です。
+    1 つの時間足だけを見ると、上位足では明確な下降トレンドの中なのに、5 分足の小さな上げを見て買ってしまう——
+    こうした「木を見て森を見ず」の負けを構造的に防ぐのが MTF の役割です。
+  </p>
+
+  <h2>なぜ複数の時間足を見るのか</h2>
+  <p>
+    相場は「入れ子構造 (フラクタル)」になっています。日足の大きな波の中に 4 時間足の波があり、その中に 1 時間足の波がある。
+    同じ瞬間でも、見る時間足によって「上昇」にも「下降」にも見えます。だからこそ、
+    <strong>上位足で全体の方向 (森) を把握し、下位足でエントリーの瞬間 (木) を計る</strong>という役割分担が必要になります。
+  </p>
+
+  <!-- 図解1: 4 段階ズーム -->
+  <figure>
+    <svg viewBox="0 0 760 300" role="img" aria-label="D1 から M15 へ段階的にズームインする 4 時間足の関係図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="300" fill="#f8fafc" rx="8"/>
+      <!-- D1 大波 -->
+      <text x="20" y="30" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1B4965">D1 (日足) — 大局の方向</text>
+      <path d="M20 70 Q 110 45, 200 60 T 380 50 T 560 75 T 740 55" stroke="#1B4965" stroke-width="3" fill="none"/>
+      <rect x="300" y="42" width="120" height="40" fill="none" stroke="#2c6e8c" stroke-width="1.5" stroke-dasharray="4 3" rx="3"/>
+      <!-- 矢印 -->
+      <path d="M360 86 L 360 108" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- H4 中波 -->
+      <text x="20" y="130" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1B4965">H4 (4 時間足) — 主戦 / セットアップ</text>
+      <path d="M20 170 Q 90 150, 160 165 T 320 158 T 480 175 T 740 160" stroke="#2c6e8c" stroke-width="2.5" fill="none"/>
+      <rect x="280" y="150" width="120" height="36" fill="none" stroke="#4a8aa6" stroke-width="1.5" stroke-dasharray="4 3" rx="3"/>
+      <path d="M340 188 L 340 208" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- H1/M15 小波 -->
+      <text x="20" y="232" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1B4965">H1 / M15 — エントリーの瞬間</text>
+      <path d="M20 270 Q 70 255, 120 268 T 220 260 T 320 272 T 440 258 T 560 270 T 740 262" stroke="#7eb0c5" stroke-width="2" fill="none"/>
+      <circle cx="320" cy="272" r="6" fill="#1B4965"/>
+      <text x="334" y="277" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">ここで執行</text>
+      <defs>
+        <marker id="ar" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"/>
+        </marker>
+      </defs>
+    </svg>
+    <figcaption>図1: 上位足の波の一部を拡大すると下位足の波になる。上から方向を受け継ぎ、下で執行する。</figcaption>
+  </figure>
+
+  <h2>4 つの時間足と役割</h2>
+  <p>本サイト (および MT5-Python Trading Dashboard) では、4 つの時間足に明確な役割を割り当てています。</p>
+  <table>
+    <thead><tr><th>時間足</th><th>役割</th><th>見るもの</th></tr></thead>
+    <tbody>
+      <tr><td>D1 (日足)</td><td>方向の許可</td><td>大局が上か下か。これに逆らわない</td></tr>
+      <tr><td>H4 (4 時間足)</td><td>主戦 / セットアップ確定</td><td>押し目・戻りの形、トレンドの勢い</td></tr>
+      <tr><td>H1 (1 時間足)</td><td>エントリーゾーンの精密化</td><td>構造レベルへの接近</td></tr>
+      <tr><td>M15 (15 分足)</td><td>執行トリガー</td><td>プライスアクション (反転の形)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>「トップダウン」で落とし込む手順</h2>
+  <p>必ず<strong>上位足から下位足へ</strong>順に見ます。逆順 (M15 から見る) は木から入る典型的なミスです。</p>
+  <ol>
+    <li><strong>D1 で方向を決める</strong> — 価格が D1 の EMA より上なら「買いのみ狙う」、下なら「売りのみ狙う」。方向を 1 つに絞る。</li>
+    <li><strong>H4 でセットアップを探す</strong> — D1 が上向きなら、H4 で「押し目 (一時的な下げ)」が作られているかを見る。</li>
+    <li><strong>H1 でゾーンを特定</strong> — 押し目がトレンドライン・前日安値などの構造レベルに近づいているか。</li>
+    <li><strong>M15 で引き金を待つ</strong> — そのレベルでピンバーや包み足など、反転を示す価格行動が出たらエントリー検討。</li>
+  </ol>
+
+  <!-- 図解2: 整合チェック -->
+  <figure>
+    <svg viewBox="0 0 760 200" role="img" aria-label="4 時間足の方向が揃ったときだけエントリーする整合チェックの図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="200" fill="#f8fafc" rx="8"/>
+      <!-- 揃ったケース -->
+      <text x="20" y="30" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">◎ 方向が揃う = 狙い目</text>
+      <g font-family="Inter,sans-serif" font-size="13" font-weight="700">
+        <rect x="20" y="42" width="70" height="34" rx="4" fill="#d9e7ee"/><text x="38" y="64" fill="#1B4965">D1 ↑</text>
+        <rect x="100" y="42" width="70" height="34" rx="4" fill="#d9e7ee"/><text x="118" y="64" fill="#1B4965">H4 ↑</text>
+        <rect x="180" y="42" width="70" height="34" rx="4" fill="#d9e7ee"/><text x="198" y="64" fill="#1B4965">H1 ↑</text>
+        <rect x="260" y="42" width="78" height="34" rx="4" fill="#1B4965"/><text x="276" y="64" fill="#fff">M15 ↑</text>
+      </g>
+      <text x="350" y="64" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#225770">→ 買いの根拠が一貫 ✓</text>
+      <!-- バラけたケース -->
+      <text x="20" y="120" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#b91c1c">× 方向が割れる = 見送り</text>
+      <g font-family="Inter,sans-serif" font-size="13" font-weight="700">
+        <rect x="20" y="132" width="70" height="34" rx="4" fill="#d9e7ee"/><text x="38" y="154" fill="#1B4965">D1 ↑</text>
+        <rect x="100" y="132" width="70" height="34" rx="4" fill="#fee2e2"/><text x="118" y="154" fill="#b91c1c">H4 ↓</text>
+        <rect x="180" y="132" width="70" height="34" rx="4" fill="#d9e7ee"/><text x="198" y="154" fill="#1B4965">H1 ↑</text>
+        <rect x="260" y="132" width="78" height="34" rx="4" fill="#fee2e2"/><text x="276" y="154" fill="#b91c1c">M15 ↓</text>
+      </g>
+      <text x="350" y="154" font-family="'Noto Sans JP',sans-serif" font-size="13" fill="#b91c1c">→ 方向が不一致。手を出さない</text>
+    </svg>
+    <figcaption>図2: 上位足から下位足まで方向が揃ったときが最も優位。割れているときは様子見が正解。</figcaption>
+  </figure>
+
+  <div class="callout">
+    <strong>BIAS スコアで「揃い」を数値化できる</strong>
+    MT5-Python Trading Dashboard の <a href="/blog/dashboard-symbol-panel/">BIAS スコア</a>は、まさにこの 4 時間足の方向を
+    重み付けで合算し、−10〜+10 の 1 数値で「どれだけ揃っているか」を表示します。+8 なら強く揃った買い、0 付近なら割れている状態です。
+  </div>
+
+  <h2>よくある失敗</h2>
+  <ul>
+    <li><strong>下位足から入る</strong> — M15 の勢いだけ見て、D1 の逆方向に飛び乗る。最も多い負けパターン。</li>
+    <li><strong>時間足を増やしすぎる</strong> — M5・M1 まで見ると情報過多で混乱する。4 つに絞るのが実用的。</li>
+    <li><strong>上位足の更新を見落とす</strong> — D1 の方向が変わったのに、古い方向で下位足を探し続ける。</li>
+  </ul>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>相場は入れ子構造。見る時間足で方向が変わるので役割分担が必要</li>
+    <li>D1=方向 / H4=セットアップ / H1=ゾーン / M15=執行 と割り当てる</li>
+    <li>必ず上位足 → 下位足の順 (トップダウン) で落とし込む</li>
+    <li>全時間足の方向が揃った時が最優位。割れていれば見送る</li>
+  </ul>
+
+  <p>次のステップ → <a href="/method/structure-based/">構造ベース分析 — TL/SR・前日高安・コンフルエンス</a></p>
+
+</MethodArticle>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Legal', item: 'https://tcharton.com/legal/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+---
+
+<BaseLayout
+  title="Legal | 免責 / 規約 / プライバシー / 特商法 | T.C.HARTON"
+  description="本サイトの法令表記 hub。免責事項 (Disclaimer)、利用規約、プライバシーポリシー、特定商取引法表記を集約。"
+  canonicalPath="/legal/"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">Legal</span>
+  </nav>
+
+  <header>
+    <p class="text-xs font-display font-bold tracking-widest uppercase text-teal-700">Legal</p>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight">法令表記</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">
+      本サイトの法令表記関連ページ集約 hub。FX サイトとして金商法・景表法・特商法に準拠した運営方針を明示します。
+    </p>
+  </header>
+
+  <section class="mt-10 grid gap-4 sm:grid-cols-2 text-sm">
+    <a href="/legal/disclaimer/" class="p-6 border border-dark-200 rounded bg-dark-50 hover:border-teal-700 transition">
+      <h2 class="font-semibold">Disclaimer / 免責事項</h2>
+      <p class="mt-2 text-dark-700">投資助言業 非該当宣言 + 損失リスク警告</p>
+    </a>
+    <a href="/legal/terms/" class="p-6 border border-dark-200 rounded bg-dark-50 hover:border-teal-700 transition">
+      <h2 class="font-semibold">Terms / 利用規約</h2>
+      <p class="mt-2 text-dark-700">サイト利用条件・禁止事項・免責範囲</p>
+    </a>
+    <a href="/legal/privacy/" class="p-6 border border-dark-200 rounded bg-dark-50 hover:border-teal-700 transition">
+      <h2 class="font-semibold">Privacy / プライバシーポリシー</h2>
+      <p class="mt-2 text-dark-700">個人情報取得・利用目的・第三者提供</p>
+    </a>
+    <a href="/legal/tokushoho/" class="p-6 border border-dark-200 rounded bg-dark-50 hover:border-teal-700 transition">
+      <h2 class="font-semibold">特商法 / 特定商取引法表記</h2>
+      <p class="mt-2 text-dark-700">Phase 2 有料コンテンツ提供時の表示義務 (Phase 1 は無料運用)</p>
+    </a>
+  </section>
+</BaseLayout>

@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ev from '../../../data/icmarkets-evidence.json';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Broker', item: 'https://tcharton.com/broker/' },
+    { '@type': 'ListItem', position: 3, name: 'IC Markets', item: 'https://tcharton.com/broker/icmarkets/' },
+  ],
+};
+
+// Review JSON-LD (集約評価 / 出典は本文に明示)
+const reviewJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Review',
+  itemReviewed: {
+    '@type': 'FinancialService',
+    name: 'IC Markets',
+    url: ev.broker.official_url,
+  },
+  author: { '@type': 'Organization', name: 'T.C.HARTON' },
+  reviewBody: 'XAUUSD 裁量トレードの観点から、約定速度・スプレッド・規制・流動性を第三者評価データに基づき検証した結果、IC Markets を中上級トレーダー向けに推奨する。',
+  datePublished: ev._updated,
+};
+
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script><script type="application/ld+json">${JSON.stringify(reviewJsonLd)}</script>`;
+const AFF = ev.broker.affiliate_url;
+---
+
+<BaseLayout
+  title="IC Markets はなぜ XAUUSD 裁量トレードに最適か | 海外評価15サイト検証 | T.C.HARTON"
+  description="IC Markets を ForexBrokers.com 4.5/5・Trustpilot 4.8/5 (5万件超) 等の海外評価サイト一次情報で徹底検証。ASIC/CySEC 規制・約定40ms・Raw Spread 0.1pips・日次813億ドルの流動性を、XAUUSD 裁量トレーダー目線で解説。アフィリエイト含む。"
+  canonicalPath="/broker/icmarkets/"
+  ogType="article"
+  ogImage="/og/broker.png"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/broker/" class="hover:text-teal-700">Broker</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">IC Markets</span>
+  </nav>
+
+  <header>
+    <p class="text-xs font-display font-bold tracking-widest uppercase text-teal-700">Broker Review</p>
+    <h1 class="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-dark-900 leading-tight">
+      IC Markets はなぜ XAUUSD 裁量トレードに最適か
+    </h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed">
+      海外 15 サイト以上の評価データを検証した結論として、当サイトは XAUUSD (ゴールド) 中上級裁量トレーダーに
+      <strong class="text-dark-900">IC Markets</strong> を推奨します。理由は単純で、
+      <strong class="text-dark-900">約定の速さ・スプレッドの狭さ・規制の信頼性・流動性の厚さ</strong>の 4 点すべてで
+      第三者評価が一貫して高いからです。本記事はその根拠を一次情報の出典付きで提示します。
+    </p>
+  </header>
+
+  <!-- アフィリエイト開示 (記事冒頭 / 景表法・特商法準拠) -->
+  <section class="mt-6 p-4 border-l-4 border-amber-400 bg-amber-50 text-xs sm:text-sm text-dark-800 leading-relaxed rounded-r">
+    <p class="font-semibold mb-1">⚠ アフィリエイト開示</p>
+    <p>{ev._affiliate_disclosure}</p>
+  </section>
+
+  <!-- 結論サマリ: 第三者評価スコア -->
+  <section aria-label="第三者評価スコア" class="mt-10">
+    <h2 class="font-display font-bold text-xl text-dark-900">第三者評価サイトのスコア (一次情報)</h2>
+    <p class="mt-2 text-sm text-dark-700">当サイトの主観ではなく、独立した海外評価機関のスコアを引用しています。</p>
+    <div class="mt-4 grid gap-4 sm:grid-cols-3">
+      {ev.ratings.map((r) => (
+        <article class="p-5 border border-dark-200 rounded bg-white">
+          <p class="font-mono font-bold text-2xl text-teal-700">{r.score}</p>
+          <p class="mt-1 font-display font-semibold text-sm text-dark-900">{r.source}</p>
+          <p class="mt-2 text-xs text-dark-700 leading-relaxed">{r.detail}</p>
+          <a href={r.url} rel="noopener noreferrer" target="_blank" class="mt-3 inline-block text-xs underline text-teal-700">出典を確認 ↗</a>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- なぜ XAUUSD に最適か = 4 つの根拠 -->
+  <section aria-label="推奨理由" class="mt-12">
+    <h2 class="font-display font-bold text-xl text-dark-900">XAUUSD 裁量に最適な 4 つの根拠</h2>
+
+    <!-- 根拠1: 約定 -->
+    <article class="mt-5 p-6 border border-dark-200 rounded bg-white">
+      <h3 class="font-display font-bold text-lg text-dark-900">① 約定が速い — ゴールドの急変動で滑りにくい</h3>
+      <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+        XAUUSD は経済指標発表時に一瞬で数十 pips 動きます。裁量エントリーで「押した瞬間の価格で約定するか」は死活問題です。
+        IC Markets は <strong class="text-dark-900">Equinix NY4 サーバーで平均 {ev.execution.latency_ny4_ms}</strong>、
+        cTrader なら <strong class="text-dark-900">{ev.execution.ctrader_latency_ms}</strong> の約定速度を公表。
+        <strong class="text-dark-900">{ev.execution.model}</strong> で、{ev.execution.scalping}。
+      </p>
+      <p class="mt-2 text-xs text-dark-500">
+        流動性提供元: {ev.execution.liquidity_providers} ／
+        <a href={ev.execution.source_url} rel="noopener noreferrer" target="_blank" class="underline text-teal-700">出典 ↗</a>
+      </p>
+    </article>
+
+    <!-- 根拠2: コスト -->
+    <article class="mt-4 p-6 border border-dark-200 rounded bg-white">
+      <h3 class="font-display font-bold text-lg text-dark-900">② スプレッドが狭い — 取引コストが利益を削らない</h3>
+      <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+        裁量で 1 日複数回エントリーするなら、スプレッドの差が月間損益を左右します。IC Markets の Raw Spread 口座は
+        EUR/USD で <strong class="text-dark-900">平均 {ev.cost.raw_spread_eurusd_pips} pips</strong>
+        (最小 {ev.cost.raw_spread_eurusd_min_pips} pips) + 往復手数料 <strong class="text-dark-900">${ev.cost.commission_round_turn_usd}</strong>。
+        ForexBrokers.com は標準口座スプレッドを<strong class="text-dark-900">世界最狭水準</strong>と報告しています。
+      </p>
+      <p class="mt-2 text-xs text-dark-500">
+        <a href={ev.cost.source_url} rel="noopener noreferrer" target="_blank" class="underline text-teal-700">出典 (Raw Spread 口座) ↗</a> ／
+        XAUUSD スプレッド実測: <a href={ev.xauusd.myfxbook_url} rel="noopener noreferrer" target="_blank" class="underline text-teal-700">Myfxbook ↗</a>
+      </p>
+    </article>
+
+    <!-- 根拠3: 規制 -->
+    <article class="mt-4 p-6 border border-dark-200 rounded bg-white">
+      <h3 class="font-display font-bold text-lg text-dark-900">③ 規制が信頼できる — 資金保全の裏付け</h3>
+      <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+        海外 FX で最も怖いのは「出金できない業者」です。IC Markets は <strong class="text-dark-900">Tier-1 規制 2 つ</strong>
+        (ASIC + CySEC) を保有し、顧客資金は分別管理、{ev.fund_protection.negative_balance_protection ? '追証ゼロカット (ネガティブバランスプロテクション) 採用' : ''}。
+      </p>
+      <ul class="mt-3 space-y-1.5 text-sm">
+        {ev.regulation.map((r) => (
+          <li class="flex flex-wrap items-baseline gap-2">
+            <span class="font-display font-semibold text-dark-900">{r.regulator}</span>
+            <span class="text-xs px-2 py-0.5 bg-teal-50 text-teal-700 border border-teal-200 rounded">{r.tier}</span>
+            <span class="font-mono text-xs text-dark-700">{r.license}</span>
+            <span class="text-xs text-dark-500">／ {r.entity}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="mt-3 text-xs text-dark-500">
+        {ev.fund_protection.eu_icf} ／
+        <a href={ev.fund_protection.source_url} rel="noopener noreferrer" target="_blank" class="underline text-teal-700">規制ページ ↗</a>
+      </p>
+    </article>
+
+    <!-- 根拠4: 流動性 -->
+    <article class="mt-4 p-6 border border-dark-200 rounded bg-white">
+      <h3 class="font-display font-bold text-lg text-dark-900">④ 流動性が厚い — 大ロットでも約定が安定</h3>
+      <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+        取引量が多い業者ほど、不利な価格での約定 (スリッページ) が起きにくくなります。IC Markets の取引量は
+        <strong class="text-dark-900">日次 {ev.volume.daily_usd}</strong> (Q4 2025 月次最高 {ev.volume.monthly_usd_peak})。
+        {ev.volume.automated_ratio}という事実は、低レイテンシ環境が機関投資家・EA 勢に選ばれている裏付けです。
+      </p>
+      <p class="mt-2 text-xs text-dark-500">
+        <a href={ev.volume.source_url} rel="noopener noreferrer" target="_blank" class="underline text-teal-700">出典 ↗</a>
+      </p>
+    </article>
+  </section>
+
+  <!-- 海外評価サイトの口コミ -->
+  <section aria-label="海外トレーダーの口コミ" class="mt-12">
+    <h2 class="font-display font-bold text-xl text-dark-900">海外トレーダーの口コミ傾向 (Trustpilot)</h2>
+    <p class="mt-2 text-sm text-dark-700">
+      Trustpilot の IC Markets Global ページ (<strong class="text-dark-900">レビュー約 52,000 件超 / 91% が 5 星</strong>) のレビュー傾向を要約します。
+      良い評価だけでなく、ネガティブな声も併記します。
+    </p>
+    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+      <article class="p-5 border border-teal-200 rounded bg-teal-50/40">
+        <h3 class="font-display font-semibold text-sm text-dark-900">👍 高評価の傾向</h3>
+        <ul class="mt-2 space-y-1 text-sm text-dark-700">
+          {ev.reviews_themes.positive.map((t) => <li>• {t}</li>)}
+        </ul>
+      </article>
+      <article class="p-5 border border-amber-200 rounded bg-amber-50/40">
+        <h3 class="font-display font-semibold text-sm text-dark-900">👎 ネガティブな声 (公平のため明記)</h3>
+        <ul class="mt-2 space-y-1 text-sm text-dark-700">
+          {ev.reviews_themes.negative.map((t) => <li>• {t}</li>)}
+        </ul>
+      </article>
+    </div>
+    <p class="mt-3 text-xs text-dark-500">
+      出典: <a href={ev.ratings[1].url} rel="noopener noreferrer" target="_blank" class="underline text-teal-700">Trustpilot IC Markets Global ↗</a> (レビュー傾向の要約 / 個別レビューは原文を確認してください)
+    </p>
+  </section>
+
+  <!-- 短所も正直に -->
+  <section aria-label="短所" class="mt-12">
+    <h2 class="font-display font-bold text-xl text-dark-900">正直な短所</h2>
+    <p class="mt-2 text-sm text-dark-700">完璧な業者は存在しません。検討前に知っておくべき点を挙げます。</p>
+    <ul class="mt-4 space-y-2">
+      {ev.cons.map((c) => (
+        <li class="p-4 border border-dark-200 rounded bg-white text-sm text-dark-700">
+          <span class="text-dark-900">{c.point}</span>
+          <span class="ml-2 text-xs text-dark-500">— 出典: {c.source}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- XAUUSD 補足 -->
+  <section aria-label="XAUUSD 注記" class="mt-12 p-6 border-l-4 border-teal-700 bg-teal-50 rounded-r">
+    <h2 class="font-display font-bold text-lg text-dark-900">XAUUSD (ゴールド) を扱う際の補足</h2>
+    <p class="mt-3 text-sm text-dark-700 leading-relaxed">{ev.xauusd.note}</p>
+    <p class="mt-3 text-sm text-dark-700">
+      対応プラットフォーム: {ev.platforms.join(' / ')}。当サイトの分析ツール
+      <a href="/" class="underline text-teal-700">MT5_Python ダッシュボード</a> は MT5 口座に接続して動作するため、
+      IC Markets の MT5 口座と組み合わせて利用できます。
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section aria-label="口座開設" class="mt-12 p-8 border border-teal-200 rounded bg-white text-center">
+    <h2 class="font-display font-bold text-xl text-dark-900">IC Markets を検討する</h2>
+    <p class="mt-3 text-sm text-dark-700 leading-relaxed max-w-2xl mx-auto">
+      上記の根拠を踏まえ、ご自身で公式サイトの最新条件を確認の上、口座開設を判断してください。
+      海外 FX 業者は金融庁未登録です。利益は雑所得 (累進課税) となります。
+    </p>
+    <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+      <a href={AFF} rel="sponsored noopener noreferrer" target="_blank"
+         class="inline-block px-6 py-3 bg-teal-700 text-white rounded font-bold text-sm hover:bg-teal-800 transition">
+        IC Markets 公式サイト (PR) →
+      </a>
+      <a href="/broker/" class="inline-block px-6 py-3 border border-dark-300 rounded text-dark-800 text-sm hover:border-teal-700 hover:text-teal-700 transition">
+        他社と比較する
+      </a>
+    </div>
+    <p class="mt-4 text-xs text-dark-500">上記「公式サイト (PR)」はアフィリエイトリンクです。</p>
+  </section>
+
+  <!-- 法的明示 -->
+  <section class="mt-10 p-5 border border-dark-200 rounded text-xs text-dark-700 leading-relaxed">
+    <p class="font-display font-bold text-dark-900 mb-2">本記事について</p>
+    <p>
+      本記事は IC Markets の<strong class="text-dark-900">紹介・比較情報</strong>であり、投資助言業 (金商法 §29) には該当しません。
+      売買シグナル・推奨銘柄の配信ではなく、ブローカー選定の参考情報を提供するものです。
+      掲載データは {ev._updated} 時点の海外評価サイト一次情報に基づきますが、最新条件は各社公式サイトで必ずご確認ください。
+      FX 取引は元本を超える損失が生じる可能性があり、最終判断と結果は閲覧者ご自身の自己責任となります。
+      詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> を参照してください。
+    </p>
+  </section>
+</BaseLayout>

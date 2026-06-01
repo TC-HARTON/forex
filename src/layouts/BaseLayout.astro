@@ -1,18 +1,90 @@
 ---
+/**
+ * BaseLayout.astro — tcharton.com 全ページ共通レイアウト
+ *
+ * SPEC §2 (SEO) / §2.2 (CSP) / §3.1 (JSON-LD) / §4 (UI/UX) 準拠
+ * - CSP meta (TrustedTypes / require-trusted-types-for)
+ * - JSON-LD: Organization + WebPage (BreadcrumbList は呼出側で extraJsonLd 渡す)
+ * - skip-link (WCAG 2.2 AA)
+ * - manifest / favicon / theme-color
+ * - DisclaimerBanner sticky top (SPEC §4 / 全ページ強制)
+ */
 import '../styles/global.css';
 import SEO from '../components/SEO.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import DisclaimerBanner from '../components/DisclaimerBanner.astro';
 
 interface Props {
   title: string;
   description: string;
-  canonicalPath: string;
+  canonicalPath: string;       // 相対 (例: "/", "/docs/")
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  keywords?: string;
+  robots?: string;
+  extraJsonLd?: string;        // 追加 JSON-LD (BreadcrumbList / Article 等) を呼出側から注入
 }
 
-const { title, description, canonicalPath } = Astro.props;
-const SITE_URL = 'https://fx.tcharton.com';
+const {
+  title,
+  description,
+  canonicalPath,
+  ogImage,
+  ogImageAlt,
+  ogType = 'website',
+  keywords,
+  robots,
+  extraJsonLd = '',
+} = Astro.props;
+
+const SITE_URL = 'https://tcharton.com';
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+const ogImageAbs = ogImage
+  ? (ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`)
+  : `${SITE_URL}/og/default.png`;
+
+// CSP (Google Fonts 許可 = HARTON tcharton.com 同等)
+const CSP = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; object-src 'none'; require-trusted-types-for 'script'; trusted-types default; upgrade-insecure-requests";
+
+// Organization JSON-LD (全ページ共通 / SPEC §3.1)
+const orgJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${SITE_URL}/#organization`,
+  name: 'T.C.HARTON',
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo.svg`,
+  email: 'info@tcharton.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: '沼津市',
+    addressRegion: '静岡県',
+    addressCountry: 'JP',
+  },
+  sameAs: [
+    'https://tcharton.com',
+    'https://note.com/harton_official',
+  ],
+};
+
+// WebPage JSON-LD + SpeakableSpecification (全ページ共通 / SPEC §3.1)
+const pageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${canonicalUrl}#webpage`,
+  url: canonicalUrl,
+  name: title,
+  description,
+  inLanguage: 'ja',
+  isPartOf: { '@id': `${SITE_URL}/#website` },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['h1', '#summary'],
+  },
+};
 ---
 
 <!doctype html>
@@ -20,15 +92,42 @@ const canonicalUrl = `${SITE_URL}${canonicalPath}`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content={CSP} />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <SEO title={title} description={description} canonicalUrl={canonicalUrl} />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- HARTON 統一フォント (Noto Sans JP + Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" />
+    <SEO
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      ogImage={ogImageAbs}
+      ogImageAlt={ogImageAlt}
+      ogType={ogType}
+      keywords={keywords}
+      robots={robots}
+    />
+    <link rel="alternate" type="application/rss+xml" title="T.C.HARTON Blog RSS" href="/rss.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(orgJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(pageJsonLd)} />
+    {extraJsonLd && <Fragment set:html={extraJsonLd} />}
   </head>
-  <body class="flex flex-col min-h-dvh">
+  <body class="flex flex-col min-h-dvh bg-white text-dark-900">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-teal-700 focus:text-white focus:px-4 focus:py-2 focus:rounded"
+    >
+      メインコンテンツへスキップ
+    </a>
+    <DisclaimerBanner />
     <Header />
-    <main class="flex-1 mx-auto max-w-6xl w-full px-4 py-8">
+    <main id="main" class="flex-1 mx-auto max-w-6xl w-full px-4 py-8">
       <slot />
     </main>
     <Footer />
+    <script src="/reveal.js" defer></script>
   </body>
 </html>

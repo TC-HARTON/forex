@@ -1,0 +1,159 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+
+const faq = [
+  {
+    q: '海外FXに仮想通貨で入金する場合、どの取引所を選べばよいですか？',
+    a: '国内は金融庁に登録された暗号資産交換業者（金融庁の登録業者一覧で確認できます）を基準に選ぶのが安全です。送金を繰り返す海外FX用途では、暗号資産の送付手数料が無料の取引所がコスト面で有利です。海外取引所を使う場合は、規制動向や日本居住者向けサービスの撤退リスクに注意してください。',
+  },
+  {
+    q: 'Bybitなどの海外取引所は日本で使えますか？',
+    a: '金融庁は無登録で日本居住者向けにサービスを行う海外業者へ警告を出しており、Bybitもその対象とされたことがあります。利用前に、各取引所が公表する最新の対応状況と金融庁の公表情報を必ず確認してください。',
+  },
+  {
+    q: 'この記事はアフィリエイト目的の業者紹介ですか？',
+    a: 'いいえ。アフィリエイト目的ではなく、入出金の信頼性・利便性の観点から金融庁登録の業者を中心に情報を整理したものです。手数料や対応通貨は変更されるため、最終的な業者選びは各社公式の最新情報を確認のうえ、ご自身の判断と責任で行ってください。',
+  },
+];
+---
+
+<BlogArticle slug="funding-crypto-route" faq={faq}>
+
+  <p>
+    海外FXの入出金で<strong>銀行送金が不透明になる</strong>2026年問題。その代替として現実的なのが<strong>仮想通貨ルート</strong>です。
+    ただし「どの取引所を使うか」で安全性もコストも大きく変わります。本記事では、国内取引所を選ぶ基準を整理したうえで、
+    <strong>海外FX送金に使いやすい国内取引所を3社、根拠つきで具体的に</strong>紹介します（出典つき・アフィなし）。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 240" role="img" aria-label="国内取引所から海外FXへ仮想通貨を送る2つのルート図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="240" fill="#f8fafc" rx="8"/>
+      <text x="20" y="30" font-family="'Noto Sans JP',sans-serif" font-size="14" font-weight="700" fill="#1B4965">仮想通貨ルートの全体像</text>
+      <rect x="20" y="50" width="160" height="70" rx="8" fill="#fff" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="100" y="80" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">国内取引所</text>
+      <text x="100" y="100" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">日本円で購入</text>
+      <text x="280" y="78" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">送金</text>
+      <line x1="180" y1="85" x2="360" y2="85" stroke="#94a3b8" stroke-width="2" marker-end="url(#cr)"/>
+      <rect x="360" y="50" width="160" height="70" rx="8" fill="#fff" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="440" y="80" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">海外取引所</text>
+      <text x="440" y="100" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">USDT等に交換</text>
+      <text x="620" y="78" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#475569">送金</text>
+      <line x1="520" y1="85" x2="700" y2="85" stroke="#94a3b8" stroke-width="2" marker-end="url(#cr)"/>
+      <rect x="600" y="50" width="140" height="70" rx="8" fill="#d9e7ee" stroke="#1B4965" stroke-width="1.5"/>
+      <text x="670" y="80" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="12" font-weight="700" fill="#1B4965">海外FX</text>
+      <text x="670" y="100" text-anchor="middle" font-family="'Noto Sans JP',sans-serif" font-size="10" fill="#475569">口座へ入金</text>
+      <text x="20" y="160" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">ルートA: 国内取引所 → 海外FX (直接送金できる場合)</text>
+      <text x="20" y="185" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">ルートB: 国内取引所 → 海外取引所 (USDT 化) → 海外FX</text>
+      <text x="20" y="215" font-family="'Noto Sans JP',sans-serif" font-size="11" fill="#64748b">※ ルートにより手数料・着金スピード・対応通貨が異なる</text>
+      <defs><marker id="cr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 z" fill="#94a3b8"/></marker></defs>
+    </svg>
+    <figcaption>図: 仮想通貨ルートの全体像。国内取引所を起点に、海外FXへ直接または海外取引所を経由して送金する。</figcaption>
+  </figure>
+
+  <h2>大前提 — 金融庁登録の暗号資産交換業者を使う</h2>
+  <p>
+    国内取引所は、まず<strong>金融庁に暗号資産交換業者として登録されているか</strong>が大前提です。
+    登録業者は <a href="https://www.fsa.go.jp/menkyo/menkyoj/kasoutuka.pdf" rel="noopener noreferrer" target="_blank">金融庁「暗号資産交換業者登録一覧」</a> で公開されています
+    （最新の社数・社名は同一覧が正となります）。この登録の有無が、最低限の信頼性の境界線です。
+  </p>
+  <div class="callout">
+    <strong>登録業者であることの意味</strong>
+    金融庁の登録業者は、分別管理（顧客資産と会社資産の分離）・コールドウォレット管理・本人確認（KYC）などの義務を負います。
+    無登録の海外業者と異なり、トラブル時に日本の法制度の保護を受けやすくなります。
+  </div>
+
+  <h2>金融庁に登録された主な国内取引所</h2>
+  <p>
+    「27社あります、あとはご自身で」では不親切なので、代表的な登録業者を実名と公式リンクで挙げます。
+    <strong>正式な登録の有無・全社の一覧は、必ず上記の金融庁公式一覧でご確認ください</strong>（各社の最新状況も公式が正です）。
+  </p>
+  <table>
+    <thead><tr><th>取引所</th><th>運営</th><th>公式サイト</th></tr></thead>
+    <tbody>
+      <tr><td>bitFlyer</td><td>株式会社bitFlyer</td><td><a href="https://bitflyer.com/ja-jp/" rel="noopener noreferrer" target="_blank">bitflyer.com ↗</a></td></tr>
+      <tr><td>Coincheck</td><td>コインチェック株式会社</td><td><a href="https://coincheck.com/ja/" rel="noopener noreferrer" target="_blank">coincheck.com ↗</a></td></tr>
+      <tr><td>GMOコイン</td><td>GMOコイン株式会社（GMOインターネットグループ）</td><td><a href="https://coin.z.com/jp/" rel="noopener noreferrer" target="_blank">coin.z.com/jp ↗</a></td></tr>
+      <tr><td>bitbank</td><td>ビットバンク株式会社</td><td><a href="https://bitbank.cc/" rel="noopener noreferrer" target="_blank">bitbank.cc ↗</a></td></tr>
+      <tr><td>SBI VCトレード</td><td>SBI VCトレード株式会社（SBIグループ）</td><td><a href="https://www.sbivc.co.jp/" rel="noopener noreferrer" target="_blank">sbivc.co.jp ↗</a></td></tr>
+      <tr><td>楽天ウォレット</td><td>楽天ウォレット株式会社</td><td><a href="https://www.rakuten-wallet.co.jp/" rel="noopener noreferrer" target="_blank">rakuten-wallet.co.jp ↗</a></td></tr>
+    </tbody>
+  </table>
+
+  <h2>海外FX送金に使うなら — 確認すべき3つのポイント</h2>
+  <p>登録業者の中でも、海外FXへの送金に使うなら次の3点を確認します。</p>
+  <table>
+    <thead><tr><th>確認項目</th><th>なぜ重要か</th></tr></thead>
+    <tbody>
+      <tr><td>送金（送付）手数料</td><td>送金のたびにかかる。無料〜高額まで業者差が大きく、回数が多いほど効いてくる</td></tr>
+      <tr><td>対応通貨・ネットワーク</td><td>USDT (TRC20等) に対応しているか。海外FX側の受入通貨・ネットワークと一致が必要</td></tr>
+      <tr><td>出金スピード</td><td>送金リクエストから着金までの速さ。相場が動く局面で差が出る</td></tr>
+    </tbody>
+  </table>
+
+  <h2>送金に向く国内取引所 3 選（根拠つき）</h2>
+  <p>
+    上記の基準で、<strong>海外FX送金の観点から特に使いやすい3社</strong>を、根拠とともに挙げます。
+    いずれも金融庁登録の暗号資産交換業者です。手数料・対応通貨は変更されるため、<strong>送金前に各社公式の最新情報を必ず確認</strong>してください。
+  </p>
+  <table>
+    <thead><tr><th>取引所</th><th>運営基盤</th><th>送付手数料</th><th>送金面の強み</th></tr></thead>
+    <tbody>
+      <tr><td>GMOコイン</td><td>GMOインターネットグループ</td><td>無料（公式）</td><td>送金コストを抑えやすい</td></tr>
+      <tr><td>SBI VCトレード</td><td>SBIグループ</td><td>無料（公式・入出庫）</td><td>金融グループの運営基盤</td></tr>
+      <tr><td>bitbank</td><td>ビットバンク株式会社</td><td>銘柄ごとに設定</td><td>流動性・取扱銘柄の幅</td></tr>
+    </tbody>
+  </table>
+
+  <h3>① GMOコイン — 暗号資産の送付手数料が無料</h3>
+  <p>
+    GMOインターネットグループが運営する取引所です（金融庁登録：関東財務局長第00006号 / 登録番号は金融庁一覧で確認できます）。
+    大きな利点は、<a href="https://coin.z.com/jp/corp/guide/fees/" rel="noopener noreferrer" target="_blank">公式の手数料案内</a>に示される
+    <strong>暗号資産の送付手数料が無料</strong>である点と、日本円の入金・出金手数料も無料である点です。
+    海外FXへは送金を何度も繰り返すため、1回あたりの送付手数料が無料であることはコスト面で実利が大きく、繰り返し送金する用途に向きます。
+    対応する銘柄・送付ネットワーク（USDT のチェーン等）は公式で確認してください。
+  </p>
+
+  <h3>② SBI VCトレード — SBIグループ運営 / 入出庫が無料</h3>
+  <p>
+    ネット証券大手を擁する SBIグループの取引所です（金融庁登録：関東財務局長第00011号）。
+    <a href="https://www.sbivc.co.jp/" rel="noopener noreferrer" target="_blank">公式</a>では<strong>暗号資産の入出庫（送付・受取）手数料が無料</strong>とされ、日本円入金も無料です。
+    送付手数料が無料である点は GMOコインと同様に送金コストを抑えやすく、加えて金融グループとしての運営基盤があることが、資産を一時的に経由させる際の安心材料になります。
+  </p>
+
+  <h3>③ bitbank — 流動性と取扱銘柄の幅</h3>
+  <p>
+    ビットバンク株式会社が運営する取引所です（金融庁登録：関東財務局長第00004号）。
+    国内取引所の中でも<strong>板が厚く（流動性が高く）、取扱銘柄が多い</strong>ことで知られ、送金に使いたい通貨を確保しやすいのが利点です。
+    出金（送付）手数料は<strong>銘柄ごとに設定</strong>されているため、使う通貨の手数料を
+    <a href="https://bitbank.cc/" rel="noopener noreferrer" target="_blank">公式</a>で事前に確認してください（無料ではない通貨もあります）。
+    「送りたい通貨を、十分な流動性で用意できる」ことを重視する場合の選択肢になります。
+  </p>
+
+  <div class="callout">
+    <strong>3社に共通する注意</strong>
+    送付手数料・対応通貨・対応ネットワークは各社の判断で変更されます。本記事の内容は各社公式時点の整理であり、
+    <strong>送金前に必ず公式の最新情報を確認</strong>し、初回は少額のテスト送金で着金を確かめてから本送金してください。
+  </div>
+
+  <h2>海外取引所を使う場合の注意</h2>
+  <p>
+    ルートBでは海外取引所を経由します。ここで<strong>規制動向</strong>に注意が必要です。
+  </p>
+  <div class="callout">
+    <strong>無登録の海外取引所には金融庁が警告</strong>
+    金融庁は、無登録で日本居住者向けにサービスを行う海外の暗号資産交換業者に対し警告を出しており、Bybit もその対象とされたことがあります。
+    海外取引所に資産を置いたままにせず、必要な分だけ経由する使い方が安全です。利用可否は各社の最新の公表情報で確認してください。
+  </div>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>大前提は金融庁登録の暗号資産交換業者を使うこと（登録の有無は金融庁公式一覧が正）</li>
+    <li>選ぶ基準は「送付手数料・対応通貨(USDT等)・出金スピード」の3点</li>
+    <li>送金コストを抑えるなら送付手数料が無料の <strong>GMOコイン / SBI VCトレード</strong>、通貨の幅・流動性なら <strong>bitbank</strong> が候補</li>
+    <li>海外取引所は規制動向に注意し、資産を置きっぱなしにしない</li>
+    <li>手数料・対応通貨は変わるため、送金前に各社公式と金融庁一覧で最新情報を確認する</li>
+  </ul>
+
+  <p>関連: <a href="/blog/funding-crypto-howto/">仮想通貨での入出金手順</a> / <a href="/blog/funding-2026-regulation/">2026年 改正資金決済法と口座凍結リスク</a></p>
+
+</BlogArticle>

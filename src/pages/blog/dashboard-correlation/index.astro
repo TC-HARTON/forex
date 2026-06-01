@@ -1,0 +1,111 @@
+---
+import BlogArticle from '../../../layouts/BlogArticle.astro';
+---
+
+<BlogArticle slug="dashboard-correlation">
+
+  <p>
+    相関マトリクス (相関ヒートマップ) は、監視中の 10 銘柄が<strong>互いにどれだけ同じ方向に動いているか</strong>を色で示すボックスです。
+    一見地味ですが、「気づかないうちに同じリスクを二重に取っていないか」を防ぐ、リスク管理の要になります。
+  </p>
+
+  <figure>
+    <svg viewBox="0 0 760 250" role="img" aria-label="通貨ペアの相関ヒートマップ(色階調)の図" xmlns="http://www.w3.org/2000/svg">
+      <rect width="760" height="250" fill="#f8fafc" rx="8"/>
+      <text x="20" y="26" font-family="'Noto Sans JP',sans-serif" font-size="13" font-weight="700" fill="#1B4965">相関ヒートマップ (濃赤=強い正 / 濃青=強い逆 / 灰=無相関)</text>
+      <g font-family="Inter,sans-serif" font-size="10" fill="#334155">
+        <text x="150" y="52">EURUSD</text><text x="230" y="52">GBPUSD</text><text x="310" y="52">USDJPY</text><text x="390" y="52">XAUUSD</text>
+      </g>
+      <g font-family="Inter,sans-serif" font-size="10" fill="#334155">
+        <text x="60" y="78">EURUSD</text><text x="60" y="118">GBPUSD</text><text x="60" y="158">USDJPY</text><text x="60" y="198">XAUUSD</text>
+      </g>
+      <!-- 4x4 ヒートマップ -->
+      <g>
+        <rect x="140" y="64" width="38" height="38" fill="#b91c1c"/><text x="159" y="88" text-anchor="middle" font-size="9" fill="#fff">1.0</text>
+        <rect x="220" y="64" width="38" height="38" fill="#e9744f"/><text x="239" y="88" text-anchor="middle" font-size="9" fill="#fff">.72</text>
+        <rect x="300" y="64" width="38" height="38" fill="#5b7fb4"/><text x="319" y="88" text-anchor="middle" font-size="9" fill="#fff">-.55</text>
+        <rect x="380" y="64" width="38" height="38" fill="#cbd5e1"/><text x="399" y="88" text-anchor="middle" font-size="9" fill="#334155">.12</text>
+        <rect x="140" y="104" width="38" height="38" fill="#e9744f"/><text x="159" y="128" text-anchor="middle" font-size="9" fill="#fff">.72</text>
+        <rect x="220" y="104" width="38" height="38" fill="#b91c1c"/><text x="239" y="128" text-anchor="middle" font-size="9" fill="#fff">1.0</text>
+        <rect x="300" y="104" width="38" height="38" fill="#5b7fb4"/><text x="319" y="128" text-anchor="middle" font-size="9" fill="#fff">-.48</text>
+        <rect x="380" y="104" width="38" height="38" fill="#cbd5e1"/><text x="399" y="128" text-anchor="middle" font-size="9" fill="#334155">.18</text>
+        <rect x="140" y="144" width="38" height="38" fill="#5b7fb4"/><text x="159" y="168" text-anchor="middle" font-size="9" fill="#fff">-.55</text>
+        <rect x="220" y="144" width="38" height="38" fill="#5b7fb4"/><text x="239" y="168" text-anchor="middle" font-size="9" fill="#fff">-.48</text>
+        <rect x="300" y="144" width="38" height="38" fill="#b91c1c"/><text x="319" y="168" text-anchor="middle" font-size="9" fill="#fff">1.0</text>
+        <rect x="380" y="144" width="38" height="38" fill="#274c7a"/><text x="399" y="168" text-anchor="middle" font-size="9" fill="#fff">-.78</text>
+        <rect x="140" y="184" width="38" height="38" fill="#cbd5e1"/><text x="159" y="208" text-anchor="middle" font-size="9" fill="#334155">.12</text>
+        <rect x="220" y="184" width="38" height="38" fill="#cbd5e1"/><text x="239" y="208" text-anchor="middle" font-size="9" fill="#334155">.18</text>
+        <rect x="300" y="184" width="38" height="38" fill="#274c7a"/><text x="319" y="208" text-anchor="middle" font-size="9" fill="#fff">-.78</text>
+        <rect x="380" y="184" width="38" height="38" fill="#b91c1c"/><text x="399" y="208" text-anchor="middle" font-size="9" fill="#fff">1.0</text>
+      </g>
+      <text x="450" y="120" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">EURUSD と GBPUSD は</text>
+      <text x="450" y="140" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">+0.72 = 同方向に動く</text>
+      <text x="450" y="166" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">USDJPY と XAUUSD は</text>
+      <text x="450" y="186" font-family="'Noto Sans JP',sans-serif" font-size="12" fill="#334155">−0.78 = 逆に動く</text>
+    </svg>
+    <figcaption>図: 相関ヒートマップの例。同方向に強く動くペア (濃赤) を複数持つと、知らぬ間に同じリスクを二重に取ることになる。</figcaption>
+  </figure>
+
+  <h2>何を計算しているのか — 対数収益率のピアソン相関</h2>
+  <p>
+    相関は「価格そのもの」ではなく「<strong>対数収益率 (log return)</strong>」に対して計算します。手順は次の通りです。
+  </p>
+  <pre><code>1. 各銘柄の終値の系列を取得
+2. 対数収益率に変換:  return = ln(終値) の差分
+3. 銘柄ペアごとにピアソン相関係数 r を計算 (−1 〜 +1)</code></pre>
+  <p>
+    なぜ価格そのものではなく対数収益率を使うのか。価格の水準そのもの (例: ゴールドは 3000 ドル台、ドル円は 150 円台) をそのまま比べても意味がありません。
+    <strong>「変動の方向と幅」だけを取り出して比較する</strong>ために、収益率に変換してから相関を測ります。対数を使うのは、変化率を加法的に扱えて統計的に素直なためです。
+  </p>
+
+  <h2>相関係数の意味</h2>
+  <table>
+    <thead><tr><th>相関係数 r</th><th>色</th><th>意味</th></tr></thead>
+    <tbody>
+      <tr><td>+0.7 〜 +1.0</td><td>濃赤</td><td>強い正の相関 (ほぼ同じ動き)</td></tr>
+      <tr><td>+0.3 〜 +0.7</td><td>オレンジ</td><td>弱い正の相関</td></tr>
+      <tr><td>−0.3 〜 +0.3</td><td>グレー</td><td>ほぼ無相関 (独立)</td></tr>
+      <tr><td>−0.7 〜 −0.3</td><td>青</td><td>弱い逆相関</td></tr>
+      <tr><td>−1.0 〜 −0.7</td><td>濃青</td><td>強い逆相関 (反対の動き)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>時間窓の切り替え (20 / 100 / 500 本)</h2>
+  <p>相関は見る期間で変わります。3 つの窓を切り替えられます。</p>
+  <ul>
+    <li><strong>20 本 (短期)</strong>: 直近の地合い。指標発表などで一時的に相関が跳ねることがある。</li>
+    <li><strong>100 本 (中期)</strong>: 通常のポジション保有期間に近い実用的な窓。</li>
+    <li><strong>500 本 (長期)</strong>: 構造的な関係。例: ゴールドと米ドルの長期的な逆相関傾向。</li>
+  </ul>
+
+  <h2>実用 — 「重複リスク」を避ける</h2>
+  <p>
+    相関マトリクスの最大の使いどころは、<strong>同時に持つポジションが実質同じ賭けになっていないか</strong>のチェックです。
+  </p>
+  <div class="callout">
+    <strong>例: 二重リスクの発見</strong>
+    EURUSD ロングと GBPUSD ロングを同時に持つとします。この 2 つが +0.8 の強い正相関なら、
+    実質「USD 売り」に 2 倍賭けているのと同じです。狙ったつもりのない集中リスクを、ヒートマップが一目で教えてくれます。
+    逆に −0.8 の逆相関ペアを両方ロングすれば、損益が打ち消し合って動かない、という事態も避けられます。
+  </div>
+
+  <h2>注意点 — 相関は変化する</h2>
+  <p>
+    相関は固定ではありません。平常時は無相関でも、リスクオフ局面では多くの通貨が一斉に「対 USD で売られる」など、
+    <strong>危機時に相関が急上昇</strong>する現象がよく起きます。だからこそ短期 (20 本) の窓で「いま相関が高まっていないか」を監視する価値があります。
+  </p>
+
+  <h2>まとめ</h2>
+  <ul>
+    <li>相関は対数収益率に対するピアソン相関係数 (−1〜+1) で計算する</li>
+    <li>濃赤 = 強い正相関、濃青 = 強い逆相関、グレー = 無相関</li>
+    <li>20/100/500 本で短期〜長期の関係を切り替えて見る</li>
+    <li>同方向の強相関ペアを複数持つ = 二重リスク。これを避けるのが主用途</li>
+  </ul>
+
+  <p>
+    関連: <a href="/blog/dashboard-currency-strength/">通貨強弱の計算ロジック</a> /
+    <a href="/blog/dashboard-structure-levels/">自動検出する構造レベル</a>
+  </p>
+
+</BlogArticle>

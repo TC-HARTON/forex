@@ -1,0 +1,159 @@
+{
+  "_note": "Forex Factory 公開 XML (今週+来週) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・当日以降のみ",
+  "_source": [
+    "https://nfs.faireconomy.media/ff_calendar_thisweek.xml",
+    "https://nfs.faireconomy.media/ff_calendar_thismonth.xml"
+  ],
+  "_attribution": "Calendar data courtesy of Forex Factory® (https://www.forexfactory.com)",
+  "_disclaimer": "本データは参考情報であり、投資判断の助言ではありません",
+  "_fetched_at": "2026-05-31T06:20:40.723Z",
+  "_timezone": "JST (UTC+9)",
+  "_window": "2026-06-02 〜 2026-06-06",
+  "_total_parsed": 114,
+  "_display_count": 13,
+  "events": [
+    {
+      "date": "2026-06-02",
+      "time": "03:00",
+      "epochMs": 1780369200000,
+      "currency": "USD",
+      "impact": "high",
+      "title": "ISM Manufacturing PMI",
+      "previous": "52.7",
+      "forecast": "53.3",
+      "source_url": "https://www.forexfactory.com/calendar/252-us-ism-manufacturing-pmi"
+    },
+    {
+      "date": "2026-06-03",
+      "time": "03:00",
+      "epochMs": 1780455600000,
+      "currency": "GBP",
+      "impact": "high",
+      "title": "BOE Gov Bailey Speaks",
+      "previous": "—",
+      "forecast": "—",
+      "source_url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+    },
+    {
+      "date": "2026-06-03",
+      "time": "14:30",
+      "epochMs": 1780497000000,
+      "currency": "AUD",
+      "impact": "high",
+      "title": "GDP q/q",
+      "previous": "0.8%",
+      "forecast": "0.5%",
+      "source_url": "https://www.forexfactory.com/calendar/31-au-gdp-qq"
+    },
+    {
+      "date": "2026-06-03",
+      "time": "21:30",
+      "epochMs": 1780522200000,
+      "currency": "JPY",
+      "impact": "high",
+      "title": "BOJ Gov Ueda Speaks",
+      "previous": "—",
+      "forecast": "—",
+      "source_url": "https://www.forexfactory.com/calendar/892-jn-boj-gov-ueda-speaks"
+    },
+    {
+      "date": "2026-06-04",
+      "time": "01:15",
+      "epochMs": 1780535700000,
+      "currency": "USD",
+      "impact": "high",
+      "title": "ADP Non-Farm Employment Change",
+      "previous": "109K",
+      "forecast": "116K",
+      "source_url": "https://www.forexfactory.com/calendar/75-us-adp-non-farm-employment-change"
+    },
+    {
+      "date": "2026-06-04",
+      "time": "03:00",
+      "epochMs": 1780542000000,
+      "currency": "USD",
+      "impact": "high",
+      "title": "ISM Services PMI",
+      "previous": "53.6",
+      "forecast": "53.8",
+      "source_url": "https://www.forexfactory.com/calendar/253-us-ism-services-pmi"
+    },
+    {
+      "date": "2026-06-04",
+      "time": "18:00",
+      "epochMs": 1780596000000,
+      "currency": "AUD",
+      "impact": "high",
+      "title": "RBA Gov Bullock Speaks",
+      "previous": "—",
+      "forecast": "—",
+      "source_url": "https://www.forexfactory.com/calendar/671-au-rba-gov-bullock-speaks"
+    },
+    {
+      "date": "2026-06-05",
+      "time": "04:40",
+      "epochMs": 1780634400000,
+      "currency": "GBP",
+      "impact": "high",
+      "title": "BOE Gov Bailey Speaks",
+      "previous": "—",
+      "forecast": "—",
+      "source_url": "https://www.forexfactory.com/calendar/838-uk-boe-gov-bailey-speaks"
+    },
+    {
+      "date": "2026-06-06",
+      "time": "01:30",
+      "epochMs": 1780709400000,
+      "currency": "CAD",
+      "impact": "high",
+      "title": "Employment Change",
+      "previous": "-17.7K",
+      "forecast": "10.2K",
+      "source_url": "https://www.forexfactory.com/calendar/67-ca-employment-change"
+    },
+    {
+      "date": "2026-06-06",
+      "time": "01:30",
+      "epochMs": 1780709400000,
+      "currency": "CAD",
+      "impact": "high",
+      "title": "Unemployment Rate",
+      "previous": "6.9%",
+      "forecast": "6.9%",
+      "source_url": "https://www.forexfactory.com/calendar/57-ca-unemployment-rate"
+    },
+    {
+      "date": "2026-06-06",
+      "time": "01:30",
+      "epochMs": 1780709400000,
+      "currency": "USD",
+      "impact": "high",
+      "title": "Average Hourly Earnings m/m",
+      "previous": "0.2%",
+      "forecast": "0.3%",
+      "source_url": "https://www.forexfactory.com/calendar/159-us-average-hourly-earnings-mm"
+    },
+    {
+      "date": "2026-06-06",
+      "time": "01:30",
+      "epochMs": 1780709400000,
+      "currency": "USD",
+      "impact": "high",
+      "title": "Non-Farm Employment Change",
+      "previous": "115K",
+      "forecast": "95K",
+      "source_url": "https://www.forexfactory.com/calendar/66-us-non-farm-employment-change"
+    },
+    {
+      "date": "2026-06-06",
+      "time": "01:30",
+      "epochMs": 1780709400000,
+      "currency": "USD",
+      "impact": "high",
+      "title": "Unemployment Rate",
+      "previous": "4.3%",
+      "forecast": "4.3%",
+      "source_url": "https://www.forexfactory.com/calendar/56-us-unemployment-rate"
+    }
+  ]
+}
