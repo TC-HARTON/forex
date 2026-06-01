@@ -3,7 +3,7 @@
   // Astro の静的ビルド出力 (dist/) をそのまま配信する。
   // ビルド: npm run build  →  deploy: npx wrangler deploy
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "tcharton-fx",
+  "name": "forex",
   "compatibility_date": "2026-05-03",
   "compatibility_flags": ["nodejs_compat"],
   "observability": {
