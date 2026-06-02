@@ -1,27 +1,16 @@
 {
-  "_note": "Forex Factory 公開 XML (今週分) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・今週月曜 00:00 JST 以降",
+  "_note": "Forex Factory 公開 XML (今週分) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・現在より未来のみ・1 週間先まで",
   "_source": [
     "https://nfs.faireconomy.media/ff_calendar_thisweek.xml"
   ],
   "_attribution": "Calendar data courtesy of Forex Factory® (https://www.forexfactory.com)",
   "_disclaimer": "本データは参考情報であり、投資判断の助言ではありません",
-  "_fetched_at": "2026-06-02T01:13:31.990Z",
+  "_fetched_at": "2026-06-02T01:18:20.864Z",
   "_timezone": "JST (UTC+9)",
-  "_window": "2026-06-01 〜 2026-06-05",
+  "_window": "2026-06-02 〜 2026-06-05",
   "_total_parsed": 114,
-  "_display_count": 13,
+  "_display_count": 12,
   "events": [
-    {
-      "date": "2026-06-01",
-      "time": "23:00",
-      "epochMs": 1780322400000,
-      "currency": "USD",
-      "impact": "high",
-      "title": "ISM Manufacturing PMI",
-      "previous": "52.7",
-      "forecast": "53.3",
-      "source_url": "https://www.forexfactory.com/calendar/252-us-ism-manufacturing-pmi"
-    },
     {
       "date": "2026-06-02",
       "time": "23:00",

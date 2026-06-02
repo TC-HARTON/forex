@@ -109,18 +109,12 @@ async function main() {
     process.exit(1);
   }
 
-  // ビルド時刻 (= データ鮮度の基準)。
-  // 「今週月曜 00:00 JST 以降」を残す = 今週分を常に一望できる窓 (代表 2026-06-02 指示)。
-  // 旧実装は「当日 0:00 JST 以降」で、火曜朝に開くと月曜が消え、火〜土の不自然な窓になっていた。
+  // ビルド時刻 = 過去/未来判定の基準。
+  // 過去 (発表済み) は完全除外する (actual 結果値の取得手段がないため = 代表選択 1 / 2026-06-02)。
+  // = 「Date.now() より後」のイベントのみ残す。
   const nowMs = Date.now();
-  const jstNow = new Date(nowMs + 9 * 3600 * 1000);  // JST 表示用 Date
-  const jstDow = jstNow.getUTCDay();                   // 0=日, 1=月, ..., 6=土
-  const daysSinceMon = (jstDow + 6) % 7;              // 月=0, 火=1, ..., 日=6
-  const jstMonStart = new Date(jstNow);
-  jstMonStart.setUTCDate(jstNow.getUTCDate() - daysSinceMon);
-  jstMonStart.setUTCHours(0, 0, 0, 0);
-  // 真の UTC ms に戻す (epochMs と直接比較するため -9h)
-  const weekStartMs = jstMonStart.getTime() - 9 * 3600 * 1000;
+  // 上限: 1 週間先まで (XML thisweek が天然上限になることが多いが、念のため明示)
+  const upperBoundMs = nowMs + 7 * 24 * 3600 * 1000;
 
   const seen = new Set();
   const events = rawAll
@@ -137,7 +131,8 @@ async function main() {
     })
     .filter(Boolean)
     .filter((e) => e.impact === 'high')              // 高インパクトのみ
-    .filter((e) => e.epochMs >= weekStartMs)         // 今週月曜 00:00 JST 以降 (今週分を一望)
+    .filter((e) => e.epochMs > nowMs)                // 現在より未来のみ (過去発表済みは除外)
+    .filter((e) => e.epochMs <= upperBoundMs)        // 1 週間先まで
     .filter((e) => {                                  // 重複除去 (thisweek/nextweek の境界重複)
       const k = `${e.date}|${e.time}|${e.currency}|${e.title}`;
       if (seen.has(k)) return false;
@@ -150,7 +145,7 @@ async function main() {
   const range = dates.length ? `${dates[0]} 〜 ${dates[dates.length - 1]}` : '(該当なし)';
 
   const out = {
-    _note: 'Forex Factory 公開 XML (今週分) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・今週月曜 00:00 JST 以降',
+    _note: 'Forex Factory 公開 XML (今週分) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・現在より未来のみ・1 週間先まで',
     _source: FF_URLS,
     _attribution: 'Calendar data courtesy of Forex Factory® (https://www.forexfactory.com)',
     _disclaimer: '本データは参考情報であり、投資判断の助言ではありません',
