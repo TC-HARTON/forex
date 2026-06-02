@@ -53,14 +53,15 @@ function parseXml(xml) {
   return events;
 }
 
-// Forex Factory の date/time (米国東部) を JST へ。epochMs も返す (過去判定用)。
-function etToJst(dateStr, timeStr) {
+// Forex Factory の date/time (UTC / GMT) を JST へ。epochMs も返す (過去判定用)。
+// ※ FF 公開 XML (nfs.faireconomy.media/ff_calendar_*.xml) は UTC で配信される (DST 切替なし)。
+//    Forex Factory サイト UI の表示 (EST/EDT) とは異なる仕様。
+//    旧実装は ET と誤認して +4/+5h 余計に加算し 3-5 時間後ろにズレていた (2026-06-02 修正)。
+function xmlTimeToJst(dateStr, timeStr) {
   if (!dateStr) return null;
   const [mm, dd, yyyy] = dateStr.split('-').map(Number);
   const allDay = !timeStr || /All Day|Tentative|Day \d+/i.test(timeStr);
 
-  // ET → UTC (3-11月=EDT/-4, それ以外=EST/-5)
-  const etOffset = (mm >= 3 && mm <= 11) ? 4 : 5;
   let h = 0, min = 0;
   if (!allDay) {
     const t = timeStr.match(/(\d+):(\d+)(am|pm)/i);
@@ -71,7 +72,8 @@ function etToJst(dateStr, timeStr) {
       if (ap === 'am' && h === 12) h = 0;
     }
   }
-  const utc = new Date(Date.UTC(yyyy, mm - 1, dd, h + etOffset, min));
+  // XML 時刻 = UTC として解釈 (etOffset は不要)
+  const utc = new Date(Date.UTC(yyyy, mm - 1, dd, h, min));
   const jstMs = utc.getTime() + 9 * 3600 * 1000;
   const j = new Date(jstMs);
   const p = (n) => String(n).padStart(2, '0');
@@ -115,7 +117,7 @@ async function main() {
   const events = rawAll
     .filter((e) => MAJOR_CCYS.has(e.country))
     .map((e) => {
-      const dt = etToJst(e.date, e.time);
+      const dt = xmlTimeToJst(e.date, e.time);
       if (!dt) return null;
       return {
         date: dt.date, time: dt.time, epochMs: dt.epochMs,
