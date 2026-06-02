@@ -73,13 +73,14 @@ function xmlTimeToJst(dateStr, timeStr) {
     }
   }
   // XML 時刻 = UTC として解釈 (etOffset は不要)
-  const utc = new Date(Date.UTC(yyyy, mm - 1, dd, h, min));
-  const jstMs = utc.getTime() + 9 * 3600 * 1000;
-  const j = new Date(jstMs);
+  // epochMs は真の UTC ms (Date.now() と直接比較可能)。
+  // date/time は JST 文字列 (UTC+9h シフトして UTC のように formatting する内部技法)。
+  const utcMs = Date.UTC(yyyy, mm - 1, dd, h, min);
+  const jstView = new Date(utcMs + 9 * 3600 * 1000);
   const p = (n) => String(n).padStart(2, '0');
-  const date = `${j.getUTCFullYear()}-${p(j.getUTCMonth() + 1)}-${p(j.getUTCDate())}`;
-  const time = allDay ? (timeStr || 'All Day') : `${p(j.getUTCHours())}:${p(j.getUTCMinutes())}`;
-  return { date, time, epochMs: jstMs, allDay };
+  const date = `${jstView.getUTCFullYear()}-${p(jstView.getUTCMonth() + 1)}-${p(jstView.getUTCDate())}`;
+  const time = allDay ? (timeStr || 'All Day') : `${p(jstView.getUTCHours())}:${p(jstView.getUTCMinutes())}`;
+  return { date, time, epochMs: utcMs, allDay };
 }
 
 async function fetchOne(url) {
@@ -108,10 +109,18 @@ async function main() {
     process.exit(1);
   }
 
-  // ビルド時刻 (= データ鮮度の基準)。過去イベントを除外するための now。
+  // ビルド時刻 (= データ鮮度の基準)。
+  // 「今週月曜 00:00 JST 以降」を残す = 今週分を常に一望できる窓 (代表 2026-06-02 指示)。
+  // 旧実装は「当日 0:00 JST 以降」で、火曜朝に開くと月曜が消え、火〜土の不自然な窓になっていた。
   const nowMs = Date.now();
-  // 当日 0:00 JST 以降を「これから/当日」として残す (発表直後も当日中は見せる)
-  const todayStartMs = new Date(new Date(nowMs + 9 * 3600 * 1000).toISOString().slice(0, 10) + 'T00:00:00Z').getTime() - 9 * 3600 * 1000;
+  const jstNow = new Date(nowMs + 9 * 3600 * 1000);  // JST 表示用 Date
+  const jstDow = jstNow.getUTCDay();                   // 0=日, 1=月, ..., 6=土
+  const daysSinceMon = (jstDow + 6) % 7;              // 月=0, 火=1, ..., 日=6
+  const jstMonStart = new Date(jstNow);
+  jstMonStart.setUTCDate(jstNow.getUTCDate() - daysSinceMon);
+  jstMonStart.setUTCHours(0, 0, 0, 0);
+  // 真の UTC ms に戻す (epochMs と直接比較するため -9h)
+  const weekStartMs = jstMonStart.getTime() - 9 * 3600 * 1000;
 
   const seen = new Set();
   const events = rawAll
@@ -128,7 +137,7 @@ async function main() {
     })
     .filter(Boolean)
     .filter((e) => e.impact === 'high')              // 高インパクトのみ
-    .filter((e) => e.epochMs >= todayStartMs)        // 当日 0:00 以降 (過去除外)
+    .filter((e) => e.epochMs >= weekStartMs)         // 今週月曜 00:00 JST 以降 (今週分を一望)
     .filter((e) => {                                  // 重複除去 (thisweek/nextweek の境界重複)
       const k = `${e.date}|${e.time}|${e.currency}|${e.title}`;
       if (seen.has(k)) return false;
@@ -141,7 +150,7 @@ async function main() {
   const range = dates.length ? `${dates[0]} 〜 ${dates[dates.length - 1]}` : '(該当なし)';
 
   const out = {
-    _note: 'Forex Factory 公開 XML (今週+来週) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・当日以降のみ',
+    _note: 'Forex Factory 公開 XML (今週分) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・今週月曜 00:00 JST 以降',
     _source: FF_URLS,
     _attribution: 'Calendar data courtesy of Forex Factory® (https://www.forexfactory.com)',
     _disclaimer: '本データは参考情報であり、投資判断の助言ではありません',

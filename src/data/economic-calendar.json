@@ -1,11 +1,11 @@
 {
-  "_note": "Forex Factory 公開 XML (今週+来週) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・当日以降のみ",
+  "_note": "Forex Factory 公開 XML (今週分) を毎日 fetch (scripts/fetch-economic-calendar.mjs) / 高インパクト・今週月曜 00:00 JST 以降",
   "_source": [
     "https://nfs.faireconomy.media/ff_calendar_thisweek.xml"
   ],
   "_attribution": "Calendar data courtesy of Forex Factory® (https://www.forexfactory.com)",
   "_disclaimer": "本データは参考情報であり、投資判断の助言ではありません",
-  "_fetched_at": "2026-06-02T00:31:47.015Z",
+  "_fetched_at": "2026-06-02T01:13:31.990Z",
   "_timezone": "JST (UTC+9)",
   "_window": "2026-06-01 〜 2026-06-05",
   "_total_parsed": 114,
@@ -14,7 +14,7 @@
     {
       "date": "2026-06-01",
       "time": "23:00",
-      "epochMs": 1780354800000,
+      "epochMs": 1780322400000,
       "currency": "USD",
       "impact": "high",
       "title": "ISM Manufacturing PMI",
@@ -25,7 +25,7 @@
     {
       "date": "2026-06-02",
       "time": "23:00",
-      "epochMs": 1780441200000,
+      "epochMs": 1780408800000,
       "currency": "GBP",
       "impact": "high",
       "title": "BOE Gov Bailey Speaks",
@@ -36,7 +36,7 @@
     {
       "date": "2026-06-03",
       "time": "10:30",
-      "epochMs": 1780482600000,
+      "epochMs": 1780450200000,
       "currency": "AUD",
       "impact": "high",
       "title": "GDP q/q",
@@ -47,7 +47,7 @@
     {
       "date": "2026-06-03",
       "time": "17:30",
-      "epochMs": 1780507800000,
+      "epochMs": 1780475400000,
       "currency": "JPY",
       "impact": "high",
       "title": "BOJ Gov Ueda Speaks",
@@ -58,7 +58,7 @@
     {
       "date": "2026-06-03",
       "time": "21:15",
-      "epochMs": 1780521300000,
+      "epochMs": 1780488900000,
       "currency": "USD",
       "impact": "high",
       "title": "ADP Non-Farm Employment Change",
@@ -69,7 +69,7 @@
     {
       "date": "2026-06-03",
       "time": "23:00",
-      "epochMs": 1780527600000,
+      "epochMs": 1780495200000,
       "currency": "USD",
       "impact": "high",
       "title": "ISM Services PMI",
@@ -80,7 +80,7 @@
     {
       "date": "2026-06-04",
       "time": "14:00",
-      "epochMs": 1780581600000,
+      "epochMs": 1780549200000,
       "currency": "AUD",
       "impact": "high",
       "title": "RBA Gov Bullock Speaks",
@@ -91,7 +91,7 @@
     {
       "date": "2026-06-05",
       "time": "00:40",
-      "epochMs": 1780620000000,
+      "epochMs": 1780587600000,
       "currency": "GBP",
       "impact": "high",
       "title": "BOE Gov Bailey Speaks",
@@ -102,7 +102,7 @@
     {
       "date": "2026-06-05",
       "time": "21:30",
-      "epochMs": 1780695000000,
+      "epochMs": 1780662600000,
       "currency": "CAD",
       "impact": "high",
       "title": "Employment Change",
@@ -113,7 +113,7 @@
     {
       "date": "2026-06-05",
       "time": "21:30",
-      "epochMs": 1780695000000,
+      "epochMs": 1780662600000,
       "currency": "CAD",
       "impact": "high",
       "title": "Unemployment Rate",
@@ -124,7 +124,7 @@
     {
       "date": "2026-06-05",
       "time": "21:30",
-      "epochMs": 1780695000000,
+      "epochMs": 1780662600000,
       "currency": "USD",
       "impact": "high",
       "title": "Average Hourly Earnings m/m",
@@ -135,7 +135,7 @@
     {
       "date": "2026-06-05",
       "time": "21:30",
-      "epochMs": 1780695000000,
+      "epochMs": 1780662600000,
       "currency": "USD",
       "impact": "high",
       "title": "Non-Farm Employment Change",
@@ -146,7 +146,7 @@
     {
       "date": "2026-06-05",
       "time": "21:30",
-      "epochMs": 1780695000000,
+      "epochMs": 1780662600000,
       "currency": "USD",
       "impact": "high",
       "title": "Unemployment Rate",
