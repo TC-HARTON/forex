@@ -27,9 +27,6 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Fetch economic calendar (Forex Factory XML)
-        run: node scripts/fetch-economic-calendar.mjs
-
       - name: Fetch currency strength (ECB via Frankfurter)
         run: node scripts/fetch-currency-strength.mjs
 
@@ -42,7 +39,7 @@ jobs:
         run: |
           git config user.name  "tcharton.com bot"
           git config user.email "info@tcharton.com"
-          git add src/data/economic-calendar.json src/data/currency-strength.json src/data/github-repo.json
+          git add src/data/currency-strength.json src/data/github-repo.json
           if git diff --cached --quiet; then
             echo "No data changes - skipping commit"
           else
