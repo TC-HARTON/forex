@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SessionCountdown from '../components/SessionCountdown.astro';
-import CurrencyStrength from '../components/CurrencyStrength.astro';
 import blogData from '../data/blog-posts.json';
 
 const websiteJsonLd = {
@@ -281,15 +280,6 @@ const mtsFeatures = [
         </ul>
       </div>
     </div>
-  </section>
-
-  <!-- ===== ライブデータ (鮮度 = FX サイトの価値) ===== -->
-  <section aria-label="マーケットデータ" class="reveal py-14">
-    <div class="flex items-baseline justify-between gap-3 flex-wrap">
-      <h2 class="font-display text-2xl font-bold text-dark-900">いまの相場コンディション</h2>
-      <p class="text-xs text-dark-600">毎日自動更新 / 出典明記 / 参考情報</p>
-    </div>
-    <CurrencyStrength />
   </section>
 
   <!-- ===== IC Markets (収益導線 / ソフト) ===== -->
