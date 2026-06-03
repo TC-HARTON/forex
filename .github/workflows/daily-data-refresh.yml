@@ -4,7 +4,12 @@ name: Daily data refresh (calendar + currency strength + GitHub stats)
 # 経済指標: Forex Factory 週次更新を毎日 fetch (週末も含めて鮮度担保)
 # 通貨強弱: ECB 公式データ (Frankfurter API) から日次自動計算 (MT5 不要・完全自動)
 # GitHub stats: 同 workflow で毎日更新
-# 差分があれば自動 commit → Cloudflare Pages 自動再ビルド
+# 差分があれば自動 commit → Cloudflare が自動再ビルド (本番反映)
+#
+# ※ commit メッセージに [skip ci] を付けてはいけない。
+#   Cloudflare Workers Build は [skip ci] / [ci skip] を尊重してビルドを
+#   スキップするため、データは GitHub 上で更新されても本番に反映されず
+#   「成功したのに古いまま」になる (2026-06-03 検出・修正)。
 
 on:
   schedule:
@@ -43,6 +48,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No data changes - skipping commit"
           else
-            git commit -m "chore(data): daily refresh — calendar + currency strength + github stats [skip ci]"
+            git commit -m "chore(data): daily refresh — currency strength + github stats"
             git push
           fi
