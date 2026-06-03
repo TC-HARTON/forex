@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import data from '../../../data/brokers.json';
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'ホーム', item: 'https://tcharton.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Broker', item: 'https://tcharton.com/broker/' },
+    { '@type': 'ListItem', position: 3, name: '非推奨・注意ブローカー', item: 'https://tcharton.com/broker/caution/' },
+  ],
+};
+const extraJsonLd = `<script type="application/ld+json">${JSON.stringify(breadcrumbJsonLd)}</script>`;
+
+const caution = data.caution;
+// 区分: 国内人気だが注意 (XM/Exness) と 日本開設不可 (Pepperstone/FP Markets)
+const popularButCaution = caution.filter((c) => c.name.startsWith('XM') || c.name === 'Exness');
+const notAvailableJp = caution.filter((c) => c.name === 'Pepperstone' || c.name === 'FP Markets');
+---
+
+<BaseLayout
+  title="非推奨・注意の海外 FX ブローカーと、その理由 | 出典付き検証 | T.C.HARTON"
+  description="国内サイトで推奨されがちな XM の実態 (Trustpilot ガイドライン違反でスコア非表示)、Exness の日本居住者 新規開設停止、世界トップ評価でも日本では開設できない Pepperstone・FP Markets。海外評価サイトの一次情報で、推奨しなかった理由を出典付きで明示します。"
+  keywords="海外FX 非推奨,XM 推奨 実態,XM Trustpilot,Exness 日本 開設停止,Pepperstone 日本 不可,FP Markets 日本,海外FX 注意"
+  canonicalPath="/broker/caution/"
+  ogType="article"
+  ogImage="/og/broker.png"
+  extraJsonLd={extraJsonLd}
+>
+  <nav aria-label="パンくず" class="text-xs text-dark-700 mb-6">
+    <a href="/" class="hover:text-teal-700">ホーム</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <a href="/broker/" class="hover:text-teal-700">Broker</a>
+    <span aria-hidden="true" class="mx-2">/</span>
+    <span aria-current="page">非推奨・注意</span>
+  </nav>
+
+  <header>
+    <p class="text-xs font-display font-bold tracking-widest uppercase text-rose-600">Broker Caution</p>
+    <h1 class="mt-3 font-display text-3xl sm:text-4xl font-bold tracking-tight text-dark-900">推奨しなかったブローカーと、その理由</h1>
+    <p id="summary" class="mt-4 text-dark-700 leading-relaxed max-w-2xl">
+      国内の FX 比較サイトで「おすすめ第1位」として頻繁に登場する <strong class="text-dark-900">XM</strong> を、当サイトがトップ3に入れなかった理由。
+      人気はあるが論点のある <strong class="text-dark-900">Exness</strong>。そして世界トップ評価でも日本居住者が開設できない
+      <strong class="text-dark-900">Pepperstone / FP Markets</strong>。すべて<strong class="text-dark-900">海外評価サイトの一次情報と各社公式</strong>に基づき、
+      出典付きで検証します。
+    </p>
+  </header>
+
+  <!-- 編集方針 (営業誹謗回避の明示) -->
+  <section class="mt-6 p-4 border-l-4 border-dark-300 bg-dark-50 text-xs sm:text-sm text-dark-700 leading-relaxed rounded-r">
+    <p class="font-semibold text-dark-900 mb-1">本ページの立場</p>
+    <p>
+      本ページは特定業者を誹謗する目的ではなく、<strong class="text-dark-900">公開された第三者評価データと各社公式情報という客観的事実</strong>を、出典リンク付きで提示するものです。
+      「使ってはいけない」と断定するものではなく、各社の利点も併記したうえで、読者が出典を自ら確認して判断するための材料を提供します。
+      評価スコア・件数・各社の受付方針は変動します (2026 年 6 月時点)。
+    </p>
+  </section>
+
+  <!-- なぜ XM が推奨されがちか -->
+  <section class="reveal mt-10 p-6 border border-dark-200 border-l-4 border-l-amber-500 rounded-xl bg-white">
+    <h2 class="font-display text-lg font-bold text-dark-900">なぜ国内サイトでは XM が「おすすめ第1位」とされやすいのか</h2>
+    <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+      XM は日本語サポート・少額入金・ボーナス・知名度で優れ、日本人利用者が非常に多い業者です。
+      一方で、国内の比較・アフィリエイトサイトで突出して推奨されやすい背景には、
+      <strong class="text-dark-900">XM のアフィリエイト報酬体系が手厚いことが業界で指摘されています</strong>。
+      当サイトは紹介料の有無で順位を操作しない方針のため、人気の高さとは独立に、第三者評価サイト上の客観的事実を確認しました。
+    </p>
+  </section>
+
+  <!-- 国内人気だが注意 (XM / Exness) -->
+  <section aria-label="国内で人気だが注意" class="mt-10">
+    <h2 class="font-display text-xl font-bold text-dark-900 pb-2 border-b-2 border-amber-500">国内で人気だが、当サイトが推奨しない業者</h2>
+    <div class="mt-6 space-y-6">
+      {popularButCaution.map((c, i) => (
+        <article class="reveal card-lift border border-dark-200 border-l-4 border-l-amber-500 rounded-xl bg-white p-6 sm:p-7" data-reveal-delay={i * 90}>
+          <div class="flex flex-wrap items-start justify-between gap-3">
+            <h3 class="font-display text-xl font-bold text-dark-900">{c.name}</h3>
+            <div class="text-right text-xs text-dark-600">
+              {c.rating_fb && <p>ForexBrokers.com <strong class="text-dark-900">{c.rating_fb}</strong> <span class="text-dark-400">(TS {c.rating_fb_trustscore})</span></p>}
+              {c.rating_other && <p class="mt-0.5">{c.rating_other}</p>}
+            </div>
+          </div>
+          {c.popularity_note && <p class="mt-2 text-sm text-dark-600 italic">{c.popularity_note}</p>}
+
+          {c.trustpilot_status && (
+            <div class="mt-4 p-4 rounded-lg bg-rose-50 border border-rose-200 text-sm text-dark-800 leading-relaxed">
+              <p class="font-display font-bold text-dark-900 mb-1">⚠ Trustpilot の状態</p>
+              <p>{c.trustpilot_status}</p>
+            </div>
+          )}
+
+          <dl class="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-2 text-xs">
+            <div class="flex gap-2"><dt class="w-28 shrink-0 text-dark-500">日本居住者</dt><dd class="text-dark-800">{c.japan_status}</dd></div>
+            <div class="flex gap-2"><dt class="w-28 shrink-0 text-dark-500">規制</dt><dd class="text-dark-800">{c.regulation}</dd></div>
+            {c.standard_eurusd && <div class="flex gap-2"><dt class="w-28 shrink-0 text-dark-500">スタンダード</dt><dd class="text-dark-800">{c.standard_eurusd}</dd></div>}
+            {c.low_account && <div class="flex gap-2"><dt class="w-28 shrink-0 text-dark-500">低スプレッド</dt><dd class="text-dark-800">{c.low_account}</dd></div>}
+          </dl>
+
+          <div class="mt-5 grid sm:grid-cols-2 gap-4">
+            {c.acknowledge_pros && (
+              <div class="p-4 rounded-lg bg-teal-50/50 border border-teal-200">
+                <p class="font-display font-semibold text-sm text-dark-900">👍 認めるべき利点</p>
+                <ul class="mt-2 space-y-1 text-sm text-dark-700">
+                  {c.acknowledge_pros.map((p) => <li>• {p}</li>)}
+                </ul>
+              </div>
+            )}
+            <div class="p-4 rounded-lg bg-amber-50/50 border border-amber-200">
+              <p class="font-display font-semibold text-sm text-dark-900">⚠ 推奨しない理由 (事実)</p>
+              <ul class="mt-2 space-y-1 text-sm text-dark-700">
+                {c.why_caution.map((w) => <li>• {w}</li>)}
+              </ul>
+            </div>
+          </div>
+
+          {c.verdict && (
+            <p class="mt-4 p-4 rounded-lg bg-dark-50 border border-dark-100 text-sm text-dark-700 leading-relaxed">
+              <strong class="text-dark-900">当サイトの結論:</strong> {c.verdict}
+            </p>
+          )}
+
+          <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-dark-500">
+            <span class="font-semibold">出典:</span>
+            {c.sources.map((s) => (
+              <a href={s.url} rel="noopener noreferrer" target="_blank" class="underline hover:text-teal-700">{s.label} ↗</a>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- 世界トップ評価だが日本では開設不可 -->
+  <section aria-label="日本居住者は開設不可" class="mt-12">
+    <h2 class="font-display text-xl font-bold text-dark-900 pb-2 border-b-2 border-dark-300">世界トップ評価でも、日本居住者は開設できない業者</h2>
+    <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+      海外の評価サイトでは屈指の高評価にもかかわらず、<strong class="text-dark-900">制限国リストに日本が明記</strong>されており、日本居住者は正規に口座開設できません。
+      「世界トップ評価」という点だけを見て選ぶと開設できないため、当サイトのトップ3からは除外しています。
+    </p>
+    <div class="mt-6 grid gap-5 lg:grid-cols-2">
+      {notAvailableJp.map((c, i) => (
+        <article class="reveal card-lift border border-dark-200 border-l-4 border-l-dark-400 rounded-xl bg-white p-6" data-reveal-delay={i * 90}>
+          <div class="flex flex-wrap items-start justify-between gap-2">
+            <h3 class="font-display text-lg font-bold text-dark-900">{c.name}</h3>
+            <span class="text-xs px-2 py-0.5 bg-rose-100 text-rose-700 border border-rose-200 rounded font-display font-bold">日本居住者 開設不可</span>
+          </div>
+          <div class="mt-2 text-xs text-dark-600">
+            {c.rating_fb && <span>ForexBrokers.com {c.rating_fb} (TS {c.rating_fb_trustscore})</span>}
+            {c.rating_other && <span> / {c.rating_other}</span>}
+          </div>
+          {c.popularity_note && <p class="mt-2 text-sm text-dark-600 italic">{c.popularity_note}</p>}
+          <ul class="mt-4 space-y-1.5 text-sm text-dark-700">
+            {c.why_caution.map((w) => <li class="flex gap-2"><span class="text-rose-500 shrink-0" aria-hidden="true">•</span><span>{w}</span></li>)}
+          </ul>
+          {c.verdict && <p class="mt-3 text-sm text-dark-600 leading-relaxed">{c.verdict}</p>}
+          <div class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs text-dark-500">
+            <span class="font-semibold">出典:</span>
+            {c.sources.map((s) => (
+              <a href={s.url} rel="noopener noreferrer" target="_blank" class="underline hover:text-teal-700">{s.label} ↗</a>
+            ))}
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- トップ3へ戻る導線 -->
+  <section aria-label="推奨ブローカー" class="reveal mt-12 p-6 sm:p-7 border-2 border-teal-700 rounded-xl bg-teal-50/40">
+    <h2 class="font-display text-lg font-bold text-dark-900">では、日本から使える「推奨トップ3」は?</h2>
+    <p class="mt-3 text-sm text-dark-700 leading-relaxed">
+      日本居住者が正規に開設でき、MT4/MT5 が使え、第三者評価が一貫して高い業者として
+      <strong class="text-dark-900">IC Markets / Titan FX / AXIORY</strong> を出典付きで比較しています。
+    </p>
+    <a href="/broker/" class="btn-pop mt-5 inline-flex items-center gap-2 px-5 py-2.5 bg-teal-700 text-white rounded-md font-bold text-sm hover:bg-teal-800">
+      推奨トップ3 の比較を見る
+      <svg class="arrow-go" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+    </a>
+  </section>
+
+  <!-- 法的明示 -->
+  <section class="mt-10 p-5 border border-dark-200 rounded-xl text-xs text-dark-700 leading-relaxed">
+    <p class="font-display font-bold text-dark-900 mb-2">本記事について</p>
+    <p>
+      本記事は海外 FX ブローカーの<strong class="text-dark-900">比較・注意喚起情報</strong>であり、投資助言業 (金商法 §29) には該当しません。
+      掲載内容は 2026 年 6 月時点の海外評価サイト一次情報・各社公式情報・FX 専門メディア報道に基づく客観的事実の引用であり、特定業者への誹謗を目的としません。
+      評価スコア・受付方針は変動するため、最新は各社公式および各評価サイトで必ずご確認ください。
+      海外 FX 業者は日本の金融庁に未登録で、利益は雑所得 (累進課税) です。FX 取引は元本を超える損失が生じる可能性があり、最終判断と結果は閲覧者ご自身の自己責任となります。
+      詳細は <a href="/legal/disclaimer/" class="underline text-teal-700">免責事項</a> を参照してください。
+    </p>
+  </section>
+</BaseLayout>

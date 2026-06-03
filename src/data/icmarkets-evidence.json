@@ -1,28 +1,30 @@
 {
   "_note": "IC Markets 推薦記事の根拠データ (全て海外評価サイト一次情報 / 2026 取得)",
   "_disclaimer": "本データは公開情報に基づく参考情報であり、特定ブローカーへの口座開設を強制・断定するものではありません。海外 FX 業者は金融庁未登録です。口座開設は自己責任で各社最新規約を確認してください。",
-  "_affiliate_disclosure": "本記事には IC Markets のアフィリエイト (IB) リンクを含みます。当リンク経由で口座開設された場合、運営者に紹介報酬が支払われます。評価・順位は報酬の有無で操作していません。すべて出典付きの第三者評価に基づきます。",
-  "_updated": "2026-05-27",
+  "_affiliate_disclosure": "本記事のリンクは現在 IC Markets 公式サイトを指します (アフィリエイト IB 提携の手続き中)。提携成立後はアフィリエイトリンクに切り替え、その旨を明示します。いずれの場合も評価・順位は報酬の有無で操作しておらず、すべて出典付きの第三者評価に基づきます。",
+  "_updated": "2026-06-03",
+  "_affiliate_url_note": "affiliate_url は IB リンク取得までの暫定で公式 URL を設定。代表が IB リンク取得後に差し替える (差し替え後はリンク表記を『公式サイト (PR)』に戻す)。",
   "broker": {
     "name": "IC Markets",
     "entity_global": "Raw Trading Ltd (IC Markets Global)",
     "entity_au": "International Capital Markets Pty Ltd",
     "entity_eu": "IC Markets (EU) Ltd",
+    "entity_jp": "日本居住者は Raw Trading Ltd (セーシェル FSA / SD018) エンティティ。2023 年に日本居住者の受け入れを再開。",
     "founded": 2007,
     "official_url": "https://www.icmarkets.com/global/en/",
-    "affiliate_url": "https://example.com/icmarkets-IB-placeholder"
+    "affiliate_url": "https://www.icmarkets.com/global/en/"
   },
   "ratings": [
     {
       "source": "ForexBrokers.com",
       "score": "4.5 / 5",
-      "detail": "2026 Annual Award: #1 MetaTrader Broker / #1 Algo Trading / Best in Class: Trading Fees。Trust Score 83/99。",
+      "detail": "2026 Annual Award: #1 MetaTrader Broker / #1 Algo Trading。Trust Score 83/99 (2026-06-03 確認)。",
       "url": "https://www.forexbrokers.com/reviews/ic-markets"
     },
     {
       "source": "Trustpilot (icmarkets.com / Global)",
       "score": "4.8 / 5",
-      "detail": "レビュー約 52,000 件超 / 91% が 5 星評価 (2026 年時点)。",
+      "detail": "レビュー 54,230 件 (2026-06-03 実測)。5 星評価が大半を占める。件数は変動します。",
       "url": "https://www.trustpilot.com/review/icmarkets.com"
     },
     {
@@ -47,9 +49,55 @@
     "raw_spread_eurusd_pips": 0.1,
     "raw_spread_eurusd_min_pips": 0.0,
     "commission_round_turn_usd": "6〜7 (口座種別による)",
-    "standard_account_note": "標準口座スプレッドは第三者評価で世界最狭水準と報告 (ForexBrokers.com)",
+    "standard_account_note": "標準口座スプレッドは第三者評価で特に狭い水準と報告 (ForexBrokers.com)",
+    "forexbrokers_measured": "ForexBrokers.com 計測 (2026-06-03 確認): Standard 平均 0.62 pips / Raw Spread (MT4·MT5) 実質 約0.72 pips / cTrader Raw 実質 約0.62 pips",
     "source_url": "https://www.icmarkets.com/global/en/trading-accounts/raw-spread-account"
   },
+  "account_types": [
+    {
+      "name": "Standard 口座",
+      "spread": "EUR/USD 平均 約0.62 pips (ForexBrokers.com 計測)",
+      "commission": "無料",
+      "fit": "手数料計算を避けたい人向け。実質コストは Raw とほぼ同等だが計算がシンプル。",
+      "platform": "MT4 / MT5"
+    },
+    {
+      "name": "Raw Spread 口座",
+      "spread": "EUR/USD 平均 約0.1 pips (最小 0.0)",
+      "commission": "往復 約$7/lot",
+      "fit": "スプレッド + 手数料の実コストを最小化したい裁量・スキャル向け。XAUUSD 裁量の主軸。",
+      "platform": "MT4 / MT5"
+    },
+    {
+      "name": "cTrader Raw 口座",
+      "spread": "EUR/USD 平均 約0.1 pips (実質 約0.62 pips)",
+      "commission": "往復 約$6/lot",
+      "fit": "板情報・高速約定の cTrader を使いたい人向け。手数料がやや安い。",
+      "platform": "cTrader"
+    }
+  ],
+  "faq": [
+    {
+      "q": "日本に住んでいても口座開設できますか?",
+      "a": "はい。IC Markets Global (Raw Trading Ltd / セーシェル FSA・SD018) は 2023 年に日本居住者の受け入れを再開しており、口座開設フォームは日本語表示されます。ただし日本語サポート・日本語サイトは発展途上で英語が主です。海外業者のため日本の金融庁には未登録で、利益は雑所得 (累進課税) です。"
+    },
+    {
+      "q": "どの口座種別を選べばよいですか?",
+      "a": "XAUUSD を裁量で複数回エントリーするなら、実コストを最小化できる Raw Spread 口座 (EUR/USD 平均 約0.1 pips + 往復約$7/lot) が基本です。手数料計算を避けたいなら Standard 口座 (平均 約0.62 pips・手数料無料) でも実質コストは近く、板情報や高速約定を重視するなら cTrader Raw が選択肢です。"
+    },
+    {
+      "q": "XAUUSD (ゴールド) のスプレッドや取引時間は?",
+      "a": "XAUUSD は Raw Spread 口座で低スプレッド + NDD 約定です。スプレッドは変動制で、指標発表時には拡大します。正確な実測値は公式スプレッド表や Myfxbook で確認してください。取引時間は概ね 01:02〜23:57 (MT4 サーバー時間) です。"
+    },
+    {
+      "q": "MT5_Python ダッシュボードと組み合わせて使えますか?",
+      "a": "はい。当サイトの MT5_Python Trading Dashboard は MT5 口座に接続して動作するため、IC Markets の MT5 口座と組み合わせて 8 銘柄のマルチタイムフレーム分析・通貨強弱・相関・経済指標の俯瞰に利用できます。"
+    },
+    {
+      "q": "出金はスムーズですか?",
+      "a": "Trustpilot (54,230 件 / 2026-06-03) では「出金がスムーズ」との評価が多数を占めます。一方で一部に入金反映の遅延や出金に時間がかかったとの声もあり、公平のため本ページの口コミ欄に併記しています。"
+    }
+  ],
   "execution": {
     "latency_ny4_ms": "平均 40ms 未満 (Equinix NY4)",
     "ctrader_latency_ms": "1ms 未満 (Equinix LD5 / 主要 VPS コロケーション)",
@@ -60,7 +108,7 @@
   },
   "volume": {
     "daily_usd": "約 813 億ドル (Q4 2025 平均)",
-    "monthly_usd_peak": "1.76 兆ドル (Q4 2025 月次最高)",
+    "monthly_usd_peak": "1.76 兆ドル (Q4 2025 月次ピーク)",
     "automated_ratio": "全取引の 2/3 以上が自動売買由来",
     "source_url": "https://traderspartner.com/ic-markets/review"
   },

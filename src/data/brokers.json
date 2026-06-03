@@ -1,82 +1,223 @@
 {
-  "_affiliate_disclosure": "本ページには広告 (アフィリエイト/IB) リンクを含む場合があります。評価・順位は紹介料の有無で操作していません。スプレッドは口座種別・時間帯・相場急変で変動します。数値・評価は各社公式・海外評価サイト (ForexBrokers.com / Trustpilot 等) を参照した 2026 年 5 月時点の代表値で、最新値は各公式でご確認ください。",
-  "_sources_note": "出典: ForexBrokers.com 各社レビュー / Trustpilot TrustScore / 各社公式スプレッド表 (いずれも 2026 年 5 月参照)。Trustpilot スコア・件数は変動します。",
-  "_account_note": "海外 FX は『スタンダード口座 (手数料無料・スプレッド広め)』と『低スプレッド口座 (Raw/Zero/極 = スプレッド狭・別途往復手数料)』で実質コストが大きく異なります。下表は EUR/USD を基準にした代表値です。",
-  "brokers": [
+  "_updated": "2026-06-03",
+  "_affiliate_disclosure": "本ページには広告 (アフィリエイト/IB) リンクを含む場合があります。順位・評価は紹介料の有無で操作していません。むしろ国内サイトで報酬の高い業者が過度に推奨される傾向への対抗として、海外の第三者評価サイトの一次情報と各社公式情報のみで順位を構成しています。",
+  "_selection_axis": "本ページの順位は『①日本居住者が正規に口座開設できる ②MT4/MT5 対応 (MT5_Python ダッシュボード連携可) ③海外の独立評価サイトで一貫して高評価で、信頼性に重大な疑義がない』の3軸で選定。XAUUSD 中上級裁量を主用途として評価しています。",
+  "_sources_note": "出典: ForexBrokers.com 各社レビュー (Trust Score は 99 点満点) / Trustpilot TrustScore (2026-06-03 実測) / FXEmpire / DailyForex / 各社公式スプレッド表・規制ページ。スコア・件数・スプレッドは変動します。",
+  "_account_note": "海外 FX は『スタンダード口座 (手数料無料・スプレッド広め)』と『低スプレッド口座 (Raw/Zero/極/Blade/Nano = スプレッド狭・別途往復手数料)』で実質コストが大きく異なります。下表は EUR/USD を基準にした代表値で、いずれも変動制です。",
+  "_japan_note": "海外 FX 業者は日本の金融庁に登録されていません (利益は雑所得・累進課税)。本ページの『日本居住者の口座開設可否』は 2026 年 6 月時点の各社公式情報・制限国リスト・FX 専門メディアの一次情報に基づく参考情報で、各社の判断・規約改定により変わります。最新は必ず各公式でご確認ください。",
+  "recommended": [
     {
+      "rank": 1,
       "name": "IC Markets",
-      "official_url": "https://www.icmarkets.com/",
-      "regulation": "ASIC(豪) / CySEC(欧) / FSA(セーシェル)",
+      "tagline": "総合力で頭一つ抜けた本命。XAUUSD 裁量の主軸候補",
+      "official_url": "https://www.icmarkets.com/global/en/",
+      "detail_url": "/broker/icmarkets/",
+      "japan_entity": "Raw Trading Ltd (セーシェル FSA / ライセンス SD018)",
+      "japan_status": "日本居住者の口座開設を受付 (2023 年に受け入れ再開)",
+      "regulation": "ASIC 335692 / CySEC 362/18 / FSA セーシェル SD018 (日本居住者は FSA エンティティ)",
       "min_deposit_usd": 200,
-      "max_leverage": "1:1000",
+      "max_leverage": "1:1000 (Global)",
+      "platforms": "MT4 / MT5 / cTrader / TradingView",
       "rating_fb": 4.5,
+      "rating_fb_trustscore": "83 / 99",
       "rating_tp": 4.8,
-      "tp_reviews": "4万件超",
-      "standard_eurusd": "—(Raw 中心)",
-      "low_account": "Raw Spread: EUR/USD 平均 約0.1 pips + 往復手数料 約$7/lot",
-      "platforms": "MT4 / MT5 / cTrader",
-      "review_voice": "「約定が速く滑りにくい」「Raw のスプレッドが安定して狭い」との評価が多数。",
-      "tcharton_note": "Raw スプレッド・約定速度・流動性に定評。XAUUSD 裁量の主軸候補。"
+      "tp_reviews": "54,230 件 (2026-06-03)",
+      "rating_other": "FXEmpire 4.7 (Best Low Spreads)",
+      "awards": "ForexBrokers.com 2026 Annual Award: #1 MetaTrader Broker / #1 Algo Trading",
+      "standard_eurusd": "Standard 平均 約0.62 pips (手数料無料 / ForexBrokers.com 計測)",
+      "low_account": "Raw Spread: EUR/USD 平均 約0.1 pips + 往復手数料 約$7/lot (実質 約0.62〜0.72 pips)",
+      "xauusd": "Raw 口座で低スプレッド + NDD 約定 (変動制 / 公式・Myfxbook で要確認)",
+      "jp_support": "限定的 (口座開設フォームは日本語化。本体サイト・日本語サポートは発展途上)",
+      "pros": [
+        "約定が速く滑りにくい (Equinix NY4 / 平均 40ms 未満)",
+        "Raw スプレッドが安定して狭い + 流動性が厚い (日次 約813億ドル)",
+        "ForexBrokers.com で #1 MetaTrader Broker (2026)・Trust Score 83/99",
+        "Trustpilot 4.8 / 5 (54,230 件) と大量レビューで高評価"
+      ],
+      "cautions": [
+        "日本語サポート・日本語サイトは発展途上 (英語が主)",
+        "日本居住者は Tier-1 (ASIC/CySEC) ではなくセーシェル FSA エンティティ扱い",
+        "海外業者のため金融庁未登録 (利益は雑所得・累進課税)"
+      ],
+      "review_voice": "「約定が速く滑りにくい」「Raw のスプレッドが安定して狭い」「出金がスムーズ」との評価が多数 (Trustpilot)。",
+      "sources": [
+        { "label": "ForexBrokers.com レビュー (4.5 / TS83 / #1 MetaTrader)", "url": "https://www.forexbrokers.com/reviews/ic-markets" },
+        { "label": "Trustpilot (icmarkets.com / 4.8・54,230件)", "url": "https://www.trustpilot.com/review/icmarkets.com" },
+        { "label": "FXEmpire レビュー", "url": "https://www.fxempire.com/brokers/icmarkets" }
+      ]
     },
     {
-      "name": "XM (XMTrading)",
-      "official_url": "https://www.xmtrading.com/",
-      "regulation": "ASIC(豪) / CySEC(欧) / FSC(ベリーズ)",
-      "min_deposit_usd": 5,
+      "rank": 2,
+      "name": "Titan FX",
+      "tagline": "約定の安定と手厚い日本語サポート。ボーナスなしの実コスト型",
+      "official_url": "https://titanfx.com/ja",
+      "japan_entity": "Titan FX Limited (バヌアツ VFSC / 登録番号 40313)",
+      "japan_status": "日本語の口座開設フローを提供し日本人利用者も多い。ただし公式に『日本国内で金融商品取引業を営まない』旨の免責記載あり",
+      "regulation": "VFSC (バヌアツ) 40313",
+      "min_deposit_usd": 200,
       "max_leverage": "1:1000",
-      "rating_fb": 4.5,
-      "rating_tp": 4.3,
-      "tp_reviews": "3千件超",
-      "standard_eurusd": "スタンダード 平均 約1.6 pips(手数料無料)",
-      "low_account": "KIWAMI極: EUR/USD 平均 約0.7 pips(手数料無料) / ゼロ: 0.0〜0.1 pips + 手数料",
       "platforms": "MT4 / MT5",
-      "review_voice": "「日本語サポートが手厚い」「少額・ボーナスで始めやすい」一方「スタンダードのスプレッドは広め」との声。",
-      "tcharton_note": "少額から。低コスト狙いは KIWAMI極が要。スタンダードの 1.6pips は変動制。"
+      "rating_fb": null,
+      "rating_fb_trustscore": "—",
+      "rating_tp": 3.9,
+      "tp_reviews": "167 件 (2026-06-03)",
+      "rating_other": "ForexBrokers.com / FXEmpire に個別レビューなし",
+      "awards": "UF Awards 2025: Fastest Growing Broker APAC / Best Customer Support APAC",
+      "standard_eurusd": "Zero Standard 平均 約1.2 pips (手数料無料)",
+      "low_account": "Zero Blade: EUR/USD 平均 約0.2 pips + 往復手数料 約$7/lot ($3.5/side)",
+      "xauusd": "Zero Standard 約2.1 pips 前後 (変動制 / 公式で要確認)",
+      "jp_support": "日本語スタッフが 24 時間 365 日常駐 (手厚い)",
+      "pros": [
+        "約定とスプレッドが安定との実利志向の評価",
+        "日本語サポートが 24 時間 365 日と手厚い",
+        "ボーナスに頼らない低スプレッドの実コスト型",
+        "Trustpilot 3.9 / 5 (167 件)"
+      ],
+      "cautions": [
+        "Tier-1 規制なし (バヌアツ VFSC のみ)",
+        "公式サイトに『日本居住者向けではない』趣旨の免責記載あり",
+        "海外の総合評価サイトに個別レビューが少なく第三者検証が薄い",
+        "海外業者のため金融庁未登録 (利益は雑所得・累進課税)"
+      ],
+      "review_voice": "「入出金が速い」「スプレッドが狭い」との声 (Trustpilot 167 件)。件数は中規模。",
+      "sources": [
+        { "label": "Titan FX 日本語公式", "url": "https://titanfx.com/ja" },
+        { "label": "Titan FX 口座種別比較 (Research Hub)", "url": "https://research.titanfx.com/support/comparison-account" },
+        { "label": "Trustpilot (titanfx.com / 3.9・167件)", "url": "https://www.trustpilot.com/review/titanfx.com" }
+      ]
+    },
+    {
+      "rank": 3,
+      "name": "AXIORY",
+      "tagline": "約定の透明性と cTrader 対応。日本語サポートあり",
+      "official_url": "https://www.axiory.com/jp",
+      "japan_entity": "AXIORY Global Ltd (ベリーズ FSC)",
+      "japan_status": "日本居住者の口座開設を受付 (制限国に Japan なし・日本語サポートあり)",
+      "regulation": "FSC (ベリーズ) / FSC (モーリシャス)",
+      "min_deposit_usd": 100,
+      "max_leverage": "1:1000",
+      "platforms": "MT4 / MT5 / cTrader",
+      "rating_fb": null,
+      "rating_fb_trustscore": "—",
+      "rating_tp": 2.7,
+      "tp_reviews": "69 件 (2026-06-03 / 件数が少なく代表性は低い)",
+      "rating_other": "DailyForex 3.5 / UF Awards 2025 Best Value Broker",
+      "awards": "UF Awards Global 2025: Best Value Broker",
+      "standard_eurusd": "Standard 平均 約1.2 pips (手数料無料)",
+      "low_account": "Nano / Tera: EUR/USD 平均 約0.2〜0.4 pips + 往復手数料 約$6/lot",
+      "xauusd": "Nano / Tera で 約1.8 pips 前後 (変動制 / 公式で要確認)",
+      "jp_support": "日本語サポートデスク 月〜金 9:00-24:00",
+      "pros": [
+        "約定統計を公開する透明性",
+        "cTrader が使える (MT4/MT5 に加え)",
+        "往復手数料が約$6/lot とやや安い",
+        "日本居住者を明確に受付・日本語サポートあり"
+      ],
+      "cautions": [
+        "Tier-1 規制なし (ベリーズ FSC)",
+        "Trustpilot 2.7 / 5 と低め (ただし 69 件と少なく代表性は限定的)",
+        "海外の総合評価サイトのカバレッジが薄い",
+        "海外業者のため金融庁未登録 (利益は雑所得・累進課税)"
+      ],
+      "review_voice": "「約定の透明性」「cTrader が使える」点が評価される一方、Trustpilot では出金遅延・口座対応への不満も (69 件)。",
+      "sources": [
+        { "label": "AXIORY 日本語公式", "url": "https://www.axiory.com/jp" },
+        { "label": "DailyForex レビュー (3.5)", "url": "https://www.dailyforex.com/forex-brokers/axiory-review" },
+        { "label": "Trustpilot (axiory.com / 2.7・69件)", "url": "https://www.trustpilot.com/review/axiory.com" }
+      ]
+    }
+  ],
+  "caution": [
+    {
+      "name": "XM (XMTrading)",
+      "official_url": "https://www.xmtrading.com/jp",
+      "japan_status": "日本居住者を受付 (日本最大手・日本語サポート完備)",
+      "popularity_note": "国内のFX比較・アフィリエイトサイトで『海外FX おすすめ第1位』として推奨されることが非常に多い業者。",
+      "regulation": "Tradexfin Ltd (セーシェル FSA / SD010) または Fintrade Ltd (モーリシャス FSC)",
+      "rating_fb": 4.5,
+      "rating_fb_trustscore": "93 / 99",
+      "rating_other": "FXEmpire 4.4 / DailyForex 4.5",
+      "trustpilot_status": "主ページ xm.com は『ガイドライン違反 (やらせレビュー削除)』により TrustScore が現在非表示。別エンティティ xmglobal.com は 1.3 / 5 (Bad)、xmtrading.com はレビュー 1 件のみ。",
+      "standard_eurusd": "スタンダード 平均 約2.0 pips (候補中で広め・手数料無料)",
+      "low_account": "KIWAMI極: 約1.2 pips (手数料無料) / ゼロ: 0.2 pips + 往復手数料 約$10/lot",
+      "acknowledge_pros": [
+        "日本語サポートが手厚く・最低入金 $5 から・ボーナスが手厚い・知名度が高い",
+        "ForexBrokers.com 自体は 4.5 / Trust Score 93 と高評価"
+      ],
+      "why_caution": [
+        "Trustpilot 主ページ (xm.com) が『ガイドライン違反でやらせレビュー削除』によりスコア非表示 — 他の推奨3社にはない固有の信頼性上の論点",
+        "別エンティティ xmglobal.com の Trustpilot は 1.3 / 5 (Bad)",
+        "スタンダード口座の EUR/USD は平均 約2.0 pips と広く、低コストを狙うなら KIWAMI極が必須",
+        "国内で推奨が多い背景にはアフィリエイト報酬体系の手厚さがあると業界で指摘される"
+      ],
+      "verdict": "『使ってはいけない』という話ではなく、国内での人気の高さと、独立した第三者評価サイト上の事実 (Trustpilot のスコア非表示等) には乖離があります。日本語サポートや少額・ボーナスの利便を取るか、第三者評価の一貫性を取るかを、出典を見て自分で判断してください。",
+      "sources": [
+        { "label": "ForexBrokers.com レビュー (4.5 / TS93)", "url": "https://www.forexbrokers.com/reviews/xm" },
+        { "label": "Trustpilot (xm.com / スコア非表示・ガイドライン違反)", "url": "https://www.trustpilot.com/review/xm.com" },
+        { "label": "Trustpilot (xmglobal.com / 1.3)", "url": "https://www.trustpilot.com/review/xmglobal.com" }
+      ]
     },
     {
       "name": "Exness",
       "official_url": "https://www.exness.com/",
-      "regulation": "FCA(英) / CySEC(欧) / FSA(セーシェル)",
-      "min_deposit_usd": 10,
-      "max_leverage": "無制限(条件あり)",
+      "japan_status": "公式サイトでの日本居住者の新規口座開設は 2024 年 12 月に停止 (居住国選択から Japan を削除)。現在は IB・提携メディア経由のみで、公式の正規ルートは閉じている。マイページ・サポートの日本語は継続。",
+      "popularity_note": "レバレッジの高さと出金の速さで日本でも人気だが、公式の新規開設ルートが閉じている点に注意。",
+      "regulation": "Exness SC Ltd (セーシェル FSA / SD025)。FCA (英) / CySEC (欧) は他地域向け",
       "rating_fb": 4.0,
-      "rating_tp": 3.9,
-      "tp_reviews": "3万件超",
-      "standard_eurusd": "スタンダード 平均 約1.0〜1.1 pips",
-      "low_account": "Raw/Zero: 0.0 pips〜 + 手数料",
-      "platforms": "MT4 / MT5",
-      "review_voice": "「出金が速い」「レバレッジが高い」が好評。一方で口コミ評価は賛否が分かれる。",
-      "tcharton_note": "レバレッジ無制限(条件)・Pro 口座あり。Trustpilot は中位。"
+      "rating_fb_trustscore": "80 / 99",
+      "rating_other": "Trustpilot 4.7 (29,963件) / FXEmpire 4.6 / ForexPeaceArmy 2.86",
+      "standard_eurusd": "スタンダード 約0.9〜1.1 pips / Zero・Raw: 0.0 pips〜 + 手数料",
+      "why_caution": [
+        "公式サイトでの日本居住者の新規口座開設が 2024 年 12 月に停止 (公式の正規ルートが閉じている)",
+        "Trustpilot は 4.7 と高い一方、ForexPeaceArmy は 2.86 と評価が割れる",
+        "レビューに『利益が出た後の口座制限』『出金時の本人確認長期化』の声",
+        "海外業者のため金融庁未登録 (利益は雑所得・累進課税)"
+      ],
+      "verdict": "Trustpilot 評価は高く人気もありますが、公式サイトでの日本居住者の新規開設が停止された点が最大の論点です。正規ルートが閉じている業者を主軸にするのは推奨しません。",
+      "sources": [
+        { "label": "Myforex: Exness 公式サイトが日本語非対応・Japan 削除 (2024-12-18)", "url": "https://myforex.com/ja/news/myf24121801.html" },
+        { "label": "ForexBrokers.com レビュー (4.0 / TS80)", "url": "https://www.forexbrokers.com/reviews/exness" },
+        { "label": "Trustpilot (exness.com / 4.7)", "url": "https://www.trustpilot.com/review/exness.com" }
+      ]
     },
     {
-      "name": "Titan FX",
-      "official_url": "https://titanfx.com/",
-      "regulation": "VFSC(バヌアツ) / FSA",
-      "min_deposit_usd": 200,
-      "max_leverage": "1:1000",
-      "rating_fb": null,
-      "rating_tp": 3.7,
-      "tp_reviews": "中規模",
-      "standard_eurusd": "スタンダード 平均 約1.0〜1.2 pips",
-      "low_account": "Blade: EUR/USD 平均 約0.2 pips + 往復手数料 約$7/lot",
-      "platforms": "MT4 / MT5",
-      "review_voice": "「ボーナスはないが約定とスプレッドが安定」との実利志向の評価。",
-      "tcharton_note": "Blade 口座が低スプレッド。ボーナスなしの実コスト型。"
+      "name": "Pepperstone",
+      "official_url": "https://pepperstone.com/",
+      "japan_status": "日本居住者は口座開設不可 (制限国リストに Japan を明記。2014 年に日本居住者の受け入れを停止)。海外在住の日本人 (=日本非居住者) は対象。",
+      "popularity_note": "世界の評価サイトで屈指の高評価だが、日本居住者は正規に開設できない。",
+      "regulation": "ASIC AFSL 414530 / FCA 684312 / CySEC 388/20 / SCB (バハマ) 等 (いずれも日本居住リテール対象外)",
+      "rating_fb": 4.5,
+      "rating_fb_trustscore": "94 / 99",
+      "rating_other": "FXEmpire 4.7 / DailyForex 4.8 / Trustpilot 4.3 (3,425件)",
+      "why_caution": [
+        "制限国リストに Japan が明記され、日本居住者は新規口座開設ができない",
+        "世界の評価 (ForexBrokers.com Trust Score 94/99 等) は非常に高いが、日本からは正規に使えない"
+      ],
+      "verdict": "ForexBrokers.com で Trust Score 94/99 と本ページ掲載社中でも屈指の高評価ですが、日本居住者は制限国扱いで開設できないため推奨対象から除外しました。",
+      "sources": [
+        { "label": "Pepperstone 制限国リスト (Japan 含む)", "url": "https://tradingbeasts.com/pepperstone-list-of-supported-banned-countries/" },
+        { "label": "ForexBrokers.com レビュー (4.5 / TS94)", "url": "https://www.forexbrokers.com/reviews/pepperstone" }
+      ]
     },
     {
-      "name": "AXIORY",
-      "official_url": "https://www.axiory.com/",
-      "regulation": "FSC(ベリーズ)",
-      "min_deposit_usd": 100,
-      "max_leverage": "1:1000",
-      "rating_fb": null,
-      "rating_tp": null,
-      "tp_reviews": "限定的",
-      "standard_eurusd": "スタンダード 平均 約1.1 pips",
-      "low_account": "ナノ/マックス: EUR/USD 平均 約0.2〜0.4 pips + 往復手数料 約$6/lot",
-      "platforms": "MT4 / MT5 / cTrader",
-      "review_voice": "「約定統計を公開する透明性」「cTrader が使える」点が評価される。",
-      "tcharton_note": "約定品質・透明性。cTrader 対応。手数料は往復 $6 とやや安い。"
+      "name": "FP Markets",
+      "official_url": "https://www.fpmarkets.com/",
+      "japan_status": "日本居住者は口座開設不可 (制限国リストに Japan を明記。口座開設フォームの居住国に Japan が出ない)。",
+      "popularity_note": "DailyForex で 4.9 と屈指の高評価だが、日本居住者は正規に開設できない。日本では FP Markets を騙る偽サイト・投資詐欺の注意喚起もあり要警戒。",
+      "regulation": "ASIC / CySEC / FSA セーシェル SD130 (いずれも日本居住リテール対象外)",
+      "rating_fb": 4.5,
+      "rating_fb_trustscore": "90 / 99",
+      "rating_other": "DailyForex 4.9 / FXEmpire 4.6 / Trustpilot 4.8 (10,130件)",
+      "why_caution": [
+        "制限国リストに Japan が明記され、日本居住者は新規口座開設ができない",
+        "DailyForex 4.9・Trustpilot 4.8 と世界評価は屈指の高さだが、日本からは正規に使えない",
+        "日本では FP Markets を騙る偽サイト・投資詐欺の弁護士注意喚起が複数あり、正規ドメイン以外は要警戒"
+      ],
+      "verdict": "世界の評価サイトでは屈指の高評価ですが、日本居住者は制限国扱いで開設できないため推奨対象から除外しました。偽サイトにも注意してください。",
+      "sources": [
+        { "label": "FP Markets 制限国リスト (Japan 含む)", "url": "https://tradingbeasts.com/fp-markets-list-of-supported-banned-countries/" },
+        { "label": "ForexBrokers.com レビュー (4.5 / TS90)", "url": "https://www.forexbrokers.com/reviews/fp-markets" }
+      ]
     }
   ]
 }
