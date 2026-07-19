@@ -1,7 +1,7 @@
 {
   "_note": "GitHub API から週次 fetch (scripts/fetch-github-repo.mjs) / public repo のみ",
   "_source": "https://api.github.com/repos/TC-HARTON/forex",
-  "_fetched_at": "2026-07-18T19:01:19.718Z",
+  "_fetched_at": "2026-07-19T19:03:10.121Z",
   "repo": {
     "name": "TC-HARTON/forex",
     "url": "https://github.com/TC-HARTON/forex",
@@ -13,7 +13,7 @@
     "license": "NOASSERTION",
     "default_branch": "main",
     "homepage": "https://tcharton.com",
-    "pushed_at": "2026-07-17T19:04:58Z"
+    "pushed_at": "2026-07-18T19:01:20Z"
   },
   "mt5_python_repo": {
     "_status": "Phase 1 ではプライベートリポジトリ。Phase 2 で公開検討。",
